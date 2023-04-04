@@ -5,7 +5,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{44504A31-92E7-4138-8F1B-5A88F27BD9CF}</ProjectGuid>
+    <ProjectGuid>{D87E1865-E3F0-4302-A9A3-FA9AB34B51A4}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Data</RootNamespace>
@@ -51,11 +51,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-<<<<<<< HEAD
     <Compile Include="Data\PayDayContext.cs" />
     <Compile Include="Models\Gold.cs" />
-=======
->>>>>>> DataBase
     <Compile Include="Models\Items.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

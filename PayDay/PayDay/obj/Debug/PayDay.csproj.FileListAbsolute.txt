@@ -27,3 +27,5 @@ C:\Users\phili\OneDrive - HTBLuVA Mödling\Schule\3.Klasse\2.Semester\POS\POS Pr
 C:\Users\phili\OneDrive - HTBLuVA Mödling\Schule\3.Klasse\2.Semester\POS\POS Projekt\PaydayPanic\PayDay\bin\Debug\PayDay.exe.config
 C:\Users\phili\OneDrive - HTBLuVA Mödling\Schule\3.Klasse\2.Semester\POS\POS Projekt\PaydayPanic\PayDay\bin\Debug\PayDay.exe
 C:\Users\phili\OneDrive - HTBLuVA Mödling\Schule\3.Klasse\2.Semester\POS\POS Projekt\PaydayPanic\PayDay\bin\Debug\PayDay.pdb
+C:\Users\phili\OneDrive - HTBLuVA Mödling\Schule\3.Klasse\2.Semester\POS\POS Projekt\PaydayPanic\PayDay\PayDay\obj\Debug\Views\MainMenu.g.cs
+C:\Users\phili\OneDrive - HTBLuVA Mödling\Schule\3.Klasse\2.Semester\POS\POS Projekt\PaydayPanic\PayDay\PayDay\obj\Debug\Views\MainMenu.baml
