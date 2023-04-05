@@ -37,7 +37,7 @@ namespace PayDay
             IEventAggregator eventAggregator = new EventAggregator();
             // Init view and viewmodel
             MainWindow window = new MainWindow();
-            MainViewModel viewModel = new MainViewModel();
+            MainViewModel viewModel = new MainViewModel(eventAggregator);
             window.DataContext = viewModel;
             window.Show();
         }
