@@ -1,0 +1,62 @@
+﻿<UserControl x:Class="PayDay.Views.SignInView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PayDay.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../ResourceDictionarys/SignInViewResourceDictionary.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Border CornerRadius="10" Grid.RowSpan="2">
+                <Border.Background>
+                    <LinearGradientBrush>
+                        <GradientStop Color="Bisque" Offset="0.0"/>
+                        <GradientStop Color="Green" Offset="1"/>
+                    </LinearGradientBrush>
+                </Border.Background>
+            </Border>
+            <Border CornerRadius="10" Width="200" Height="200">
+                <Border.Background>
+                    <LinearGradientBrush>
+                        <GradientStop Color="Bisque" Offset="0.3"/>
+                        <GradientStop Color="Green" Offset="1"/>
+                    </LinearGradientBrush>
+                </Border.Background>
+                <StackPanel VerticalAlignment="Center">
+                    <Image Source="C:\Users\phili\OneDrive - HTBLuVA Mödling\Schule\3.Klasse\2.Semester\POS\POS Projekt\PaydayPanic\PayDay\PayDay\paydayicon.png" Width="80"/>
+                    <TextBlock Text="Payday Panic" FontSize="22" HorizontalAlignment="Center"/>
+                </StackPanel>
+            </Border>
+            
+            <StackPanel Grid.Row="1" Margin="0,30,0,0">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <TextBox FontFamily="Helvetica" FontWeight="Light" Text="{Binding Path=Username, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="22" HorizontalAlignment="Center" Foreground="White"
+                         Background="Transparent" BorderThickness="0" Width="235" Opacity="0.5" Height="25"/>
+                    <Label Content="{Binding Path=UsernameCount}"/>
+                    <Label Content="/ 50"/>
+                </StackPanel>
+                <Border Width="280" Height="2" Background="White" Opacity="0.5"/>
+                <StackPanel Orientation="Horizontal" Margin="0,20,0,0" HorizontalAlignment="Center">
+                    <PasswordBox FontFamily="Helvetica" FontWeight="Light" Password="{Binding Path=Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  FontSize="22" HorizontalAlignment="Center" Foreground="White"
+                         Background="Transparent" BorderThickness="0" Width="235" Opacity="0.5" Height="25"/>
+                </StackPanel>
+                <Border Width="250" Height="2" Background="White" Opacity="0.5"/>
+                <Button Margin="0,40,0,0" Width="100" Height="50" Foreground="White" HorizontalAlignment="Center" Command="{Binding Path=SignIn}">Register</Button>
+
+            </StackPanel>
+            
+        </Grid>
+    </Grid>
+</UserControl>

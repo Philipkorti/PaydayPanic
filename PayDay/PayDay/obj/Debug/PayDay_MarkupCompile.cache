@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\phili\OneDrive - HTBLuVA Mödling\Schule\3.Klasse\2.Semester\POS\POS Projekt\PaydayPanic\PayDay\PayDay\App.xaml
-3-1307846058
+7-1226859286
 
-12-847213207
-191546072954
-MainWindow.xaml;Views\GameView.xaml;Views\MainMenu.xaml;
+25137984473
+221963202030
+MainWindow.xaml;ResourceDictionarys\MainMenuResourceDictionary.xaml;ResourceDictionarys\SignInViewResourceDictionary.xaml;Views\GameView.xaml;Views\LogInView.xaml;Views\MainMenu.xaml;Views\SignInView.xaml;
 
 False
 
