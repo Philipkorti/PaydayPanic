@@ -92,11 +92,6 @@
     <Compile Include="Data\PayDayContext.cs" />
     <Compile Include="Events\ManMenuDataChageEvent.cs" />
     <Compile Include="Events\RegisterDataChageEvent.cs" />
-    <Compile Include="Migrations\202304111155508_InitialCreate.cs" />
-    <Compile Include="Migrations\202304111155508_InitialCreate.designer.cs">
-      <DependentUpon>202304111155508_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Gold.cs" />
     <Compile Include="Models\Highscore.cs" />
     <Compile Include="Models\Items.cs" />
@@ -174,9 +169,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <EmbeddedResource Include="Migrations\202304111155508_InitialCreate.resx">
-      <DependentUpon>202304111155508_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -190,7 +182,9 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

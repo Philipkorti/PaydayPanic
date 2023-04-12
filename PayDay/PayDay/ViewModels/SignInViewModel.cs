@@ -4,6 +4,7 @@ using Data.Data;
 using Data.Models;
 using Microsoft.Practices.Prism.Events;
 using Services.Enums;
+using Services.Services;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Configuration;
@@ -61,7 +62,7 @@ namespace PayDay.ViewModels
         {
             set
             {
-                password = ComputeSha256Hash(value);
+                password = SHA.ComputeSha256Hash(value);
             }
         }
         public int UsernameCount
@@ -84,23 +85,6 @@ namespace PayDay.ViewModels
 
 
        #region ------------------------- Private helper ------------------------------------------------------------------
-        static string ComputeSha256Hash(string rawData)
-        {
-            // Create a SHA256   
-            using (SHA256 sha256Hash = SHA256.Create())
-            {
-                // ComputeHash - returns byte array  
-                byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(rawData));
-
-                // Convert byte array to a string   
-                StringBuilder builder = new StringBuilder();
-                for (int i = 0; i < bytes.Length; i++)
-                {
-                    builder.Append(bytes[i].ToString("x2"));
-                }
-                return builder.ToString();
-            }
-        }
         #endregion
 
 
