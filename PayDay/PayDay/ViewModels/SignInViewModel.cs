@@ -1,15 +1,16 @@
 ﻿using Common.Command;
+using Data;
 using Data.Data;
 using Data.Models;
 using Microsoft.Practices.Prism.Events;
-using PayDay.Views;
 using Services.Enums;
 using System;
-using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Configuration;
 using System.Linq;
+using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
@@ -21,6 +22,7 @@ namespace PayDay.ViewModels
         private string username;
         private string password;
         private int usernameCount;
+        private int userLength;
         public ICommand SignIn { get; private set; }
         #endregion
 
@@ -30,6 +32,8 @@ namespace PayDay.ViewModels
         public SignInViewModel(IEventAggregator eventAggregator) : base(eventAggregator)
         {
             SignIn = new ActionCommand(this.SignInCommandExecute, this.SignInCommandCanExecute);
+            UsernameCount= 0;
+            UserLength = ConstData.StringLengh;
         }
         #endregion
 
@@ -42,7 +46,7 @@ namespace PayDay.ViewModels
             set
             {
                 UsernameCount = value.Length;
-                if (this.username != value && UsernameCount <= 50)
+                if (this.username != value && UsernameCount <= UserLength)
                 {
                     username = value;
                 }
@@ -69,12 +73,18 @@ namespace PayDay.ViewModels
                 this.OnPropertyChanged(nameof(UsernameCount));
             }
         }
+
+        public int UserLength
+        {
+            get { return userLength; }
+            set { userLength = value; }
+        }
         #endregion
 
 
 
-            #region ------------------------- Private helper ------------------------------------------------------------------
-            static string ComputeSha256Hash(string rawData)
+       #region ------------------------- Private helper ------------------------------------------------------------------
+        static string ComputeSha256Hash(string rawData)
         {
             // Create a SHA256   
             using (SHA256 sha256Hash = SHA256.Create())
@@ -111,13 +121,32 @@ namespace PayDay.ViewModels
 
         private void SignInCommandExecute(object parameter)
         {
-            using(var payDay = new PayDayContext())
+            bool check = true;
+            using(var context = new PayDayContext())
             {
-                var user = new User() {UserName = this.Username, Password = password, Elo = Convert.ToString(Ranks.Bronze), highscore = 0, Goldscore = 0};
-                payDay.Users.Add(user);
-                payDay.SaveChanges();
+                var users = context.Users.ToList();
+                foreach(User item in users)
+                {
+                    if(item.UserName == this.Username)
+                    {
+                        check = false; 
+                        break;
+                    }
+                }
+
             }
-            MessageBox.Show("Xou have successfully registered. Hello to Payday Panic");
+            
+            if(check)
+            {
+                using (var payDay = new PayDayContext())
+                {
+                    var user = new User() { UserName = this.Username, Password = password, Elo = Convert.ToString(Ranks.Bronze), highscore = 0, Goldscore = 0 };
+                    payDay.Users.Add(user);
+                    payDay.SaveChanges();
+                }
+                MessageBox.Show("You have successfully registered. Hello to Payday Panic");
+            }
+            
         }
         #endregion
     }

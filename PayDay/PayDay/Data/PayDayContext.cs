@@ -10,7 +10,7 @@ namespace Data.Data
 {
     public class PayDayContext : DbContext
     {
-        public PayDayContext() : base() { }
+        public PayDayContext() : base("MyConnectionString") { }
         public DbSet<Gold> Golds { get; set; } = null;
         public DbSet<Items> Items { get; set; } = null;
         public DbSet<User> Users { get; set; } = null;

@@ -15,7 +15,7 @@ namespace Data.Models
         public int UserId { get; set; }
 
         [Required]
-        [StringLength(50)]
+        [StringLength(ConstData.StringLengh)]
         public string UserName { get; set; }
 
         [Required]
@@ -27,6 +27,11 @@ namespace Data.Models
 
         public int Goldscore { get; set; } = 0;
 
+        public int GameCount { get; set; } = 0;
+
+        public DateTime GameTime { get; set; }
+
         public ICollection<Items> Items { get; set; } = null;
+
     }
 }
