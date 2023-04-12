@@ -86,12 +86,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Components\BindablePasswordBox.xaml.cs">
+      <DependentUpon>BindablePasswordBox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Data\PayDayContext.cs" />
     <Compile Include="Events\ManMenuDataChageEvent.cs" />
     <Compile Include="Events\RegisterDataChageEvent.cs" />
-    <Compile Include="Migrations\202304061221260_InitialCreate.cs" />
-    <Compile Include="Migrations\202304061221260_InitialCreate.designer.cs">
-      <DependentUpon>202304061221260_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\202304111155508_InitialCreate.cs" />
+    <Compile Include="Migrations\202304111155508_InitialCreate.designer.cs">
+      <DependentUpon>202304111155508_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Gold.cs" />
@@ -116,6 +119,10 @@
     <Compile Include="Views\SignInView.xaml.cs">
       <DependentUpon>SignInView.xaml</DependentUpon>
     </Compile>
+    <Page Include="Components\BindablePasswordBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -167,8 +174,8 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <EmbeddedResource Include="Migrations\202304061221260_InitialCreate.resx">
-      <DependentUpon>202304061221260_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202304111155508_InitialCreate.resx">
+      <DependentUpon>202304111155508_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -183,9 +190,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Components\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

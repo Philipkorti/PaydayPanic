@@ -34,7 +34,10 @@ C:\Users\phili\OneDrive - HTBLuVA Mödling\Schule\3.Klasse\2.Semester\POS\POS Pr
 C:\Users\phili\OneDrive - HTBLuVA Mödling\Schule\3.Klasse\2.Semester\POS\POS Projekt\PaydayPanic\PayDay\PayDay\obj\Debug\ResourceDictionarys\MainMenuResourceDictionary.baml
 C:\Users\phili\OneDrive - HTBLuVA Mödling\Schule\3.Klasse\2.Semester\POS\POS Projekt\PaydayPanic\PayDay\PayDay\obj\Debug\Views\SignInView.g.cs
 C:\Users\phili\OneDrive - HTBLuVA Mödling\Schule\3.Klasse\2.Semester\POS\POS Projekt\PaydayPanic\PayDay\PayDay\obj\Debug\Views\SignInView.baml
-C:\Users\phili\OneDrive - HTBLuVA Mödling\Schule\3.Klasse\2.Semester\POS\POS Projekt\PaydayPanic\PayDay\PayDay\obj\Debug\PayDay.Migrations.InitialCreate.resources
 C:\Users\phili\OneDrive - HTBLuVA Mödling\Schule\3.Klasse\2.Semester\POS\POS Projekt\PaydayPanic\PayDay\PayDay\obj\Debug\ResourceDictionarys\SignInViewResourceDictionary.baml
 C:\Users\phili\OneDrive - HTBLuVA Mödling\Schule\3.Klasse\2.Semester\POS\POS Projekt\PaydayPanic\PayDay\PayDay\obj\Debug\Views\LogInView.g.cs
 C:\Users\phili\OneDrive - HTBLuVA Mödling\Schule\3.Klasse\2.Semester\POS\POS Projekt\PaydayPanic\PayDay\PayDay\obj\Debug\Views\LogInView.baml
+C:\Users\phili\OneDrive - HTBLuVA Mödling\Schule\3.Klasse\2.Semester\POS\POS Projekt\PaydayPanic\PayDay\PayDay\obj\Debug\Components\BindablePasswordBox.g.cs
+C:\Users\phili\OneDrive - HTBLuVA Mödling\Schule\3.Klasse\2.Semester\POS\POS Projekt\PaydayPanic\PayDay\PayDay\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\phili\OneDrive - HTBLuVA Mödling\Schule\3.Klasse\2.Semester\POS\POS Projekt\PaydayPanic\PayDay\PayDay\obj\Debug\Components\BindablePasswordBox.baml
+C:\Users\phili\OneDrive - HTBLuVA Mödling\Schule\3.Klasse\2.Semester\POS\POS Projekt\PaydayPanic\PayDay\PayDay\obj\Debug\PayDay.Migrations.InitialCreate.resources
