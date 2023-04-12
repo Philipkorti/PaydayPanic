@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:PayDay.Views"
+             xmlns:local="clr-namespace:PayDay.Views" xmlns:components="clr-namespace:PayDay.Components"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
@@ -45,14 +45,15 @@
                     <TextBox FontFamily="Helvetica" FontWeight="Light" Text="{Binding Path=Username, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="22" HorizontalAlignment="Center" Foreground="White"
                          Background="Transparent" BorderThickness="0" Width="235" Opacity="0.5" Height="25"/>
                     <Label Content="{Binding Path=UsernameCount}"/>
-                    <Label Content="/ 50"/>
+                    <Label Content="/"/>
+                    <Label Content="{Binding Path=UserLength}"/>
                 </StackPanel>
                 <Border Width="280" Height="2" Background="White" Opacity="0.5"/>
                 <StackPanel Orientation="Horizontal" Margin="0,20,0,0" HorizontalAlignment="Center">
-                    <PasswordBox FontFamily="Helvetica" FontWeight="Light" Password="{Binding Path=Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  FontSize="22" HorizontalAlignment="Center" Foreground="White"
-                         Background="Transparent" BorderThickness="0" Width="235" Opacity="0.5" Height="25"/>
+                    <components:BindablePasswordBox FontFamily="Helvetica" FontWeight="Light" Password="{Binding Path=Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  FontSize="22" HorizontalAlignment="Center" Foreground="White"
+                         Background="Transparent" BorderThickness="0" Width="275" Opacity="0.5" Height="25"/>
                 </StackPanel>
-                <Border Width="250" Height="2" Background="White" Opacity="0.5"/>
+                <Border Width="280" Height="2" Background="White" Opacity="0.5"/>
                 <Button Margin="0,40,0,0" Width="100" Height="50" Foreground="White" HorizontalAlignment="Center" Command="{Binding Path=SignIn}">Register</Button>
 
             </StackPanel>

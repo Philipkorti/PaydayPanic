@@ -13,7 +13,7 @@ namespace PayDay.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "202304061221260_InitialCreate"; }
+            get { return "202304111155508_InitialCreate"; }
         }
         
         string IMigrationMetadata.Source
