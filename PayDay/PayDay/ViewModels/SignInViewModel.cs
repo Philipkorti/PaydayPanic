@@ -1,9 +1,12 @@
 ﻿using Common.Command;
 using Data;
-using Data.Data;
-using Data.Models;
+using DataBase;
+using DataBase.Context;
+using DataBase.Models;
 using Microsoft.Practices.Prism.Events;
+using Services;
 using Services.Enums;
+using Services.Services;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Configuration;
@@ -11,6 +14,7 @@ using System.Linq;
 using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading;
 using System.Windows;
 using System.Windows.Input;
 
@@ -61,7 +65,7 @@ namespace PayDay.ViewModels
         {
             set
             {
-                password = ComputeSha256Hash(value);
+                password = SHA.ComputeSha256Hash(value);
             }
         }
         public int UsernameCount
@@ -84,26 +88,53 @@ namespace PayDay.ViewModels
 
 
        #region ------------------------- Private helper ------------------------------------------------------------------
-        static string ComputeSha256Hash(string rawData)
+       private void DataBaseConect()
         {
-            // Create a SHA256   
-            using (SHA256 sha256Hash = SHA256.Create())
+            bool check = true;
+            try
             {
-                // ComputeHash - returns byte array  
-                byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(rawData));
-
-                // Convert byte array to a string   
-                StringBuilder builder = new StringBuilder();
-                for (int i = 0; i < bytes.Length; i++)
+                using (var context = new PayDayContext())
                 {
-                    builder.Append(bytes[i].ToString("x2"));
+                    var users = context.Users.ToList();
+                    foreach (User item in users)
+                    {
+                        if (item.UserName == this.Username)
+                        {
+                            check = false;
+                            break;
+                        }
+                    }
+
                 }
-                return builder.ToString();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ErrorCodes.DBSCon2202.ToString());
+                check = false;
+            }
+
+
+            if (check)
+            {
+                try
+                {
+                    using (var payDay = new PayDayContext())
+                    {
+                        var user = new User() { UserName = this.Username, Password = password, Elo = Convert.ToString(Ranks.Bronze), highscore = 0, Goldscore = 0, GameCount = 0, GameTime = DateTime.Now };
+                        payDay.Users.Add(user);
+                        payDay.SaveChanges();
+                    }
+                    MessageBox.Show("You have successfully registered. Hello to Payday Panic");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ErrorCodes.DBSCon2202.ToString());
+                }
+
             }
         }
         #endregion
-
-
+       
 
         #region ------------------------- Commands ------------------------------------------------------------------------
         private bool SignInCommandCanExecute(object parameter)
@@ -121,31 +152,8 @@ namespace PayDay.ViewModels
 
         private void SignInCommandExecute(object parameter)
         {
-            bool check = true;
-            using(var context = new PayDayContext())
-            {
-                var users = context.Users.ToList();
-                foreach(User item in users)
-                {
-                    if(item.UserName == this.Username)
-                    {
-                        check = false; 
-                        break;
-                    }
-                }
-
-            }
-            
-            if(check)
-            {
-                using (var payDay = new PayDayContext())
-                {
-                    var user = new User() { UserName = this.Username, Password = password, Elo = Convert.ToString(Ranks.Bronze), highscore = 0, Goldscore = 0 };
-                    payDay.Users.Add(user);
-                    payDay.SaveChanges();
-                }
-                MessageBox.Show("You have successfully registered. Hello to Payday Panic");
-            }
+            Thread thread = new Thread(DataBaseConect);
+            thread.Start();
             
         }
         #endregion

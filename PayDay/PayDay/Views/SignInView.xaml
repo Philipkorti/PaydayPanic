@@ -39,7 +39,7 @@
                     <TextBlock Text="Payday Panic" FontSize="22" HorizontalAlignment="Center"/>
                 </StackPanel>
             </Border>
-            
+
             <StackPanel Grid.Row="1" Margin="0,30,0,0">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                     <TextBox FontFamily="Helvetica" FontWeight="Light" Text="{Binding Path=Username, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="22" HorizontalAlignment="Center" Foreground="White"
@@ -55,9 +55,7 @@
                 </StackPanel>
                 <Border Width="280" Height="2" Background="White" Opacity="0.5"/>
                 <Button Margin="0,40,0,0" Width="100" Height="50" Foreground="White" HorizontalAlignment="Center" Command="{Binding Path=SignIn}">Register</Button>
-
             </StackPanel>
-            
         </Grid>
     </Grid>
 </UserControl>

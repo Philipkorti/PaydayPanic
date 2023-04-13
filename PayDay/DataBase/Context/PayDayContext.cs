@@ -1,0 +1,18 @@
+﻿using DataBase.Models;
+using System;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace DataBase.Context
+{
+    public class PayDayContext : DbContext
+    {
+        public PayDayContext() : base("MyConnectionString") { }
+        public DbSet<Gold> Golds { get; set; } = null;
+        public DbSet<Items> Items { get; set; } = null;
+        public DbSet<User> Users { get; set; } = null;
+    }
+}

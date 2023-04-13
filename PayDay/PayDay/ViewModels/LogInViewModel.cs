@@ -45,6 +45,15 @@ namespace PayDay.ViewModels
             signInView.DataContext = signInViewModel;
             this.EventAggregator.GetEvent<RegisterDataChageEvent>().Publish(signInView);
         }
+
+        private bool LogInCommandCanExecute(object parameter)
+        {
+            return true;
+        }
+        private void LogInCommandExecute(object parameter)
+        {
+
+        }
         #endregion
     }
 }
