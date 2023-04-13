@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Data.Models
+namespace DataBase.Models
 {
     public class Items
     {
