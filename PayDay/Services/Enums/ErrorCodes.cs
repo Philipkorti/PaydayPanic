@@ -9,6 +9,7 @@ namespace Services
     public enum ErrorCodes
     {
         DBSCon2202,
+        LoginError,
 
     }
 }

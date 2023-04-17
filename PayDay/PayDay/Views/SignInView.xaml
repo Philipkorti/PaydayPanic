@@ -35,7 +35,7 @@
                     </LinearGradientBrush>
                 </Border.Background>
                 <StackPanel VerticalAlignment="Center">
-                    <Image Source="C:\Users\phili\OneDrive - HTBLuVA Mödling\Schule\3.Klasse\2.Semester\POS\POS Projekt\PaydayPanic\PayDay\PayDay\paydayicon.png" Width="80"/>
+                    <Image Source="C:\Users\phili\OneDrive - HTBLuVA Mödling\Schule\3.Klasse\2.Semester\POS\POS Projekt\PaydayPanic\PayDay\PayDay\Pictures\paydayicon.png" Width="80"/>
                     <TextBlock Text="Payday Panic" FontSize="22" HorizontalAlignment="Center"/>
                 </StackPanel>
             </Border>
@@ -55,6 +55,18 @@
                 </StackPanel>
                 <Border Width="280" Height="2" Background="White" Opacity="0.5"/>
                 <Button Margin="0,40,0,0" Width="100" Height="50" Foreground="White" HorizontalAlignment="Center" Command="{Binding Path=SignIn}">Register</Button>
+                <Grid>
+                    <Grid.Style>
+                        <Style TargetType="Grid">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsLoading}" Value="False">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Grid.Style>
+                </Grid>
             </StackPanel>
         </Grid>
     </Grid>

@@ -1,4 +1,4 @@
-﻿using Data.Events;
+﻿using PayDay.Events;
 using Microsoft.Practices.Prism.Events;
 using PayDay.Events;
 using PayDay.Views;
@@ -19,8 +19,9 @@ namespace PayDay.ViewModels
         public MainViewModel(IEventAggregator eventAggregator) : base(eventAggregator)
         {
             MainViewCommandExecute();
-            this.EventAggregator.GetEvent<ManMenuDataChageEvent>().Subscribe(this.OnGameViewChanged, ThreadOption.UIThread);
+            this.EventAggregator.GetEvent<GameViewDataChageEvent>().Subscribe(this.OnGameViewChanged, ThreadOption.UIThread);
             this.EventAggregator.GetEvent<RegisterDataChageEvent>().Subscribe(this.OnSignInViewChanged, ThreadOption.UIThread);
+            this.EventAggregator.GetEvent<MainMenuDataChangeEvent>().Subscribe(this.OnMainMenuViewChanged, ThreadOption.UIThread);
         }
 
         public ICommand MainMenuViewComman { get; private set; }
@@ -65,6 +66,11 @@ namespace PayDay.ViewModels
         private void OnSignInViewChanged(SignInView signInView)
         {
             this.CurrentView = signInView;
+        }
+
+        private void OnMainMenuViewChanged(MainMenu mainMenu)
+        {
+            this.CurrentView = mainMenu;
         }
 
     }

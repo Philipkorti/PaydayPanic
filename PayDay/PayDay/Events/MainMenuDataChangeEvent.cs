@@ -6,9 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Data.Events
+namespace PayDay.Events
 {
-    public class ManMenuDataChageEvent : CompositePresentationEvent<GameView>
+    public class MainMenuDataChangeEvent : CompositePresentationEvent<MainMenu>
     {
     }
 }

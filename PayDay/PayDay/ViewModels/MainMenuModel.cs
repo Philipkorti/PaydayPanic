@@ -1,5 +1,5 @@
 ﻿using Common.Command;
-using Data.Events;
+using PayDay.Events;
 using Microsoft.Practices.Prism.Events;
 using PayDay.Views;
 using System;
@@ -65,7 +65,7 @@ namespace PayDay.ViewModels
             GameView gameView = new GameView();
             GameViewModel gameViewModel = new GameViewModel(this.EventAggregator);
             gameView.DataContext = gameViewModel;
-            this.EventAggregator.GetEvent<ManMenuDataChageEvent>().Publish(gameView);
+            this.EventAggregator.GetEvent<GameViewDataChageEvent>().Publish(gameView);
         }
         #endregion
     }

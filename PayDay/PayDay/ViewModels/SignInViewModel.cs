@@ -27,6 +27,7 @@ namespace PayDay.ViewModels
         private string password;
         private int usernameCount;
         private int userLength;
+        private bool isLoading;
         public ICommand SignIn { get; private set; }
         #endregion
 
@@ -80,8 +81,21 @@ namespace PayDay.ViewModels
 
         public int UserLength
         {
-            get { return userLength; }
-            set { userLength = value; }
+            get { return this.userLength; }
+            set { this.userLength = value; }
+        }
+
+        public bool IsLoading
+        {
+            get { return this.isLoading; }
+            set
+            {
+                if (this.isLoading != value)
+                {
+                    this.isLoading = value;
+                    this.OnPropertyChanged(nameof(IsLoading));
+                }
+            }
         }
         #endregion
 
@@ -90,6 +104,7 @@ namespace PayDay.ViewModels
        #region ------------------------- Private helper ------------------------------------------------------------------
        private void DataBaseConect()
         {
+            IsLoading = true;
             bool check = true;
             try
             {
@@ -132,11 +147,12 @@ namespace PayDay.ViewModels
                 }
 
             }
+            IsLoading= false;
         }
         #endregion
        
 
-        #region ------------------------- Commands ------------------------------------------------------------------------
+           #region ------------------------- Commands ------------------------------------------------------------------------
         private bool SignInCommandCanExecute(object parameter)
         {
             if (this.Username != null && this.password != null)

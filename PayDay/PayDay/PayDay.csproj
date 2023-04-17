@@ -88,7 +88,8 @@
       <DependentUpon>BindablePasswordBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="Events\LogInDataChangeEvent.cs" />
-    <Compile Include="Events\ManMenuDataChageEvent.cs" />
+    <Compile Include="Events\GameViewDataChageEvent.cs" />
+    <Compile Include="Events\MainMenuDataChangeEvent.cs" />
     <Compile Include="Events\RegisterDataChageEvent.cs" />
     <Compile Include="ViewModels\GameViewModel.cs" />
     <Compile Include="ViewModels\LogInViewModel.cs" />
