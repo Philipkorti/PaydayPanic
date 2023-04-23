@@ -1,6 +1,5 @@
 ﻿using PayDay.Events;
 using Microsoft.Practices.Prism.Events;
-using PayDay.Events;
 using PayDay.Views;
 using System;
 using System.Collections.Generic;
@@ -14,8 +13,17 @@ namespace PayDay.ViewModels
 {
     public class MainViewModel : ViewModelBase
     {
+        #region ------------------------- Fields, Constants, Delegates, Events --------------------------------------------
+        /// <summary>
+        /// View that is currently bound to the <see cref="ContentControl"/>.
+        /// </summary>
         private UserControl currentView;
+        #endregion
 
+        #region ------------------------- Constructors, Destructors, Dispose, Clone ---------------------------------------
+        /// <summary>
+        /// Initialize a new instance of the <see cref="MainViewModel"/> class.
+        /// </summary>
         public MainViewModel(IEventAggregator eventAggregator) : base(eventAggregator)
         {
             MainViewCommandExecute();
@@ -23,8 +31,9 @@ namespace PayDay.ViewModels
             this.EventAggregator.GetEvent<RegisterDataChageEvent>().Subscribe(this.OnSignInViewChanged, ThreadOption.UIThread);
             this.EventAggregator.GetEvent<MainMenuDataChangeEvent>().Subscribe(this.OnMainMenuViewChanged, ThreadOption.UIThread);
         }
+        #endregion
 
-        public ICommand MainMenuViewComman { get; private set; }
+        #region ------------------------- Properties, Indexers ------------------------------------------------------------
         /// <summary>
         /// Gets and sets the view that is currently bound to the <see cref="ContentControl"/> left.
         /// </summary>
@@ -41,18 +50,14 @@ namespace PayDay.ViewModels
                 }
             }
         }
+        #endregion
 
-        private bool MainViewCommandCanExecute(object parameter)
-        {
-            return true;
-        }
-
+        #region  ------------------------- Private helper ------------------------------------------------------------------
+        /// <summary>
+        /// Init view and viewmodel
+        /// </summary>
         private void MainViewCommandExecute()
         {
-            //MainMenu mainMenuView = new MainMenu();
-            //MainMenuModel mainMenuViewModel = new MainMenuModel(this.EventAggregator);
-            //mainMenuView.DataContext = mainMenuViewModel;
-            //this.CurrentView = mainMenuView;
             LogInView logInView = new LogInView();
             LogInViewModel logInViewModel = new LogInViewModel(this.EventAggregator);
             logInView.DataContext = logInViewModel;
@@ -72,6 +77,7 @@ namespace PayDay.ViewModels
         {
             this.CurrentView = mainMenu;
         }
+        #endregion
 
     }
 }

@@ -16,7 +16,7 @@
     <Grid>
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition/>
+                <RowDefinition Height="0.9*"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <Border CornerRadius="10" Grid.RowSpan="2">
@@ -35,12 +35,13 @@
                     </LinearGradientBrush>
                 </Border.Background>
                 <StackPanel VerticalAlignment="Center">
-                    <Image Source="C:\Users\phili\OneDrive - HTBLuVA Mödling\Schule\3.Klasse\2.Semester\POS\POS Projekt\PaydayPanic\PayDay\PayDay\Pictures\paydayicon.png" Width="80"/>
+                    <Image Source="\paydayicon.png" Width="80"/>
                     <TextBlock Text="Payday Panic" FontSize="22" HorizontalAlignment="Center"/>
                 </StackPanel>
             </Border>
 
-            <StackPanel Grid.Row="1" Margin="0,30,0,0">
+            <StackPanel Grid.Row="1" Margin="0,20,0,0">
+                <TextBlock Text="Usernaame" HorizontalAlignment="Center" FontSize="20"/>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                     <TextBox FontFamily="Helvetica" FontWeight="Light" Text="{Binding Path=Username, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="22" HorizontalAlignment="Center" Foreground="White"
                          Background="Transparent" BorderThickness="0" Width="235" Opacity="0.5" Height="25"/>
@@ -49,12 +50,13 @@
                     <Label Content="{Binding Path=UserLength}"/>
                 </StackPanel>
                 <Border Width="280" Height="2" Background="White" Opacity="0.5"/>
-                <StackPanel Orientation="Horizontal" Margin="0,20,0,0" HorizontalAlignment="Center">
+                <TextBlock Text="Paassword" HorizontalAlignment="Center" FontSize="20" Margin="0,20,0,0"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                     <components:BindablePasswordBox FontFamily="Helvetica" FontWeight="Light" Password="{Binding Path=Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  FontSize="22" HorizontalAlignment="Center" Foreground="White"
                          Background="Transparent" BorderThickness="0" Width="275" Opacity="0.5" Height="25"/>
                 </StackPanel>
                 <Border Width="280" Height="2" Background="White" Opacity="0.5"/>
-                <Button Margin="0,40,0,0" Width="100" Height="50" Foreground="White" HorizontalAlignment="Center" Command="{Binding Path=SignIn}">Register</Button>
+                <Button Margin="0,20,0,0" Width="100" Height="50" Foreground="White" HorizontalAlignment="Center" Command="{Binding Path=SignIn}">Register</Button>
                 <Grid>
                     <Grid.Style>
                         <Style TargetType="Grid">

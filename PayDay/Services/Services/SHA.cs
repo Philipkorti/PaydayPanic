@@ -9,6 +9,11 @@ namespace Services.Services
 {
     public class SHA
     {
+        /// <summary>
+        /// Generate with the passwort of the user a ne hash.
+        /// </summary>
+        /// <param name="rawData">The password of the user.</param>
+        /// <returns></returns>
         public static string ComputeSha256Hash(string rawData)
         {
             // Create a SHA256   

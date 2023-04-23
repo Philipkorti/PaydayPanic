@@ -17,10 +17,23 @@
         <DockPanel.Background>
             <ImageBrush ImageSource="C:\Users\phili\OneDrive - HTBLuVA Mödling\Schule\3.Klasse\2.Semester\POS\POS Projekt\PaydayPanic\PayDay\PayDay\Pictures\background.jpg"/>
         </DockPanel.Background>
-        <StackPanel Orientation="Vertical" DockPanel.Dock="Left" VerticalAlignment="Center">
+        <StackPanel Orientation="Vertical" Margin="20" DockPanel.Dock="Left" VerticalAlignment="Center">
             <Button Margin="10,0,0,0" Command="{Binding Path=PlayCommand}">Play</Button>
             <Button Margin="10,0,0,0" Command="{Binding Path=ExitCommand}">Exit</Button>
         </StackPanel>
-        <Grid></Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.2*"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <StackPanel Orientation="Horizontal">
+                <Button FontSize="30" Command="{Binding Path=RulleCommand}">Rules</Button>
+                <Button FontSize="30">Top 20</Button>
+            </StackPanel>
+            <Border Grid.Row="1" BorderBrush="White" BorderThickness="1" Margin="10">
+                <ContentControl Content="{Binding Path=ViewLeft}"/>
+            </Border>
+            
+        </Grid>
     </DockPanel>
 </UserControl>

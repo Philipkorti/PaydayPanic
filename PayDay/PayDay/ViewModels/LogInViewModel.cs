@@ -19,15 +19,36 @@ namespace PayDay.ViewModels
     public class LogInViewModel : ViewModelBase
     {
         #region ------------------------- Fields, Constants, Delegates, Events --------------------------------------------
+        /// <summary>
+        /// Username of the player.
+        /// </summary>
         private string username;
-        private string password;
-        private string errortext;
-        public ICommand LogInCommand { get; private set; }
-        public ICommand RegisterCommand { get; private set; }
 
+        /// <summary>
+        /// Password of the player.
+        /// </summary>
+        private string password;
+
+        /// <summary>
+        /// Error Text if someting goes wrong.
+        /// </summary>
+        private string errortext;
+
+        /// <summary>
+        /// Gets the login button command.
+        /// </summary>
+        public ICommand LogInCommand { get; private set; }
+
+        /// <summary>
+        /// Gets the register button command.
+        /// </summary>
+        public ICommand RegisterCommand { get; private set; }
         #endregion
 
         #region ------------------------- Constructors, Destructors, Dispose, Clone ---------------------------------------
+        /// <summary>
+        /// Initialize a new instance of the <see cref="LogInViewModel"/> class.
+        /// </summary>
         public LogInViewModel(IEventAggregator eventAggregator): base(eventAggregator)
         {
             RegisterCommand = new ActionCommand(this.RegisterCommandExecuted, this.RegisterCommandCanExecute);
@@ -37,7 +58,9 @@ namespace PayDay.ViewModels
 
         #region ------------------------- Properties, Indexers ------------------------------------------------------------
         
-
+        /// <summary>
+        /// Gets and sets the username of the player.
+        /// </summary>
         public string Username
         {
             get 
@@ -52,6 +75,10 @@ namespace PayDay.ViewModels
                 }
             }
         }
+
+        /// <summary>
+        /// Gets or sets the password of the player.
+        /// </summary>
         public string Password
         {
             private get { return password;}
@@ -64,6 +91,9 @@ namespace PayDay.ViewModels
             }
         }
 
+        /// <summary>
+        /// Gets or sets the errorText.
+        /// </summary>
         public string ErrorText
         {
             get { return errortext; }
@@ -83,10 +113,20 @@ namespace PayDay.ViewModels
         #endregion
 
         #region ------------------------- Commands ------------------------------------------------------------------------
+        /// <summary>
+        /// Determines wheter the register command be executed.
+        /// </summary>
+        /// <param name="parameter">Sata used by the command.</param>
+        /// <returns><c>true</c> if the command can be executed otherwise <c>false</c>.</returns>
         private bool RegisterCommandCanExecute(object parameter)
         {
             return true;
         }
+
+        /// <summary>
+        /// Ocures when the user clicks the register button.
+        /// </summary>
+        /// <param name="parameter">Data use by the command.</param>
         private void RegisterCommandExecuted(object parameter)
         {
             SignInView signInView = new SignInView();
@@ -95,10 +135,20 @@ namespace PayDay.ViewModels
             this.EventAggregator.GetEvent<RegisterDataChageEvent>().Publish(signInView);
         }
 
+        /// <summary>
+        /// Determines wheter the login command can be executed.
+        /// </summary>
+        /// <param name="parameter"></param>
+        /// <returns><c>true</c> if the command can be executed otherwise <c>false</c>.</returns>
         private bool LogInCommandCanExecute(object parameter)
         {
             return true;
         }
+
+        /// <summary>
+        /// Ocures when the user clicks the login button.
+        /// </summary>
+        /// <param name="parameter">Data use by the command.</param>
         private void LogInCommandExecute(object parameter)
         {
             using(var context = new PayDayContext())
@@ -109,7 +159,7 @@ namespace PayDay.ViewModels
                     if(this.Username == user.UserName && this.Password == user.Password)
                     {
                         MainMenu mainMenu = new MainMenu();
-                        MainMenuModel mainMenuModel = new MainMenuModel(this.EventAggregator);
+                        MainMenuModel mainMenuModel = new MainMenuModel(this.EventAggregator, this.Username);
                         mainMenu.DataContext = mainMenuModel;
                         this.EventAggregator.GetEvent<MainMenuDataChangeEvent>().Publish(mainMenu);
                     }

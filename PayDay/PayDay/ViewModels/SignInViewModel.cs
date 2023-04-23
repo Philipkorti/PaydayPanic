@@ -23,17 +23,40 @@ namespace PayDay.ViewModels
     public class SignInViewModel : ViewModelBase
     {
         #region ------------------------- Fields, Constants, Delegates, Events --------------------------------------------
+        /// <summary>
+        /// Username of the player.
+        /// </summary>
         private string username;
+
+        /// <summary>
+        /// Password of the player.
+        /// </summary>
         private string password;
+
+        /// <summary>
+        /// Length of the username.
+        /// </summary>
         private int usernameCount;
+
+        /// <summary>
+        /// Max username length.
+        /// </summary>
         private int userLength;
+
         private bool isLoading;
+
+        /// <summary>
+        /// Gets the signin button command.
+        /// </summary>
         public ICommand SignIn { get; private set; }
         #endregion
 
 
 
         #region ------------------------- Constructors, Destructors, Dispose, Clone ---------------------------------------
+        /// <summary>
+        /// Initialize a new instance of the <see cref="SignInViewModel"/> class.
+        /// </summary>
         public SignInViewModel(IEventAggregator eventAggregator) : base(eventAggregator)
         {
             SignIn = new ActionCommand(this.SignInCommandExecute, this.SignInCommandCanExecute);
@@ -45,6 +68,9 @@ namespace PayDay.ViewModels
 
 
         #region ------------------------- Properties, Indexers ------------------------------------------------------------
+        /// <summary>
+        /// Gets and sets the username of the player.
+        /// </summary>
         public string Username
         {
             get { return username; }
@@ -62,6 +88,10 @@ namespace PayDay.ViewModels
                 
             }
         }
+
+        /// <summary>
+        /// Gets and sets the password of the player.
+        /// </summary>
         public string Password
         {
             set
@@ -69,6 +99,10 @@ namespace PayDay.ViewModels
                 password = SHA.ComputeSha256Hash(value);
             }
         }
+
+        /// <summary>
+        /// Gets and sets usernameCount.
+        /// </summary>
         public int UsernameCount
         {
             get { return usernameCount; }
@@ -79,6 +113,9 @@ namespace PayDay.ViewModels
             }
         }
 
+        /// <summary>
+        /// Gets and sets userLength.
+        /// </summary>
         public int UserLength
         {
             get { return this.userLength; }
@@ -143,7 +180,7 @@ namespace PayDay.ViewModels
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ErrorCodes.DBSCon2202.ToString());
+                    MessageBox.Show(ErrorCodes.DBSCon2202.ToString() + ex.Message);
                 }
 
             }
@@ -153,6 +190,11 @@ namespace PayDay.ViewModels
        
 
            #region ------------------------- Commands ------------------------------------------------------------------------
+        /// <summary>
+        /// Determines wheter the students view command can be executed.
+        /// </summary>
+        /// <param name="parameter">Data used by the command.</param>
+        /// <returns><c>true</c> if the command can be executed otherwise <c>false</c>.</returns>
         private bool SignInCommandCanExecute(object parameter)
         {
             if (this.Username != null && this.password != null)
@@ -165,7 +207,10 @@ namespace PayDay.ViewModels
             }
 
         }
-
+        /// <summary>
+        /// Ocures when the user clicks the signIn button.
+        /// </summary>
+        /// <param name="parameter">Data use by the command.</param>
         private void SignInCommandExecute(object parameter)
         {
             Thread thread = new Thread(DataBaseConect);
