@@ -61,9 +61,11 @@
       <DependentUpon>202304121919018_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\Gold.cs" />
+    <Compile Include="Models\Casino.cs" />
     <Compile Include="Models\Highscore.cs" />
     <Compile Include="Models\Items.cs" />
+    <Compile Include="Models\Shop.cs" />
+    <Compile Include="Models\Statistics.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

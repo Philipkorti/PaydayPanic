@@ -9,9 +9,8 @@ namespace DataBase.Models
 {
     public class Highscore
     {
-        [Key]
+        [Key] public int Id { get; set; }
         public User UserID { get; set; }
-        [Required]
-        public string Rank;
+        [Required] public double HighestScore { get; set; } = 0;
     }
 }

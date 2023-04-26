@@ -13,20 +13,21 @@
         </Grid.RowDefinitions>
         <Grid>
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.5*"/>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <TextBlock Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Text="{Binding Path=TimerText, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
-            <TextBlock Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Text="{Binding Path=Game.Highscore, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
-            <StackPanel Grid.Column="2" VerticalAlignment="Center" Orientation="Horizontal" HorizontalAlignment="Right">
-                <TextBlock HorizontalAlignment="Right" FontSize="20" Text="{Binding Path=Game.Money, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <Button Command="{Binding Path=BackMapCommand}">Back</Button>
+            <TextBlock Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Text="{Binding Path=TimerText, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBlock Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Text="{Binding Path=Game.Highscore, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+            <StackPanel Grid.Column="3" VerticalAlignment="Center" Orientation="Horizontal" HorizontalAlignment="Right">
+                <Image Source="/Pictures/coins.png"/>
+                <TextBlock HorizontalAlignment="Right" TextAlignment="Center" VerticalAlignment="Center" FontSize="20" Text="{Binding Path=Game.Money, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             </StackPanel>
-            <TextBlock HorizontalAlignment="Center" Grid.Column="3" VerticalAlignment="Center" FontSize="20" Text="{Binding Path=Game.Username, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBlock HorizontalAlignment="Center" Grid.Column="4" VerticalAlignment="Center" FontSize="20" Text="{Binding Path=Game.Username, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
         </Grid>
-            
-        
         <ContentControl Grid.Row="1" Content="{Binding Path=CurrentView}"/>
     </Grid>
 </UserControl>

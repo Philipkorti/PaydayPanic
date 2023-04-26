@@ -47,3 +47,5 @@ C:\Users\phili\OneDrive - HTBLuVA Mödling\Schule\3.Klasse\2.Semester\POS\POS Pr
 C:\Users\phili\OneDrive - HTBLuVA Mödling\Schule\3.Klasse\2.Semester\POS\POS Projekt\PaydayPanic\PayDay\PayDay\obj\Debug\Views\CasinoView.baml
 C:\Users\phili\OneDrive - HTBLuVA Mödling\Schule\3.Klasse\2.Semester\POS\POS Projekt\PaydayPanic\PayDay\PayDay\obj\Debug\Views\RulesView.g.cs
 C:\Users\phili\OneDrive - HTBLuVA Mödling\Schule\3.Klasse\2.Semester\POS\POS Projekt\PaydayPanic\PayDay\PayDay\obj\Debug\Views\RulesView.baml
+C:\Users\phili\OneDrive - HTBLuVA Mödling\Schule\3.Klasse\2.Semester\POS\POS Projekt\PaydayPanic\PayDay\PayDay\obj\Debug\Views\ShopView.g.cs
+C:\Users\phili\OneDrive - HTBLuVA Mödling\Schule\3.Klasse\2.Semester\POS\POS Projekt\PaydayPanic\PayDay\PayDay\obj\Debug\Views\ShopView.baml

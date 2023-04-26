@@ -43,6 +43,8 @@ namespace PayDay.ViewModels
         /// Gets the register button command.
         /// </summary>
         public ICommand RegisterCommand { get; private set; }
+
+        private bool isLoading;
         #endregion
 
         #region ------------------------- Constructors, Destructors, Dispose, Clone ---------------------------------------
@@ -53,6 +55,7 @@ namespace PayDay.ViewModels
         {
             RegisterCommand = new ActionCommand(this.RegisterCommandExecuted, this.RegisterCommandCanExecute);
             LogInCommand = new ActionCommand(this.LogInCommandExecute, this.LogInCommandCanExecute);
+            this.IsLoading = false;
         }
         #endregion
 
@@ -106,6 +109,16 @@ namespace PayDay.ViewModels
                 }
             }
         }
+
+        public bool IsLoading
+        {
+            get { return this.isLoading; }
+            set 
+            { 
+                this.isLoading = value;
+                this.OnPropertyChanged(nameof(this.IsLoading));
+            }
+        }
         #endregion
 
         #region ------------------------- Private helper ------------------------------------------------------------------
@@ -151,6 +164,7 @@ namespace PayDay.ViewModels
         /// <param name="parameter">Data use by the command.</param>
         private void LogInCommandExecute(object parameter)
         {
+            this.IsLoading = true;
             using(var context = new PayDayContext())
             {
                 var users = context.Users.ToList();
@@ -161,14 +175,17 @@ namespace PayDay.ViewModels
                         MainMenu mainMenu = new MainMenu();
                         MainMenuModel mainMenuModel = new MainMenuModel(this.EventAggregator, this.Username);
                         mainMenu.DataContext = mainMenuModel;
+                        this.IsLoading = false;
                         this.EventAggregator.GetEvent<MainMenuDataChangeEvent>().Publish(mainMenu);
                     }
                     else
                     {
+                        IsLoading = false;
                         MessageBox.Show("Der Username oder das Passwort ist falsch!",ErrorCodes.LoginError.ToString(), MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
             }
+           
         }
         #endregion
     }

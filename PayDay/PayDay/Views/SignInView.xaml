@@ -35,7 +35,7 @@
                     </LinearGradientBrush>
                 </Border.Background>
                 <StackPanel VerticalAlignment="Center">
-                    <Image Source="\paydayicon.png" Width="80"/>
+                    <Image Source="\Pictures\paydayicon.png" Width="80"/>
                     <TextBlock Text="Payday Panic" FontSize="22" HorizontalAlignment="Center"/>
                 </StackPanel>
             </Border>

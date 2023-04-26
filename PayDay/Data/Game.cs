@@ -117,6 +117,7 @@ namespace Data
             {
                 this.wins = value;
             }
+            get { return this.wins; }
         }
 
         /// <summary>
@@ -125,6 +126,7 @@ namespace Data
         public int CasinoCount
         {
             set { this.casinoCount = value; }
+            get { return this.casinoCount; }
         }
         #endregion
     }
