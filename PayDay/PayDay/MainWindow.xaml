@@ -6,6 +6,7 @@
         xmlns:li="http://github.com/zeluisping/loadingIndicators/xaml/controls"
         xmlns:local="clr-namespace:PayDay"
         mc:Ignorable="d"
+        WindowState="{Binding Path=Windowstate, Mode=TwoWay}"
         Title="PayDay" Height="450" Width="800">
     <Grid>
         <ContentControl Content="{Binding Path=CurrentView}"/>

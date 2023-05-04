@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows;
 
 namespace PayDay.ViewModels
 {
@@ -18,6 +19,7 @@ namespace PayDay.ViewModels
         /// View that is currently bound to the <see cref="ContentControl"/>.
         /// </summary>
         private UserControl currentView;
+        private string windowstate;
         #endregion
 
         #region ------------------------- Constructors, Destructors, Dispose, Clone ---------------------------------------
@@ -30,6 +32,7 @@ namespace PayDay.ViewModels
             this.EventAggregator.GetEvent<GameViewDataChageEvent>().Subscribe(this.OnGameViewChanged, ThreadOption.UIThread);
             this.EventAggregator.GetEvent<RegisterDataChageEvent>().Subscribe(this.OnSignInViewChanged, ThreadOption.UIThread);
             this.EventAggregator.GetEvent<MainMenuDataChangeEvent>().Subscribe(this.OnMainMenuViewChanged, ThreadOption.UIThread);
+            this.EventAggregator.GetEvent<GameEndViewDataChangeEvent>().Subscribe(this.OnGameOverViewChanged, ThreadOption.UIThread);
         }
         #endregion
 
@@ -48,6 +51,16 @@ namespace PayDay.ViewModels
                     this.currentView = value;
                     this.OnPropertyChanged(nameof(currentView));
                 }
+            }
+        }
+
+        public string Windowstate
+        {
+            get { return this.windowstate; }
+            set 
+            { 
+                this.windowstate = value;
+                this.EventAggregator.GetEvent<WindowstateDataChangeEvent>().Publish(this.Windowstate);
             }
         }
         #endregion
@@ -76,6 +89,10 @@ namespace PayDay.ViewModels
         private void OnMainMenuViewChanged(MainMenu mainMenu)
         {
             this.CurrentView = mainMenu;
+        }
+        private void OnGameOverViewChanged(GameEndView gameEndView)
+        {
+            this.CurrentView = gameEndView;
         }
         #endregion
 

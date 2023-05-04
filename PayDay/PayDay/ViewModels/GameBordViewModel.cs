@@ -3,19 +3,24 @@ using Data;
 using Microsoft.Practices.Prism.Events;
 using PayDay.Events;
 using PayDay.Views;
+using Services.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace PayDay.ViewModels
 {
     public class GameBordViewModel : ViewModelBase
     {
         #region ------------------------- Fields, Constants, Delegates, Events --------------------------------------------
-
+        private PointCollection points;
+        private string windowsstate;
         #endregion
 
         #region ------------------------- Constructors, Destructors, Dispose, Clone ---------------------------------------
@@ -28,7 +33,13 @@ namespace PayDay.ViewModels
             // Commands
             CasinoCommand = new ActionCommand(this.CasinoCommandExecuted, this.CasinoCommandCanExecute);
             ShopCommand = new ActionCommand(this.ShopCommandExecuted, this.ShopCommandCanExecute);
+            this.EventAggregator.GetEvent<WindowstateDataChangeEvent>().Subscribe(this.OnWindowstateDataChange, ThreadOption.UIThread);
             Game = game;
+            Thread thread = new Thread(this.GoldPrice);
+            //thread.Start();
+            points = new PointCollection();
+            thread.Start();
+
         }
         #endregion
 
@@ -50,7 +61,24 @@ namespace PayDay.ViewModels
         #endregion
 
         #region ------------------------- Private helper ------------------------------------------------------------------
+        private void GoldPrice()
+        {
+            // Count gold price for shop.
+            do
+            {
+                this.Game = CountGoldService.GoldpriceCount(this.Game);
 
+                // Whait for 2 minutes.
+                Thread.Sleep(5000);
+
+                // Check of gameover.
+            } while (!this.Game.GameEnd);
+
+        }
+        private void OnWindowstateDataChange(string windowstate)
+        {
+            this.windowsstate = windowstate;
+        }
         #endregion
 
         #region ------------------------- Commands ------------------------------------------------------------------------
@@ -91,8 +119,10 @@ namespace PayDay.ViewModels
         /// <param name="parameter">Data use by the command.</param>
         public void ShopCommandExecuted(object parameter)
         {
+                points.Add(new System.Windows.Point(10 * points.Count, Math.Round(220 - this.Game.GoldPrice)));
+
             ShopView shopView = new ShopView();
-            ShopViewModel shopViewModel = new ShopViewModel(this.EventAggregator);
+            ShopViewModel shopViewModel = new ShopViewModel(this.EventAggregator, points, this.Game);
             shopView.DataContext = shopViewModel;
             this.EventAggregator.GetEvent<ShopViewDataChangeEvent>().Publish(shopView);
         }

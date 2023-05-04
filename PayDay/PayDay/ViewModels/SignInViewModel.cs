@@ -4,6 +4,7 @@ using DataBase;
 using DataBase.Context;
 using DataBase.Models;
 using Microsoft.Practices.Prism.Events;
+using Microsoft.Win32;
 using Services;
 using Services.Enums;
 using Services.Services;
@@ -145,46 +146,20 @@ namespace PayDay.ViewModels
             bool check = true;
             try
             {
-                using (var context = new PayDayContext())
-                {
-                    var users = context.Users.ToList();
-                    foreach (User item in users)
-                    {
-                        if (item.UserName == this.Username)
-                        {
-                            check = false;
-                            break;
-                        }
-                    }
-
-                }
-            }
-            catch (Exception ex)
+                check = RegisterServices.Register(this.Username, this.password);
+            }catch(Exception ex)
             {
-                MessageBox.Show(ErrorCodes.DBSCon2202.ToString());
-                check = false;
+                IsLoading= false;
+                MessageBox.Show(ErrorCodes.DBSCon2202 + "Contection ERROR", ErrorCodes.DBSCon2202.ToString(), MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
-
-            if (check)
+            if(check)
             {
-                try
-                {
-                    using (var payDay = new PayDayContext())
-                    {
-                        var user = new User() { UserName = this.Username, Password = password, Elo = Convert.ToString(Ranks.Bronze), highscore = 0, Goldscore = 0, GameCount = 0, GameTime = DateTime.Now };
-                        payDay.Users.Add(user);
-                        payDay.SaveChanges();
-                    }
-                    MessageBox.Show("You have successfully registered. Hello to Payday Panic");
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ErrorCodes.DBSCon2202.ToString() + ex.Message);
-                }
-
+                IsLoading = false;
+                MessageBox.Show("Welcome to PayDay Panic!", "Register", MessageBoxButton.OK, MessageBoxImage.Information);
             }
-            IsLoading= false;
+            
+            
         }
         #endregion
        
@@ -213,6 +188,7 @@ namespace PayDay.ViewModels
         /// <param name="parameter">Data use by the command.</param>
         private void SignInCommandExecute(object parameter)
         {
+            
             Thread thread = new Thread(DataBaseConect);
             thread.Start();
             

@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Documents;
@@ -122,7 +123,6 @@ namespace PayDay.ViewModels
         #endregion
 
         #region ------------------------- Private helper ------------------------------------------------------------------
-
         #endregion
 
         #region ------------------------- Commands ------------------------------------------------------------------------
@@ -165,27 +165,28 @@ namespace PayDay.ViewModels
         private void LogInCommandExecute(object parameter)
         {
             this.IsLoading = true;
-            using(var context = new PayDayContext())
+            using (var context = new PayDayContext())
             {
-                var users = context.Users.ToList();
-                foreach(var user in users)
+                var users = context.User.ToList();
+                foreach (var user in users)
                 {
-                    if(this.Username == user.UserName && this.Password == user.Password)
+                    if (this.Username == user.UserName && this.Password == user.Password)
                     {
                         MainMenu mainMenu = new MainMenu();
                         MainMenuModel mainMenuModel = new MainMenuModel(this.EventAggregator, this.Username);
                         mainMenu.DataContext = mainMenuModel;
                         this.IsLoading = false;
                         this.EventAggregator.GetEvent<MainMenuDataChangeEvent>().Publish(mainMenu);
+                        break;
                     }
                     else
                     {
                         IsLoading = false;
-                        MessageBox.Show("Der Username oder das Passwort ist falsch!",ErrorCodes.LoginError.ToString(), MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show("Der Username oder das Passwort ist falsch!", ErrorCodes.LoginError.ToString(), MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
+                this.IsLoading = false;
             }
-           
         }
         #endregion
     }

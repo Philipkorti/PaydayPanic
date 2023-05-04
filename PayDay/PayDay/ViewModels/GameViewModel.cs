@@ -3,13 +3,16 @@ using Data;
 using Microsoft.Practices.Prism.Events;
 using PayDay.Events;
 using PayDay.Views;
+using Services.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 using System.Windows.Threading;
 
 namespace PayDay.ViewModels
@@ -42,6 +45,8 @@ namespace PayDay.ViewModels
         /// </summary>
         private Game game;
         private GameBordView gameBordView;
+        private bool backButton;
+        private bool toolTip;
 
         #endregion
 
@@ -53,6 +58,7 @@ namespace PayDay.ViewModels
         public GameViewModel(IEventAggregator eventAggregator, Game game) : base(eventAggregator) 
         {
             TimerText = "00:00";
+            this.backButton= true;
             time = new DispatcherTimer();
             datetime= new DateTime();
             time.Interval = TimeSpan.FromMinutes(1);
@@ -66,6 +72,7 @@ namespace PayDay.ViewModels
             this.EventAggregator.GetEvent<CsinoViewDataChangeEvent>().Subscribe(this.OnCasinoViewChanged, ThreadOption.UIThread);
             this.EventAggregator.GetEvent<GameDataChangeEvent>().Subscribe(this.OnGameDataChanged, ThreadOption.UIThread);
             this.EventAggregator.GetEvent<ShopViewDataChangeEvent>().Subscribe(this.OnShopViewChanged, ThreadOption.UIThread);
+            this.EventAggregator.GetEvent<BackButtonCanExecuteDataChangeEvent>().Subscribe(this.OnbackCommandChange, ThreadOption.UIThread);
             this.Game = game;
         }
         #endregion
@@ -84,6 +91,15 @@ namespace PayDay.ViewModels
                     this.OnPropertyChanged(nameof(TimerText));
                 }
                 
+            }
+        }
+        public bool ToolTip
+        {
+            get { return this.toolTip; }
+            set
+            {
+                this.toolTip = value;
+                this.OnPropertyChanged(nameof(this.ToolTip));
             }
         }
         
@@ -127,6 +143,7 @@ namespace PayDay.ViewModels
             datetime = datetime.AddMinutes(1);
             TimerText = datetime.ToString("HH:mm");
         }
+
         private void OnCasinoViewChanged(CasinoView casinoView)
         {
             this.CurrentView = casinoView;
@@ -141,6 +158,10 @@ namespace PayDay.ViewModels
             this.CurrentView = shopView;
         }
         
+        private void OnbackCommandChange(bool back)
+        {
+            this.backButton = back;
+        }
         #endregion
 
         #region ------------------------- Commands ------------------------------------------------------------------------
@@ -151,7 +172,15 @@ namespace PayDay.ViewModels
         /// <returns><c>true</c> if the command can be executed otherwise <c>false</c>.</returns>
         private bool BackCommandCanExecute(Object parameter)
         {
-            return this.CurrentView != gameBordView ? true : false;
+            if (this.backButton)
+            {
+                return this.CurrentView != gameBordView ? true : false;
+            }
+            else
+            {
+                return false;
+            }
+            
         }
 
         /// <summary>

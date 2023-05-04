@@ -1,10 +1,10 @@
-﻿using System;
+﻿using DataBase.Models;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlTypes;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DataBase.Models;
 
 namespace Data
 {
@@ -25,8 +25,7 @@ namespace Data
         /// <summary>
         /// List of Items, what the player bought.
         /// </summary>
-        public List<Items> Items;
-
+        List<Items> items;
         /// <summary>
         /// Wins in the casino.
         /// </summary>
@@ -41,6 +40,11 @@ namespace Data
         /// The highscore of the player.
         /// </summary>
         private int highscore;
+        private double moneyLose;
+        private double moneyWin;
+        private int gold;
+        private double goldprice;
+
         #endregion
 
         #region ------------------------- Constructors, Destructors, Dispose, Clone ---------------------------------------
@@ -55,13 +59,13 @@ namespace Data
         public Game(double money, string username, int highscore, int win, int casinoCount) 
         {
             // set values
-            Items= new List<Items>();
             this.Money=money;
             this.Username=username;
             this.Highscore=highscore;
             this.wins = win;
             this.casinoCount =casinoCount;
         }
+
 
         /// <summary>
         /// Initiallizes a new instance of the <see cref="Game"/> class.
@@ -76,9 +80,20 @@ namespace Data
         public double Money
         {
             get { return this.money; }
+         
             set { this.money = value; }
         }
 
+        public double GoldPrice
+        {
+            get { return this.goldprice; }
+            set { this.goldprice = value; }
+        } 
+        public int Gold
+        {
+            get { return this.gold; }
+            set { this.gold = value; }
+        }
         /// <summary>
         /// Gets or sets the username of the game.
         /// </summary>
@@ -127,6 +142,23 @@ namespace Data
         {
             set { this.casinoCount = value; }
             get { return this.casinoCount; }
+        }
+
+        public bool GameEnd
+        {
+            get { return this.Money < 0 ? true : false; }
+        }
+
+        public double Moneylose
+        {
+            get{ return moneyLose; }
+            set { moneyLose = value; }
+        }
+
+        public double MoneyWin
+        {
+            get { return moneyWin; }
+            set { moneyWin = value; }
         }
         #endregion
     }

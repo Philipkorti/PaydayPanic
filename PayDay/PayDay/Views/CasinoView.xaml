@@ -34,6 +34,7 @@
             <RowDefinition/>
             <RowDefinition Height="0.3*"/>
         </Grid.RowDefinitions>
+        <TextBlock Grid.Column="6" Text="{Binding Path=WinMoney, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  FontSize="30" Foreground="{Binding Color}" TextAlignment="Right" Background="Transparent" Width="Auto" Height="40" VerticalAlignment="Top"/>
         <Button Grid.Column="9" Command="{Binding Path= RoleCasino}"/>
         <Image Grid.Row="1" Grid.Column="2" Margin="10,30"
                gif:ImageBehavior.AnimatedSource="{Binding Path=ButtonImgSourceone, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
@@ -43,12 +44,12 @@
                gif:ImageBehavior.AnimatedSource="{Binding Path=ButtonImgSourcethre, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
         <StackPanel Grid.Row="2" Grid.Column="2" Orientation="Horizontal">
             <TextBlock Text="Rolls:" FontSize="25" VerticalAlignment="Center" Foreground="White"/>
-            <TextBox  FontSize="25" Width="200" Margin="10,0,0,0" Height="40" Text="{Binding Path=CountRounds, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox IsEnabled="{Binding Path=CasinoRun}" FontSize="25" Width="200" Margin="10,0,0,0" Height="40" Text="{Binding Path=CountRounds, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
         </StackPanel>
 
         <StackPanel Grid.Row="2" Grid.Column="6" Orientation="Horizontal">
             <TextBlock FontSize="25" Text="Bet:" VerticalAlignment="Center" Foreground="White"/>
-            <TextBox FontSize="25" Width="100" Margin="10,0,0,0" Height="40" Text="{Binding Path=Stake, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox IsEnabled="{Binding Path=CasinoRun}" FontSize="25" Width="100" Margin="10,0,0,0" Height="40" Text="{Binding Path=Stake, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
         </StackPanel>
     </Grid>
 

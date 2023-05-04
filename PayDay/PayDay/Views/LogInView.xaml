@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns:busyIndicator="https://github.com/Peoky/BusyIndicator"
              xmlns:local="clr-namespace:PayDay.Views" xmlns:components="clr-namespace:PayDay.Components" xmlns:busyIndicator1="https://github.com/Peoky/BusyIndicator"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
@@ -16,57 +16,61 @@
     </UserControl.Resources>
 
     <Grid>
-        <xctk:BusyIndicator IsBusy="{Binding Path=IsLoading, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" BusyContent="Wird Angemeldet">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
-                <Border CornerRadius="10" Grid.RowSpan="2">
-                    <Border.Background>
-                        <LinearGradientBrush>
-                            <GradientStop Color="Bisque" Offset="0.0"/>
-                            <GradientStop Color="Green" Offset="1"/>
-                        </LinearGradientBrush>
-                    </Border.Background>
-                </Border>
-                <Border CornerRadius="10" Width="200" Height="200">
-                    <Border.Background>
-                        <LinearGradientBrush>
-                            <GradientStop Color="Bisque" Offset="0.3"/>
-                            <GradientStop Color="Green" Offset="1"/>
-                        </LinearGradientBrush>
-                    </Border.Background>
-                    <StackPanel VerticalAlignment="Center">
-                        <Image Source="\Pictures\paydayicon.png" Width="80"/>
-                        <TextBlock Text="Payday Panic" FontSize="22" HorizontalAlignment="Center"/>
-                    </StackPanel>
-
-                </Border>
-
-                <StackPanel Grid.Row="1" Margin="0,30,0,0">
-                    <TextBlock Text="Username" HorizontalAlignment="Center" FontSize="20"/>
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <TextBox FontFamily="Helvetica" FontWeight="Light" Text="{Binding Path=Username, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="22" HorizontalAlignment="Center" Foreground="White"
-                         Background="Transparent" BorderThickness="0" Width="235" Opacity="0.5" Height="25" />
-                    </StackPanel>
-                    <Border Width="250" Height="2" Background="White" Opacity="0.5"/>
-                    <TextBlock Text="Password" HorizontalAlignment="Center" FontSize="20" Margin="0,10,0,0"/>
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <components:BindablePasswordBox FontFamily="Helvetica" FontWeight="Light" Password="{Binding Path=Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  FontSize="22" HorizontalAlignment="Center" Foreground="White"
-                         Background="Transparent" BorderThickness="0" Width="235" Opacity="0.5" Height="25" />
-                    </StackPanel>
-                    <Border Width="250" Height="2" Background="White" Opacity="0.5"/>
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,0">
-                        <Button Margin="0,0,10,0" Width="100" Height="50" Foreground="White" HorizontalAlignment="Center" Command="{Binding Path=LogInCommand}" >LogIn</Button>
-                        <Button Margin="10,0,0,0" Width="100" Height="50" Foreground="White" HorizontalAlignment="Center" Command="{Binding Path=RegisterCommand}" >Register</Button>
-                    </StackPanel>
-
-
-
+        <busyIndicator:BusyMask
+        x:Name="BusyIndicator"
+        BusyContent="Please wait..."
+        IndicatorType="Cupertino"
+        IsBusy="{Binding Path=IsLoading}"
+        >
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Border CornerRadius="10" Grid.RowSpan="2">
+                <Border.Background>
+                    <LinearGradientBrush>
+                        <GradientStop Color="Bisque" Offset="0.0"/>
+                        <GradientStop Color="Green" Offset="1"/>
+                    </LinearGradientBrush>
+                </Border.Background>
+            </Border>
+            <Border CornerRadius="10" Width="200" Height="200">
+                <Border.Background>
+                    <LinearGradientBrush>
+                        <GradientStop Color="Bisque" Offset="0.3"/>
+                        <GradientStop Color="Green" Offset="1"/>
+                    </LinearGradientBrush>
+                </Border.Background>
+                <StackPanel VerticalAlignment="Center">
+                    <Image Source="\Pictures\paydayicon.png" Width="80"/>
+                    <TextBlock Text="Payday Panic" FontSize="22" HorizontalAlignment="Center"/>
                 </StackPanel>
-            </Grid>
-        </xctk:BusyIndicator>
-        
+
+            </Border>
+
+            <StackPanel Grid.Row="1" Margin="0,30,0,0">
+                <TextBlock Text="Username" HorizontalAlignment="Center" FontSize="20"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <TextBox FontFamily="Helvetica" FontWeight="Light" Text="{Binding Path=Username, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="22" HorizontalAlignment="Center" Foreground="White"
+                         Background="Transparent" BorderThickness="0" Width="235" Opacity="0.5" Height="25" />
+                </StackPanel>
+                <Border Width="250" Height="2" Background="White" Opacity="0.5"/>
+                <TextBlock Text="Password" HorizontalAlignment="Center" FontSize="20" Margin="0,10,0,0"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <components:BindablePasswordBox FontFamily="Helvetica" FontWeight="Light" Password="{Binding Path=Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  FontSize="22" HorizontalAlignment="Center" Foreground="White"
+                         Background="Transparent" BorderThickness="0" Width="235" Opacity="0.5" Height="25" />
+                </StackPanel>
+                <Border Width="250" Height="2" Background="White" Opacity="0.5"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,0">
+                    <Button Margin="0,0,10,0" Width="100" Height="50" Foreground="White" HorizontalAlignment="Center" Command="{Binding Path=LogInCommand}" >LogIn</Button>
+                    <Button Margin="10,0,0,0" Width="100" Height="50" Foreground="White" HorizontalAlignment="Center" Command="{Binding Path=RegisterCommand}" >Register</Button>
+                </StackPanel>
+
+
+
+            </StackPanel>
+        </Grid>
+        </busyIndicator:BusyMask>
     </Grid>
 </UserControl>

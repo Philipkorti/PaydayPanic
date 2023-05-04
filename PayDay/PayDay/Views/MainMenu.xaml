@@ -28,7 +28,7 @@
             </Grid.RowDefinitions>
             <StackPanel Orientation="Horizontal">
                 <Button FontSize="30" Command="{Binding Path=RulleCommand}">Rules</Button>
-                <Button FontSize="30">Top 20</Button>
+                <Button FontSize="30" Command="{Binding Path=TopPlayerCommand}">Top 20</Button>
             </StackPanel>
             <Border Grid.Row="1" BorderBrush="White" BorderThickness="1" Margin="10">
                 <ContentControl Content="{Binding Path=ViewLeft}"/>

@@ -14,13 +14,16 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{C7A15329-CF06-42E2-A951-725E6DCD5E67}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services", "Services\Services.csproj", "{C31AE4AC-454C-42B7-BFAA-8EB07C223B92}"
+	ProjectSection(ProjectDependencies) = postProject
+		{2FEE5A8B-B33A-4793-A170-D69D4FF5A01A} = {2FEE5A8B-B33A-4793-A170-D69D4FF5A01A}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data", "Data\Data.csproj", "{D87E1865-E3F0-4302-A9A3-FA9AB34B51A4}"
+	ProjectSection(ProjectDependencies) = postProject
+		{2FEE5A8B-B33A-4793-A170-D69D4FF5A01A} = {2FEE5A8B-B33A-4793-A170-D69D4FF5A01A}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataBase", "DataBase\DataBase.csproj", "{2FEE5A8B-B33A-4793-A170-D69D4FF5A01A}"
-	ProjectSection(ProjectDependencies) = postProject
-		{D87E1865-E3F0-4302-A9A3-FA9AB34B51A4} = {D87E1865-E3F0-4302-A9A3-FA9AB34B51A4}
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "xUnit", "cUnit\xUnit.csproj", "{6F03C2DF-6803-4719-8B76-676563E17743}"
 EndProject

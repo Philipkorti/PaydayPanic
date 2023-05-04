@@ -11,6 +11,7 @@ using System.Windows;
 using System.Windows.Input;
 using Data;
 using System.Windows.Controls;
+using DataBase.Context;
 
 namespace PayDay.ViewModels
 {
@@ -27,6 +28,7 @@ namespace PayDay.ViewModels
         /// </summary>
         private UserControl viewLeft;
         private RulesView rulesView;
+        private HighscoreVew highscoreVew;
         #endregion
 
         #region ------------------------- Constructors, Destructors, Dispose, Clone ---------------------------------------
@@ -40,12 +42,15 @@ namespace PayDay.ViewModels
             this.ExitCommand = new ActionCommand(this.ExitCommandExecute, this.ExitCommandCanExecute);
             this.PlayCommand = new ActionCommand(this.PlayCommandExecute, this.PlayCommandCanExecute);
             this.RulleCommand = new ActionCommand(this.RullesCommandExecute, this.RullesCommandCanExecute);
+            this.TopPlayerCommand = new ActionCommand(this.TOPCommandExecute, this.RullesCommandCanExecute);
             Game = new Game(1000, username, 0,1,1);
             this.EventAggregator.GetEvent<GameDataChangeEvent>().Publish(Game);
             rulesView = new RulesView();
             RulesViewModel rulesViewModel = new RulesViewModel(this.EventAggregator);
             rulesView.DataContext = rulesViewModel;
-            
+            highscoreVew = new HighscoreVew();
+            HighscoreViewModel highscoreViewModel = new HighscoreViewModel(this.EventAggregator);
+            highscoreVew.DataContext = highscoreViewModel;
         }
 
         #endregion
@@ -130,6 +135,12 @@ namespace PayDay.ViewModels
         /// <param name="parameter">Data use by the command.</param>
         private void PlayCommandExecute(object parameter)
         {
+            using(var context = new PayDayContext())
+            {
+                var item = context.Statistics.Where(s => s.User.UserName == Game.Username).ToList();
+                item[0].GameCount++;
+                context.SaveChanges();
+            }
             GameView gameView = new GameView();
             GameViewModel gameViewModel = new GameViewModel(this.EventAggregator, this.Game);
             gameView.DataContext = gameViewModel;
@@ -153,6 +164,15 @@ namespace PayDay.ViewModels
         private void RullesCommandExecute(object parameter)
         {
             this.ViewLeft = this.ViewLeft == null ? this.rulesView : null;
+        }
+
+        /// <summary>
+        /// Ocures when the user clicks the rulle button.
+        /// </summary>
+        /// <param name="parameter">Data use by the command.</param>
+        private void TOPCommandExecute(object parameter)
+        {
+            this.ViewLeft = this.ViewLeft == null ? this.highscoreVew : null;
         }
         #endregion
     }

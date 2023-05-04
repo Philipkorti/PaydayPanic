@@ -55,15 +55,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConstData.cs" />
     <Compile Include="Context\PayDayContext.cs" />
-    <Compile Include="Migrations\202304121919018_InitialCreate.cs" />
-    <Compile Include="Migrations\202304121919018_InitialCreate.designer.cs">
-      <DependentUpon>202304121919018_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\202305020812511_InitialCreate.cs" />
+    <Compile Include="Migrations\202305020812511_InitialCreate.designer.cs">
+      <DependentUpon>202305020812511_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Casino.cs" />
     <Compile Include="Models\Highscore.cs" />
     <Compile Include="Models\Items.cs" />
+    <Compile Include="Models\Ranks.cs" />
     <Compile Include="Models\Shop.cs" />
     <Compile Include="Models\Statistics.cs" />
     <Compile Include="Models\User.cs" />
@@ -74,8 +76,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202304121919018_InitialCreate.resx">
-      <DependentUpon>202304121919018_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202305020812511_InitialCreate.resx">
+      <DependentUpon>202305020812511_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

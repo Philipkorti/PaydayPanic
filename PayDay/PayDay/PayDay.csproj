@@ -94,16 +94,22 @@
     <Compile Include="Components\BindablePasswordBox.xaml.cs">
       <DependentUpon>BindablePasswordBox.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Events\BackButtonCanExecuteDataChangeEvent.cs" />
     <Compile Include="Events\CsinoViewDataChangeEvent.cs" />
     <Compile Include="Events\GameDataChangeEvent.cs" />
+    <Compile Include="Events\GameEndViewDataChangeEvent.cs" />
     <Compile Include="Events\LogInDataChangeEvent.cs" />
     <Compile Include="Events\GameViewDataChageEvent.cs" />
     <Compile Include="Events\MainMenuDataChangeEvent.cs" />
+    <Compile Include="Events\PointColectionChangeEvent.cs" />
     <Compile Include="Events\RegisterDataChageEvent.cs" />
     <Compile Include="Events\ShopViewDataChangeEvent.cs" />
+    <Compile Include="Events\WindowstateDataChangeEvent.cs" />
     <Compile Include="ViewModels\CasinoViewModel.cs" />
     <Compile Include="ViewModels\GameBordViewModel.cs" />
+    <Compile Include="ViewModels\GameEndViewModel.cs" />
     <Compile Include="ViewModels\GameViewModel.cs" />
+    <Compile Include="ViewModels\HighscoreViewModel.cs" />
     <Compile Include="ViewModels\LogInViewModel.cs" />
     <Compile Include="ViewModels\MainMenuModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
@@ -117,8 +123,14 @@
     <Compile Include="Views\GameBordView.xaml.cs">
       <DependentUpon>GameBordView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\GameEndView.xaml.cs">
+      <DependentUpon>GameEndView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\GameView.xaml.cs">
       <DependentUpon>GameView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\HighscoreVew.xaml.cs">
+      <DependentUpon>HighscoreVew.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\LogInView.xaml.cs">
       <DependentUpon>LogInView.xaml</DependentUpon>
@@ -155,6 +167,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="ResourceDictionarys\DataGrid.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ResourceDictionarys\MainMenuResourceDictionary.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -171,7 +187,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\GameEndView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\GameView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\HighscoreVew.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -262,6 +286,20 @@
     <Resource Include="Pictures\shopping-icon.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\MarioKart64.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\bronze.png" />
+    <Resource Include="Pictures\dimond.png" />
+    <Resource Include="Pictures\gold.png" />
+    <Resource Include="Pictures\grandmaster.png" />
+    <Resource Include="Pictures\master.png" />
+    <Resource Include="Pictures\platin.png" />
+    <Resource Include="Pictures\silver.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
