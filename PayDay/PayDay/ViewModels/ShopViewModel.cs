@@ -14,6 +14,9 @@ using System.Threading;
 using Common.Command;
 using System.Windows.Media;
 using Data;
+using Services.Services;
+using System.Windows.Shapes;
+using System.Collections.ObjectModel;
 
 namespace PayDay.ViewModels
 {
@@ -22,20 +25,23 @@ namespace PayDay.ViewModels
         #region ------------------------- Fields, Constants, Delegates, Events --------------------------------------------
         private List<Items> shopItems;
         private PointCollection points;
-        private int windowheigh;
+        private int goldCount;
         private Game game;
         #endregion
 
         #region ------------------------- Constructors, Destructors, Dispose, Clone ---------------------------------------
         public ShopViewModel(IEventAggregator eventAggregator, PointCollection points, Game game) : base(eventAggregator) 
         {
+            this.EventAggregator.GetEvent<GameDataChangeEvent>().Subscribe(this.OnGameDataChange, ThreadOption.UIThread);
             using(var context = new PayDayContext())
             {
                 this.ShopItems = context.Items.ToList();
             }
             this.BuyCommand = new ActionCommand(this.BuyCommandExecuted, this.BuyCommandCanExecute);
+            this.SellCommand = new ActionCommand(this.SellCommandExecuted, this.BuyCommandCanExecute);
+            this.BuyCommand = new ActionCommand(this.BuyGameCommandExecuted, this.BuyGameCommandCanExecute);
+            this.Game = game;
             this.Points = points;
-            this.game = game;
 
         }
         #endregion
@@ -50,35 +56,50 @@ namespace PayDay.ViewModels
         public PointCollection Points
         {
             get { return this.points; }
-            set 
-            { 
-                this.points = value; 
+            set
+            {
+                this.points = value;
                 this.OnPropertyChanged(nameof(this.Points));
             }
+        }
+        public ICommand BuyGameCommand
+        {
+            get; private set;
         }
         public ICommand BuyCommand
         {
             get; private set;
         }
 
-        public int Windowheigh
+        public ICommand SellCommand
         {
-            get { return this.windowheigh;}
+            get; private set;
+        }
+
+        public Game Game
+        {
+            get { return this.game; }
             set 
-            { 
-                this.windowheigh = value; 
-                
-                this.OnPropertyChanged(nameof(this.Windowheigh));
+            {  
+                this.game = value;
+                this.OnPropertyChanged(nameof(this.Game));
             }
+        }
+        public int GoldCount
+        {
+            get { return this.goldCount; }
+            set { this.goldCount = value; }
         }
 
         #endregion
 
         #region ------------------------- Private helper ------------------------------------------------------------------
-        private void OnPointColectionData(PointCollection points)
+        private void OnGameDataChange(Game game)
         {
-            this.Points = points;
-            
+            this.Game = game;
+            this.points.Add(new Point(10 * points.Count, Math.Round(220 - this.Game.GoldPrice)));
+            this.Points = this.points;
+            this.OnPropertyChanged(nameof(this.Points));
         }
 
         #endregion
@@ -100,7 +121,48 @@ namespace PayDay.ViewModels
         /// <param name="parameter">Data use by the command.</param>
         private void BuyCommandExecuted(object parameter)
         {
-            int test = this.Windowheigh;
+            this.Game.Gold = this.Game.Gold + this.GoldCount;
+            this.Game.Money = this.Game.Money - (this.GoldCount * this.Game.GoldPrice);
+            
+            this.EventAggregator.GetEvent<GameDataChangeEvent>().Publish(this.Game);
+        }
+
+        /// <summary>
+        /// Determines wheter the rolle slot machine can be executed.
+        /// </summary>
+        /// <param name="parameter">Data used by the commsnd.</param>
+        /// <returns><c>true</c> if the command can be executed otherwise <c>false</c>.</returns>
+        private bool BuyGameCommandCanExecute(object parameter)
+        {
+            return true;
+
+        }
+        /// <summary>
+        /// Ocures when the user clicks the rolle button.
+        /// </summary>
+        /// <param name="parameter">Data use by the command.</param>
+        private void BuyGameCommandExecuted(object parameter)
+        {
+            foreach (var item in this.ShopItems)
+            {
+                if(item.ItemID == Convert.ToInt32(parameter))
+                {
+                    this.Game.Money = this.Game.Money - item.Price;
+                    this.Game.Items.Add(item);
+                    this.EventAggregator.GetEvent<GameDataChangeEvent>().Publish(this.Game);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Ocures when the user clicks the rolle button.
+        /// </summary>
+        /// <param name="parameter">Data use by the command.</param>
+        private void SellCommandExecuted(object parameter)
+        {
+            this.Game.Gold = this.Game.Gold - this.GoldCount;
+            this.Game.Money = this.Game.Money + (this.GoldCount * this.Game.GoldPrice);
+            this.EventAggregator.GetEvent<GameDataChangeEvent>().Publish(this.Game);
         }
         #endregion
     }

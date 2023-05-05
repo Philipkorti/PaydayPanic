@@ -64,6 +64,8 @@ namespace Data
             this.Highscore=highscore;
             this.wins = win;
             this.casinoCount =casinoCount;
+            this.GoldPrice = 60;
+            this.Items= new List<Items>();
         }
 
 
@@ -159,6 +161,11 @@ namespace Data
         {
             get { return moneyWin; }
             set { moneyWin = value; }
+        }
+        public List<Items> Items
+        {
+            get { return this.items; }
+            set { this.items = value; }
         }
         #endregion
     }

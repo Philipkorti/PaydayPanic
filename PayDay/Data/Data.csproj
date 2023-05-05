@@ -58,6 +58,7 @@
     <Compile Include="Game.cs" />
     <Compile Include="GoldPrice.cs" />
     <Compile Include="HighscoreViewData.cs" />
+    <Compile Include="ItemsGame.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

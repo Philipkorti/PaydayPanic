@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Threading;
 
 namespace PayDay.ViewModels
 {
@@ -35,10 +36,13 @@ namespace PayDay.ViewModels
             ShopCommand = new ActionCommand(this.ShopCommandExecuted, this.ShopCommandCanExecute);
             this.EventAggregator.GetEvent<WindowstateDataChangeEvent>().Subscribe(this.OnWindowstateDataChange, ThreadOption.UIThread);
             Game = game;
-            Thread thread = new Thread(this.GoldPrice);
             //thread.Start();
-            points = new PointCollection();
-            thread.Start();
+            points = new PointCollection { new Point(0,220) };
+            //
+            DispatcherTimer dispatcherTimer= new DispatcherTimer();
+            dispatcherTimer.Interval = TimeSpan.FromMinutes(1);
+            dispatcherTimer.Tick += this.GoldPrice;
+            dispatcherTimer.Start();
 
         }
         #endregion
@@ -61,19 +65,12 @@ namespace PayDay.ViewModels
         #endregion
 
         #region ------------------------- Private helper ------------------------------------------------------------------
-        private void GoldPrice()
+
+        private void GoldPrice(object sender, EventArgs e)
         {
             // Count gold price for shop.
-            do
-            {
                 this.Game = CountGoldService.GoldpriceCount(this.Game);
-
-                // Whait for 2 minutes.
-                Thread.Sleep(5000);
-
-                // Check of gameover.
-            } while (!this.Game.GameEnd);
-
+                this.EventAggregator.GetEvent<GameDataChangeEvent>().Publish(this.Game);
         }
         private void OnWindowstateDataChange(string windowstate)
         {
@@ -119,7 +116,7 @@ namespace PayDay.ViewModels
         /// <param name="parameter">Data use by the command.</param>
         public void ShopCommandExecuted(object parameter)
         {
-                points.Add(new System.Windows.Point(10 * points.Count, Math.Round(220 - this.Game.GoldPrice)));
+             points.Add(new System.Windows.Point(10 * points.Count, Math.Round(220 - this.Game.GoldPrice)));
 
             ShopView shopView = new ShopView();
             ShopViewModel shopViewModel = new ShopViewModel(this.EventAggregator, points, this.Game);

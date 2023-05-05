@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,9 +15,17 @@ namespace Services.Services
         public static Game GoldpriceCount(Game game)
         {
             Random random = new Random();
-            int money = random.Next(0, 220);
-            double goldprice = Convert.ToDouble(money) + random.NextDouble();
-            game.GoldPrice = Math.Round(goldprice, 2);
+            double goldprice = random.NextDouble();
+            if(random.Next(0,2) == 1)
+            {
+                goldprice = game.GoldPrice * goldprice;
+                game.GoldPrice = Math.Round(game.GoldPrice + goldprice,2);
+            }
+            else
+            {
+                goldprice = game.GoldPrice * goldprice;
+                game.GoldPrice = Math.Round(game.GoldPrice - goldprice,2);
+            }
             return game;
         }
     }

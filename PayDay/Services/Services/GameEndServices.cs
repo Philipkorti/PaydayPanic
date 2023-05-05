@@ -83,7 +83,6 @@ namespace Services.Services
             }
             return rank;
         }
-        
     }
 
 }
