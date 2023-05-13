@@ -11,8 +11,6 @@ namespace DataBase.Models
 
         [Required] [StringLength(ConstData.StringLengh)] public string Title { get; set; }
 
-        [Required] public string Description { get; set; }
-
         [Required] public double Price { get; set; }
 
         [Required] public int InStock { get; set; }

@@ -15,17 +15,26 @@
     </UserControl.Resources>
     
     <Grid>
-        <DataGrid ItemsSource="{Binding Path=Highscore}" Background="White" IsHitTestVisible="False">
+        <DataGrid ItemsSource="{Binding Path=Highscore}" Background="White" Focusable="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Width="*" Binding="{Binding UserName}">
                     <DataGridTextColumn.Header>Username</DataGridTextColumn.Header>
                 </DataGridTextColumn>
-                <DataGridTextColumn Width="*" Binding="{Binding HighestScore}">
-                    <DataGridTextColumn.Header>Highscore</DataGridTextColumn.Header>
+                <DataGridTextColumn Width="*" Binding="{Binding Elo}">
+                    <DataGridTextColumn.Header>Elo</DataGridTextColumn.Header>
                 </DataGridTextColumn>
-                <DataGridTextColumn Width="*" Binding="{Binding Rank}">
-                    <DataGridTextColumn.Header>Rank</DataGridTextColumn.Header>
-                </DataGridTextColumn>
+                <DataGridTemplateColumn Width="*">
+                    <DataGridTemplateColumn.Header>
+                        Rank
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <Image HorizontalAlignment="Left" Source="{Binding RankURL}" Width="50" Height="50"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

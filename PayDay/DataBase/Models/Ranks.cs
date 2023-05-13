@@ -12,5 +12,6 @@ namespace DataBase.Models
         [Key] public int Id { get; set; }
         
         public string Rank { get; set; }
+        public string RankURL { get; set; }
     }
 }

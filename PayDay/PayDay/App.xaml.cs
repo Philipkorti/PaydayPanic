@@ -32,7 +32,6 @@ namespace PayDay
                 Application.Current.Shutdown();
                 return;
             }
-
             // Init event aggregator and services
             IEventAggregator eventAggregator = new EventAggregator();
             // Init view and viewmodel

@@ -29,7 +29,7 @@ namespace PayDay.ViewModels
         /// DateTime to save the playtime.
         /// </summary>
         private DateTime datetime;
-
+        private DateTime dateTime;
         /// <summary>
         /// timeText is for the output the play time.
         /// </summary>
@@ -57,11 +57,13 @@ namespace PayDay.ViewModels
         /// <param name="game">Instance of the game class.</param>
         public GameViewModel(IEventAggregator eventAggregator, Game game) : base(eventAggregator) 
         {
-            TimerText = "00:00";
+            this.Game = game;
+            TimerText = "15:00";
             this.backButton= true;
+            this.dateTime = new DateTime();
             time = new DispatcherTimer();
-            datetime= new DateTime();
-            time.Interval = TimeSpan.FromMinutes(1);
+            datetime= new DateTime(1,1,1,0,1,0);
+            time.Interval = TimeSpan.FromSeconds(1);
             time.Tick += TimerTick;
             time.Start();
             this.BackMapCommand = new ActionCommand(this.BackCommandExecuted, this.BackCommandCanExecute);
@@ -73,7 +75,6 @@ namespace PayDay.ViewModels
             this.EventAggregator.GetEvent<GameDataChangeEvent>().Subscribe(this.OnGameDataChanged, ThreadOption.UIThread);
             this.EventAggregator.GetEvent<ShopViewDataChangeEvent>().Subscribe(this.OnShopViewChanged, ThreadOption.UIThread);
             this.EventAggregator.GetEvent<BackButtonCanExecuteDataChangeEvent>().Subscribe(this.OnbackCommandChange, ThreadOption.UIThread);
-            this.Game = game;
         }
         #endregion
 
@@ -140,8 +141,21 @@ namespace PayDay.ViewModels
         #region ------------------------- Private helper ------------------------------------------------------------------
         private void TimerTick(object sender, EventArgs e)
         {
-            datetime = datetime.AddMinutes(1);
-            TimerText = datetime.ToString("HH:mm");
+            TimeSpan timeSpan = datetime - dateTime;
+            dateTime = dateTime.AddSeconds(1);
+            this.TimerText = timeSpan.ToString(@"mm\:ss");
+
+            if(this.TimerText == "00:00")
+            {
+                time.Stop();
+                GameEndView gameEndView = new GameEndView();
+                GameEndViewModel gameEndViewModel = new GameEndViewModel(this.EventAggregator, game);
+                gameEndView.DataContext = gameEndViewModel;
+                this.Game.GameEndTime = true;
+                this.EventAggregator.GetEvent<GameDataChangeEvent>().Publish(this.Game);
+                this.EventAggregator.GetEvent<GameEndViewDataChangeEvent>().Publish(gameEndView);
+            }
+            
         }
 
         private void OnCasinoViewChanged(CasinoView casinoView)

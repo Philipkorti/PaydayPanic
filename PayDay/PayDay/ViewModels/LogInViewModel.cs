@@ -7,6 +7,8 @@ using Services;
 using Services.Services;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -46,6 +48,8 @@ namespace PayDay.ViewModels
         public ICommand RegisterCommand { get; private set; }
 
         private bool isLoading;
+        private bool isLogIn;
+        private bool saveLogIn;
         #endregion
 
         #region ------------------------- Constructors, Destructors, Dispose, Clone ---------------------------------------
@@ -54,6 +58,7 @@ namespace PayDay.ViewModels
         /// </summary>
         public LogInViewModel(IEventAggregator eventAggregator): base(eventAggregator)
         {
+            
             RegisterCommand = new ActionCommand(this.RegisterCommandExecuted, this.RegisterCommandCanExecute);
             LogInCommand = new ActionCommand(this.LogInCommandExecute, this.LogInCommandCanExecute);
             this.IsLoading = false;
@@ -78,6 +83,12 @@ namespace PayDay.ViewModels
                     username = value;
                 }
             }
+        }
+
+        public bool SaveLogIn
+        {
+            get { return this.saveLogIn; }
+            set { this.saveLogIn= value; }
         }
 
         /// <summary>
@@ -123,6 +134,31 @@ namespace PayDay.ViewModels
         #endregion
 
         #region ------------------------- Private helper ------------------------------------------------------------------
+        private void LogIn(object sender, DoWorkEventArgs e)
+        {
+            this.IsLoading = true;
+           this.isLogIn = RegisterServices.LogIn(this.Username, this.Password);
+            if(!isLogIn)
+            {
+                MessageBox.Show("Der Username oder das Passwort ist falsch!", ErrorCodes.LoginError.ToString(), MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            this.IsLoading = false;
+        }
+        private void LogInEnd(object sender, RunWorkerCompletedEventArgs e)
+        {
+            if (isLogIn)
+            {
+                MainMenu mainMenu = new MainMenu();
+                MainMenuModel mainMenuModel = new MainMenuModel(this.EventAggregator, this.Username);
+                mainMenu.DataContext = mainMenuModel;
+                this.EventAggregator.GetEvent<MainMenuDataChangeEvent>().Publish(mainMenu);
+                if (this.SaveLogIn)
+                {
+                    AutoLogIn.CreateFile(this.Username, this.password);
+                }
+            }
+            
+        }
         #endregion
 
         #region ------------------------- Commands ------------------------------------------------------------------------
@@ -142,6 +178,7 @@ namespace PayDay.ViewModels
         /// <param name="parameter">Data use by the command.</param>
         private void RegisterCommandExecuted(object parameter)
         {
+
             SignInView signInView = new SignInView();
             SignInViewModel signInViewModel = new SignInViewModel(this.EventAggregator);
             signInView.DataContext = signInViewModel;
@@ -164,29 +201,12 @@ namespace PayDay.ViewModels
         /// <param name="parameter">Data use by the command.</param>
         private void LogInCommandExecute(object parameter)
         {
-            this.IsLoading = true;
-            using (var context = new PayDayContext())
-            {
-                var users = context.User.ToList();
-                foreach (var user in users)
-                {
-                    if (this.Username == user.UserName && this.Password == user.Password)
-                    {
-                        MainMenu mainMenu = new MainMenu();
-                        MainMenuModel mainMenuModel = new MainMenuModel(this.EventAggregator, this.Username);
-                        mainMenu.DataContext = mainMenuModel;
-                        this.IsLoading = false;
-                        this.EventAggregator.GetEvent<MainMenuDataChangeEvent>().Publish(mainMenu);
-                        break;
-                    }
-                    else
-                    {
-                        IsLoading = false;
-                        MessageBox.Show("Der Username oder das Passwort ist falsch!", ErrorCodes.LoginError.ToString(), MessageBoxButton.OK, MessageBoxImage.Error);
-                    }
-                }
-                this.IsLoading = false;
-            }
+            BackgroundWorker backgroundWorker= new BackgroundWorker();
+            backgroundWorker.DoWork += LogIn;
+            backgroundWorker.RunWorkerCompleted += LogInEnd;
+            backgroundWorker.RunWorkerAsync();
+            
+            
         }
         #endregion
     }

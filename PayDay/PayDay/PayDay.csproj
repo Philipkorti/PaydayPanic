@@ -103,8 +103,11 @@
     <Compile Include="Events\MainMenuDataChangeEvent.cs" />
     <Compile Include="Events\PointColectionChangeEvent.cs" />
     <Compile Include="Events\RegisterDataChageEvent.cs" />
+    <Compile Include="Events\ShopItemsDataChangeEvent.cs" />
     <Compile Include="Events\ShopViewDataChangeEvent.cs" />
-    <Compile Include="Events\WindowstateDataChangeEvent.cs" />
+    <Compile Include="NotifyPropertyChanged.cs" />
+    <Compile Include="PolygonConverter.cs" />
+    <Compile Include="RoundRobinCollection.cs" />
     <Compile Include="ViewModels\CasinoViewModel.cs" />
     <Compile Include="ViewModels\GameBordViewModel.cs" />
     <Compile Include="ViewModels\GameEndViewModel.cs" />
@@ -300,6 +303,38 @@
     <Resource Include="Pictures\master.png" />
     <Resource Include="Pictures\platin.png" />
     <Resource Include="Pictures\silver.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\benjo.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\bomberman.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\supermario.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\zelda.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\vRally.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\Cod2bre.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\FIFA.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\jamesbond.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\goldbaren1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\home.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

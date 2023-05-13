@@ -5,10 +5,13 @@ using DataBase.Context;
 using DataBase.Models;
 using Microsoft.Practices.Prism.Events;
 using Microsoft.Win32;
+using PayDay.Events;
+using PayDay.Views;
 using Services;
 using Services.Enums;
 using Services.Services;
 using System;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Configuration;
 using System.Linq;
@@ -50,6 +53,7 @@ namespace PayDay.ViewModels
         /// Gets the signin button command.
         /// </summary>
         public ICommand SignIn { get; private set; }
+        private bool isSignIn;
         #endregion
 
 
@@ -140,7 +144,7 @@ namespace PayDay.ViewModels
 
 
        #region ------------------------- Private helper ------------------------------------------------------------------
-       private void DataBaseConect()
+       private void DataBaseConect(object sender, DoWorkEventArgs e)
         {
             IsLoading = true;
             bool check = true;
@@ -156,10 +160,20 @@ namespace PayDay.ViewModels
             if(check)
             {
                 IsLoading = false;
+                isSignIn = true;
                 MessageBox.Show("Welcome to PayDay Panic!", "Register", MessageBoxButton.OK, MessageBoxImage.Information);
             }
-            
-            
+        }
+
+        private void DataBaseConectEnd(object sender, RunWorkerCompletedEventArgs e) 
+        {
+            if (isSignIn)
+            {
+                LogInView logInView = new LogInView();
+                LogInViewModel logInViewModel = new LogInViewModel(this.EventAggregator);
+                logInView.DataContext = logInViewModel;
+                this.EventAggregator.GetEvent<LogInDataChangeEvent>().Publish(logInView);
+            }
         }
         #endregion
        
@@ -188,10 +202,10 @@ namespace PayDay.ViewModels
         /// <param name="parameter">Data use by the command.</param>
         private void SignInCommandExecute(object parameter)
         {
-            
-            Thread thread = new Thread(DataBaseConect);
-            thread.Start();
-            
+            BackgroundWorker backgroundWorker = new BackgroundWorker();
+            backgroundWorker.DoWork += DataBaseConect;
+            backgroundWorker.RunWorkerCompleted += DataBaseConectEnd;
+            backgroundWorker.RunWorkerAsync();
         }
         #endregion
     }

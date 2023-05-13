@@ -12,6 +12,8 @@ using System.Windows.Input;
 using Data;
 using System.Windows.Controls;
 using DataBase.Context;
+using Services.Services;
+using System.IO;
 
 namespace PayDay.ViewModels
 {
@@ -22,7 +24,6 @@ namespace PayDay.ViewModels
         /// Instance of the game class.
         /// </summary>
         public Game Game;
-
         /// <summary>
         /// View that is currently bound to the <see cref="ContentControl"/> left.
         /// </summary>
@@ -39,18 +40,20 @@ namespace PayDay.ViewModels
         /// <param name="username"></param>
         public MainMenuModel(IEventAggregator eventAggregator, string username) : base(eventAggregator)
         {
-            this.ExitCommand = new ActionCommand(this.ExitCommandExecute, this.ExitCommandCanExecute);
-            this.PlayCommand = new ActionCommand(this.PlayCommandExecute, this.PlayCommandCanExecute);
-            this.RulleCommand = new ActionCommand(this.RullesCommandExecute, this.RullesCommandCanExecute);
-            this.TopPlayerCommand = new ActionCommand(this.TOPCommandExecute, this.RullesCommandCanExecute);
-            Game = new Game(1000, username, 0,1,1);
-            this.EventAggregator.GetEvent<GameDataChangeEvent>().Publish(Game);
-            rulesView = new RulesView();
-            RulesViewModel rulesViewModel = new RulesViewModel(this.EventAggregator);
-            rulesView.DataContext = rulesViewModel;
-            highscoreVew = new HighscoreVew();
-            HighscoreViewModel highscoreViewModel = new HighscoreViewModel(this.EventAggregator);
-            highscoreVew.DataContext = highscoreViewModel;
+            this.Game = new Game(1000, username, 0, 1, 1);
+            this.EventAggregator.GetEvent<GameDataChangeEvent>().Publish(this.Game);
+            this.meinmenu();
+        }
+
+        public MainMenuModel(IEventAggregator eventAggregator, Game game) : base(eventAggregator)
+        {
+            this.Game = game;
+            this.Game.Items.Clear();
+            this.Game.Money = 1000;
+            this.Game.MoneyLose = 0;
+            this.Game.MoneyWin = 0;
+            this.EventAggregator.GetEvent<GameDataChangeEvent>().Publish(this.Game);
+            this.meinmenu();
         }
 
         #endregion
@@ -70,6 +73,8 @@ namespace PayDay.ViewModels
         /// Gets the rulle button command.
         /// </summary>
         public ICommand RulleCommand { get; private set; }
+
+        public ICommand LogOutCommand { get; private set; }
 
         /// <summary>
         /// Gets the TopPlayer button command.
@@ -96,7 +101,22 @@ namespace PayDay.ViewModels
         #endregion
 
         #region ------------------------- Private helper ------------------------------------------------------------------
-
+        private void meinmenu()
+        {
+            this.ExitCommand = new ActionCommand(this.ExitCommandExecute, this.ExitCommandCanExecute);
+            this.PlayCommand = new ActionCommand(this.PlayCommandExecute, this.PlayCommandCanExecute);
+            this.RulleCommand = new ActionCommand(this.RullesCommandExecute, this.RullesCommandCanExecute);
+            this.TopPlayerCommand = new ActionCommand(this.TOPCommandExecute, this.RullesCommandCanExecute);
+            this.LogOutCommand = new ActionCommand(this.LogOutCommandExecute, this.PlayCommandCanExecute);
+           
+            rulesView = new RulesView();
+            RulesViewModel rulesViewModel = new RulesViewModel(this.EventAggregator);
+            rulesView.DataContext = rulesViewModel;
+            highscoreVew = new HighscoreVew();
+            HighscoreViewModel highscoreViewModel = new HighscoreViewModel(this.EventAggregator);
+            highscoreVew.DataContext = highscoreViewModel;
+            this.ViewLeft = this.rulesView;
+        }
         #endregion
 
         #region ------------------------- Commands ------------------------------------------------------------------------
@@ -163,7 +183,7 @@ namespace PayDay.ViewModels
         /// <param name="parameter">Data use by the command.</param>
         private void RullesCommandExecute(object parameter)
         {
-            this.ViewLeft = this.ViewLeft == null ? this.rulesView : null;
+            this.ViewLeft = this.rulesView;
         }
 
         /// <summary>
@@ -172,7 +192,21 @@ namespace PayDay.ViewModels
         /// <param name="parameter">Data use by the command.</param>
         private void TOPCommandExecute(object parameter)
         {
-            this.ViewLeft = this.ViewLeft == null ? this.highscoreVew : null;
+            this.ViewLeft = this.highscoreVew;
+        }
+
+        private void LogOutCommandExecute(object parameter)
+        {
+            string path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\PayDay";
+            string file = path + "\\login.txt";
+            if (File.Exists(file))
+            {
+                File.Delete(file);
+            }
+            LogInView logInView = new LogInView();
+            LogInViewModel logInViewModel = new LogInViewModel(this.EventAggregator);
+            logInView.DataContext = logInViewModel;
+            this.EventAggregator.GetEvent<LogInDataChangeEvent>().Publish(logInView);
         }
         #endregion
     }

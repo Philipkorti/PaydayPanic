@@ -8,12 +8,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("pictures/bronze.png")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("pictures/dimond.png")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("pictures/gold.png")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("pictures/grandmaster.png")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("pictures/master.png")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("pictures/platin.png")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("pictures/silver.png")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("pictures/home.png")]
 
 

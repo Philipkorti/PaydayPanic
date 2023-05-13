@@ -15,6 +15,9 @@ namespace Services.Services
         {
             double averageMonyWin = 0;
             double averageMonyLose = 0;
+            double moneywin;
+            double moneylose;
+            double money;
             int newelo = 0;
             elo = 0;
             using(var context = new PayDayContext()) 
@@ -36,11 +39,13 @@ namespace Services.Services
                     averageMonyWin = item[0].GameMoneyWin / item[0].GameCount;
                     averageMonyLose = item[0].GameMoneyLose / item[0].GameCount;
                 }
+                
             }
-            if (game.MoneyWin > averageMonyWin)
-            {
-                newelo = Convert.ToInt32(Math.Round((game.MoneyWin - averageMonyWin)/4, 0));
-            }
+            moneywin = (game.MoneyWin - averageMonyWin);
+            moneylose = (game.MoneyLose - averageMonyLose);
+            money = ((moneywin - moneylose) / 8);
+            newelo = elo + Convert.ToInt32(Math.Round(money, 0));
+            newelo = newelo < 0 ? 0 : newelo;
             return newelo;
         }
 
@@ -50,7 +55,7 @@ namespace Services.Services
             {
                 var item = context.Statistics.Where(s => s.User.UserName == game.Username).ToList();
 
-                item[0].GameMoneyLose += game.Moneylose;
+                item[0].GameMoneyLose += game.MoneyLose;
                 item[0].GameMoneyWin += game.MoneyWin;
                 context.SaveChanges();
             }

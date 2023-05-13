@@ -35,12 +35,14 @@ namespace PayDay.ViewModels
                             u.UserId,
                             u.UserName,
                             high.HighestScore,
-                            r.Rank
-                        }).OrderByDescending(x => x.HighestScore).Take(20).ToList();
+                            r.Rank,
+                            r.RankURL,
+                            high.Elo
+                        }).OrderByDescending(x => x.Elo).Take(20).ToList();
 
                 foreach (var high in item)
                 {
-                    Highscore.Add(new HighscoreViewData() { UserID = high.UserId, UserName = high.UserName, HighestScore = high.HighestScore, Rank = high.Rank});               
+                    Highscore.Add(new HighscoreViewData() { UserID = high.UserId, UserName = high.UserName, HighestScore = high.HighestScore, Rank = high.Rank, Elo = high.Elo, RankURL = high.RankURL});               
                 }
                 
             }

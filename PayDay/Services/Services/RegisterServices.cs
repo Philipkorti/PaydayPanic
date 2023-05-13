@@ -1,34 +1,28 @@
 ﻿using DataBase.Context;
 using DataBase.Models;
-using Services.Enums;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Services.Services
 {
     public static class RegisterServices
     {
-        
-        public static bool Register(string username, string password) 
+
+        public static bool Register(string username, string password)
         {
             bool check = true;
-                using (var context = new PayDayContext())
+            using (var context = new PayDayContext())
+            {
+                var users = context.User.ToList();
+                foreach (User item in users)
                 {
-                    var users = context.User.ToList();
-                    foreach (User item in users)
+                    if (item.UserName == username)
                     {
-                        if (item.UserName == username)
-                        {
-                            check = false;
-                            break;
-                        }
+                        check = false;
+                        break;
                     }
-
                 }
+
+            }
 
             if (check)
             {
@@ -36,7 +30,7 @@ namespace Services.Services
                 {
                     var user = new User() { UserName = username, Password = password };
                     var rank = payDay.Ranks.ToList();
-                    var highscore = new Highscore() { UserID = user.UserId, RankID = rank[0].Id};
+                    var highscore = new Highscore() { UserID = user.UserId, RankID = rank[0].Id };
                     var statistics = new Statistics() { UserID = user.UserId };
                     var casino = new Casino() { StatisticsID = statistics.StatisticID };
                     var shop = new Shop() { StatisticsID = statistics.StatisticID };
@@ -48,7 +42,30 @@ namespace Services.Services
                     payDay.SaveChanges();
                 }
             }
-                return check;
+            return check;
+        }
+
+        public static bool LogIn(string username, string password)
+        {
+            bool isLogin = false;
+            using (var context = new PayDayContext())
+            {
+                var users = context.User.ToList();
+                foreach (var user in users)
+                {
+                    if (username == user.UserName && password == user.Password)
+                    {
+                        isLogin = true;
+                        break;
+                    }
+                    else
+                    {
+                        isLogin = false;
+                    }
+                }
+
+            }
+            return isLogin;
         }
     }
 }

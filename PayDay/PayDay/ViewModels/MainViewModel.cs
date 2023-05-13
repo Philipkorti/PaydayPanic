@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows;
+using Services.Services;
+using System.IO;
 
 namespace PayDay.ViewModels
 {
@@ -19,7 +21,6 @@ namespace PayDay.ViewModels
         /// View that is currently bound to the <see cref="ContentControl"/>.
         /// </summary>
         private UserControl currentView;
-        private string windowstate;
         #endregion
 
         #region ------------------------- Constructors, Destructors, Dispose, Clone ---------------------------------------
@@ -33,6 +34,7 @@ namespace PayDay.ViewModels
             this.EventAggregator.GetEvent<RegisterDataChageEvent>().Subscribe(this.OnSignInViewChanged, ThreadOption.UIThread);
             this.EventAggregator.GetEvent<MainMenuDataChangeEvent>().Subscribe(this.OnMainMenuViewChanged, ThreadOption.UIThread);
             this.EventAggregator.GetEvent<GameEndViewDataChangeEvent>().Subscribe(this.OnGameOverViewChanged, ThreadOption.UIThread);
+            this.EventAggregator.GetEvent<LogInDataChangeEvent>().Subscribe(this.OnLogInViewChanged, ThreadOption.UIThread);
         }
         #endregion
 
@@ -54,15 +56,6 @@ namespace PayDay.ViewModels
             }
         }
 
-        public string Windowstate
-        {
-            get { return this.windowstate; }
-            set 
-            { 
-                this.windowstate = value;
-                this.EventAggregator.GetEvent<WindowstateDataChangeEvent>().Publish(this.Windowstate);
-            }
-        }
         #endregion
 
         #region  ------------------------- Private helper ------------------------------------------------------------------
@@ -71,15 +64,37 @@ namespace PayDay.ViewModels
         /// </summary>
         private void MainViewCommandExecute()
         {
-            LogInView logInView = new LogInView();
-            LogInViewModel logInViewModel = new LogInViewModel(this.EventAggregator);
-            logInView.DataContext = logInViewModel;
-            this.CurrentView = logInView;
+            string path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\PayDay";
+            string file = path + "\\login.txt";
+            if (File.Exists(file))
+            {
+                AutoLogIn.ReadLogIn(out List<string> userinfo);
+                if (RegisterServices.LogIn(userinfo[0], userinfo[1]))
+                {
+                    MainMenu mainMenu = new MainMenu();
+                    MainMenuModel mainMenuModel = new MainMenuModel(this.EventAggregator, userinfo[0]);
+                    mainMenu.DataContext = mainMenuModel;
+                    this.CurrentView = mainMenu;
+
+                }
+            }
+            else
+            {
+                LogInView logInView = new LogInView();
+                LogInViewModel logInViewModel = new LogInViewModel(this.EventAggregator);
+                logInView.DataContext = logInViewModel;
+                this.CurrentView = logInView;
+            }
+            
         }
        
         private void OnGameViewChanged(GameView gameview)
         {
             this.CurrentView = gameview;
+        }
+        private void OnLogInViewChanged(LogInView logInView)
+        {
+            this.CurrentView = logInView;
         }
         private void OnSignInViewChanged(SignInView signInView)
         {

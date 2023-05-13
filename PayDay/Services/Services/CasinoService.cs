@@ -14,8 +14,12 @@ namespace Services.Services
         
         public void CalculateWin(double winrate, out List<string> list2)
         {
-            List<string> list = new List<string>() { "\\Pictures\\paydayicon.png", "\\Pictures\\paydayicon.png","\\Pictures\\paydayicon.png" };
             double win = 1 - winrate;
+            List<string> list = new List<string>();
+            for (int i = 0; i < 3; i++)
+            {
+                list.Add(casinoList[1]);
+            }
             if(win > 5) 
             {
                 for (int i = 3; i < 20; i++)

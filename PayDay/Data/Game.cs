@@ -25,7 +25,7 @@ namespace Data
         /// <summary>
         /// List of Items, what the player bought.
         /// </summary>
-        List<Items> items;
+        List<ShopItems> items;
         /// <summary>
         /// Wins in the casino.
         /// </summary>
@@ -65,7 +65,7 @@ namespace Data
             this.wins = win;
             this.casinoCount =casinoCount;
             this.GoldPrice = 60;
-            this.Items= new List<Items>();
+            this.Items= new List<ShopItems>();
         }
 
 
@@ -81,7 +81,7 @@ namespace Data
         /// </summary>
         public double Money
         {
-            get { return this.money; }
+            get { return Math.Round(this.money,2); }
          
             set { this.money = value; }
         }
@@ -148,10 +148,26 @@ namespace Data
 
         public bool GameEnd
         {
-            get { return this.Money < 0 ? true : false; }
+            get 
+            {
+                if(this.Money < 0 && this.Gold> 0)
+                {
+                    do
+                    {
+                        this.Money += this.GoldPrice;
+                        this.MoneyWin += this.GoldPrice;
+                        this.Gold--;
+                    } while (this.Money < 0 && this.Gold > 0);
+                }
+                return this.Money < 0 ? true : false; 
+            }
         }
 
-        public double Moneylose
+        public bool GameEndTime
+        {
+            set; get;
+        }
+        public double MoneyLose
         {
             get{ return moneyLose; }
             set { moneyLose = value; }
@@ -162,10 +178,23 @@ namespace Data
             get { return moneyWin; }
             set { moneyWin = value; }
         }
-        public List<Items> Items
+        public List<ShopItems> Items
         {
             get { return this.items; }
             set { this.items = value; }
+        }
+
+        public void EditMoney(double money)
+        {
+            if(money< 0)
+            {
+                this.MoneyLose -= money;
+            }
+            else
+            {
+                this.MoneyWin += money;
+            }
+            this.Money += money;
         }
         #endregion
     }

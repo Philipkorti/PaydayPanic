@@ -1,11 +1,13 @@
 ﻿using Common.Command;
 using Data;
+using DataBase.Context;
 using Microsoft.Practices.Prism.Events;
 using PayDay.Events;
 using PayDay.Views;
 using Services.Services;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -20,8 +22,9 @@ namespace PayDay.ViewModels
     public class GameBordViewModel : ViewModelBase
     {
         #region ------------------------- Fields, Constants, Delegates, Events --------------------------------------------
-        private PointCollection points;
-        private string windowsstate;
+        private RoundRobinCollection roundRobinCollection;
+        private ObservableCollection<ShopItems> shopItems;
+        DispatcherTimer dispatcherTimer;
         #endregion
 
         #region ------------------------- Constructors, Destructors, Dispose, Clone ---------------------------------------
@@ -34,15 +37,25 @@ namespace PayDay.ViewModels
             // Commands
             CasinoCommand = new ActionCommand(this.CasinoCommandExecuted, this.CasinoCommandCanExecute);
             ShopCommand = new ActionCommand(this.ShopCommandExecuted, this.ShopCommandCanExecute);
-            this.EventAggregator.GetEvent<WindowstateDataChangeEvent>().Subscribe(this.OnWindowstateDataChange, ThreadOption.UIThread);
             Game = game;
-            //thread.Start();
-            points = new PointCollection { new Point(0,220) };
-            //
-            DispatcherTimer dispatcherTimer= new DispatcherTimer();
-            dispatcherTimer.Interval = TimeSpan.FromMinutes(1);
+            roundRobinCollection = new RoundRobinCollection(100);
+            roundRobinCollection.Push((float)this.Game.GoldPrice);
+            this.shopItems = new ObservableCollection<ShopItems>();
+            using (var context = new PayDayContext())
+            {
+                var item = context.Items.ToList();
+                foreach (var shopitem in item)
+                {
+                    this.shopItems.Add(new ShopItems() { ItemID = shopitem.ItemID, PictureURL = shopitem.PictureURL, InStock = shopitem.InStock, Price = shopitem.Price, Title = shopitem.Title });
+                }
+            }
+            dispatcherTimer = new DispatcherTimer
+            {
+                Interval = TimeSpan.FromSeconds(10)
+            };
             dispatcherTimer.Tick += this.GoldPrice;
             dispatcherTimer.Start();
+            
 
         }
         #endregion
@@ -69,12 +82,16 @@ namespace PayDay.ViewModels
         private void GoldPrice(object sender, EventArgs e)
         {
             // Count gold price for shop.
-                this.Game = CountGoldService.GoldpriceCount(this.Game);
-                this.EventAggregator.GetEvent<GameDataChangeEvent>().Publish(this.Game);
-        }
-        private void OnWindowstateDataChange(string windowstate)
-        {
-            this.windowsstate = windowstate;
+            if (this.Game.GameEndTime || this.Game.Money < 0)
+            {
+                dispatcherTimer.Stop();
+                this.Game.GameEndTime = false;
+            }
+            this.Game = CountGoldService.GoldpriceCount(this.Game);
+            roundRobinCollection.Push((float)this.Game.GoldPrice);
+            this.EventAggregator.GetEvent<GameDataChangeEvent>().Publish(this.Game);
+            CountGoldService.GamePriceCalculate(shopItems);
+            this.EventAggregator.GetEvent<ShopItemsDataChangeEvent>().Publish(this.shopItems);
         }
         #endregion
 
@@ -116,10 +133,9 @@ namespace PayDay.ViewModels
         /// <param name="parameter">Data use by the command.</param>
         public void ShopCommandExecuted(object parameter)
         {
-             points.Add(new System.Windows.Point(10 * points.Count, Math.Round(220 - this.Game.GoldPrice)));
 
             ShopView shopView = new ShopView();
-            ShopViewModel shopViewModel = new ShopViewModel(this.EventAggregator, points, this.Game);
+            ShopViewModel shopViewModel = new ShopViewModel(this.EventAggregator, roundRobinCollection, this.Game, this.shopItems);
             shopView.DataContext = shopViewModel;
             this.EventAggregator.GetEvent<ShopViewDataChangeEvent>().Publish(shopView);
         }

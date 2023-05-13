@@ -13,6 +13,7 @@ using Data;
 using System.Threading;
 using System.ComponentModel;
 using DataBase.Context;
+using System.Windows.Threading;
 
 namespace PayDay.ViewModels
 {
@@ -24,7 +25,7 @@ namespace PayDay.ViewModels
         string username;
         string stage;
         private Game game;
-        private BackgroundWorker backgroundWorker;
+        private DispatcherTimer dispatcherTimer;
         private string rankPicture;
         #endregion
 
@@ -38,7 +39,7 @@ namespace PayDay.ViewModels
             username = game.Username;
             this.game = game;
             stage = "elo";
-            backgroundWorker = new BackgroundWorker();
+            this.dispatcherTimer = new DispatcherTimer();
         }
         #endregion
 
@@ -71,34 +72,35 @@ namespace PayDay.ViewModels
 
 
         #region ------------------------- Private helper ------------------------------------------------------------------
-        private void eloAdjustment(object sender, DoWorkEventArgs e)
+
+        private void EloAdjustment(object sender, EventArgs e)
         {
             if (this.newelo > this.Elo)
             {
-                for (int i = 0; i < this.newelo-this.Elo; i++)
-                {
-                    this.Elo++;
-                    Thread.Sleep(100);
-                }
+                this.Elo++;
             }
             else
             {
-                for (int i = 0; i < this.Elo-this.newelo; i++)
-                {
-                    this.Elo--;
-                    Thread.Sleep(100);
-                }
+                this.Elo--;
             }
+            
             this.RankPicture = GameEndServices.RankUpgrade(this.Elo);
+            if(this.Elo == this.newelo)
+            {
+                dispatcherTimer.Stop();
+                this.stage = "window";
+            }
         }
 
-        public void SaveData(object sender, RunWorkerCompletedEventArgs e)
+        public void SaveData()
         {
+            string rankurl = GameEndServices.RankUpgrade(this.newelo);
             using (var context = new PayDayContext())
             {
                 var items = context.Highscore.Where(f => f.User.UserName == game.Username).ToList();
-
-                items[0].Elo = this.Elo;
+                var rank = context.Ranks.Where(f=> f.RankURL == rankurl).ToList();
+                items[0].Elo = this.newelo;
+                items[0].RankID = rank[0].Id;
                 context.SaveChanges();
             }
         }
@@ -114,14 +116,7 @@ namespace PayDay.ViewModels
         /// <returns><c>true</c> if the command can be executed otherwise <c>false</c>.</returns>
         private bool NextCommandCanExecute(object parameter)
         {
-            if (backgroundWorker.IsBusy)
-            {
-                return false;
-            }
-            else
-            {
-                return true;
-            }
+            return true;
            
         }
 
@@ -135,12 +130,13 @@ namespace PayDay.ViewModels
             {
                 case "elo": 
                     {
-                        
-                        backgroundWorker.DoWork += this.eloAdjustment;
-                        backgroundWorker.RunWorkerCompleted += SaveData;
-                        backgroundWorker.RunWorkerAsync();
+                        this.stage = "finish";
+                        this.dispatcherTimer.Interval = TimeSpan.FromTicks(20);
+                        this.dispatcherTimer.Tick += this.EloAdjustment;
+                        this.dispatcherTimer.Start();
+                        SaveData();
                         GameEndServices.SaveDateaStatic(game);
-                        this.stage = "window";
+                        
                         break;
                     }
                 case "window":
@@ -149,6 +145,13 @@ namespace PayDay.ViewModels
                         MainMenuModel mainMenuModel = new MainMenuModel(this.EventAggregator, username);
                         mainMenu.DataContext = mainMenuModel;
                         this.EventAggregator.GetEvent<MainMenuDataChangeEvent>().Publish(mainMenu);
+                        break;
+                    }
+                case "finish":
+                    {
+                        dispatcherTimer.Stop();
+                        this.stage = "window";
+                        this.Elo = this.newelo;
                         break;
                     }
             }

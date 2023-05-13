@@ -13,6 +13,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
+using System.Xml.Schema;
 
 namespace PayDay.ViewModels
 {
@@ -32,7 +34,7 @@ namespace PayDay.ViewModels
         /// <summary> The value for how much money is played. </summary>
         private int stake;
         private string winMoney;
-        private string color;
+        private Brush color;
         #endregion
 
 
@@ -49,13 +51,12 @@ namespace PayDay.ViewModels
             this.ButtonImgSourcetwo = "\\Pictures\\CasinoHerz.png";
             this.ButtonImgSourcethre = "\\Pictures\\paydayicon.png";
             this.RoleCasino = new ActionCommand(this.RoleCommandExecuted, this.RoleCommandCanExecute);
-            
             this.Game = new Game();
             this.Game = game;
             casinoRun = true;
             this.EventAggregator.GetEvent<BackButtonCanExecuteDataChangeEvent>().Publish(this.casinoRun);
-            this.Stake = 10;
-            this.CountRounds = 1;
+            this.stake = 10;
+            this.countRounds = 1;
         }
         #endregion
 
@@ -104,33 +105,25 @@ namespace PayDay.ViewModels
         /// <summary>
         /// Gets or sets stake of the slot machine.
         /// </summary>
-        public int Stake
+        public string Stake
         {
-            get { return this.stake; }
+            get { return this.stake.ToString(); }
             set 
             {
-                
-                if (casinoRun)
-                {
-                    this.stake = value;
-                }
-               
+                int.TryParse(value, out this.stake);
             }
         }
 
         /// <summary>
         /// Gets or sets CountRounds.
         /// </summary>
-        public int CountRounds
+        public string CountRounds
         {
-            get { return this.countRounds; }
-            set 
-            {
-                if(casinoRun)
-                {
-                    this.countRounds = value;
-                    this.OnPropertyChanged(nameof(this.CountRounds));
-                }
+            get { return this.countRounds.ToString(); }
+            set
+            { 
+                int.TryParse(value, out this.countRounds);
+                this.OnPropertyChanged(nameof(this.CountRounds));
                 
             }
         }
@@ -174,7 +167,7 @@ namespace PayDay.ViewModels
         /// </summary>
         public ICommand RoleCasino { get; private set; }
 
-        public string Color
+        public Brush Color
         {
             get { return this.color; }
             set
@@ -194,47 +187,45 @@ namespace PayDay.ViewModels
         {
             List<string> roles = new List<string>() { "/Pictures/Rolle2.gif", "/Pictures/gifrolle.gif", "/Pictures/Rolle3.gif"};
             double moneyWin;
-            for (int i = 0; i < this.CountRounds; i++)
+            Random random = new Random();
+            CasinoService casinoService = new CasinoService();
+            int count;
+            for (int i = 0; i < this.countRounds; i++)
             {
-                moneyWin = 0;
-                this.Game.Money -= this.Stake;
-                this.Game.Moneylose += this.Stake;
+                this.Game.EditMoney(-this.stake);
+                if (this.Game.GameEnd)
+                {
+                    break;
+                }
                 this.EventAggregator.GetEvent<GameDataChangeEvent>().Publish(this.Game);
-                this.CountRounds--;
                 this.WinMoney = "-" + Convert.ToString(this.Stake);
-                this.Color = "Red";
+                this.Color = Brushes.Red;
                 // Rolle the slot machine with a second thred. 
-                Random random = new Random();
-                int count = random.Next(3000, 10000);
+                count = random.Next(3000, 10000);
                 this.ButtonImgSourceone = roles[random.Next(0,3)];
                 this.ButtonImgSourcetwo = roles[random.Next(0, 3)];
                 this.ButtonImgSourcethre = roles[random.Next(0, 3)];
                 Thread.Sleep(count);
                 this.WinMoney = "";
-                CasinoService casinoService = new CasinoService();
-                CasinoService casinoService1 = new CasinoService();
+                
                 casinoService.CalculateWin(Game.WiningRateCasino, out List<string> list2);
-                moneyWin = casinoService.Win(list2, this.Stake,ref this.Game);
-                this.Game.Money += moneyWin;
-                this.Game.MoneyWin += moneyWin;
-                this.EventAggregator.GetEvent<GameDataChangeEvent>().Publish(this.Game);
+                moneyWin = casinoService.Win(list2, this.stake, ref this.Game);
                 ButtonImgSourceone = list2[0];
                 ButtonImgSourcetwo = list2[1];
                 ButtonImgSourcethre = list2[2];
                 if(moneyWin > 0)
                 {
+                    this.Game.EditMoney(moneyWin);
                     this.WinMoney = "+" + Convert.ToString(moneyWin);
-                    this.Color = "Green";
+                    this.Color = Brushes.Green;
                 }
-               
-                if(this.CountRounds > 1)
+                
+                this.EventAggregator.GetEvent<GameDataChangeEvent>().Publish(this.Game);
+                if (this.countRounds > 1)
                 {
                     Thread.Sleep(5000);
                 }
-                if (this.Game.GameEnd)
-                {
-                    break;
-                }
+                
             }
            
             this.CasinoRun = true;
@@ -263,7 +254,7 @@ namespace PayDay.ViewModels
         /// <returns><c>true</c> if the command can be executed otherwise <c>false</c>.</returns>
         private bool RoleCommandCanExecute(object parameter)
         {
-            if(this.Stake > 0)
+            if(this.stake > 0)
             {
                 return casinoRun;
             }
