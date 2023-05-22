@@ -10,7 +10,9 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="../ResourceDictionarys/SignInViewResourceDictionary.xaml"/>
+                <ResourceDictionary Source="../ResourceDictionarys/ButtonResourceDictionary.xaml"/>
+                <ResourceDictionary Source="../ResourceDictionarys/TextBoxResourceDictionary.xaml"/>
+                <ResourceDictionary Source="../ResourceDictionarys/TextBlockResourceDictionary.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
@@ -50,13 +52,12 @@
             </Border>
 
             <StackPanel Grid.Row="1" Margin="0,10,0,0">
-                <TextBlock Text="Username" HorizontalAlignment="Center" FontSize="20"/>
+                <TextBlock Text="Username"/>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                    <TextBox FontFamily="Helvetica" FontWeight="Light" Text="{Binding Path=Username, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="22" HorizontalAlignment="Center" Foreground="White"
-                         Background="Transparent" BorderThickness="0" Width="235" Opacity="0.5" Height="25" />
+                    <TextBox Style="{StaticResource SignInTextBox}" Text="{Binding Path=Username, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                 </StackPanel>
                 <Border Width="250" Height="2" Background="White" Opacity="0.5"/>
-                <TextBlock Text="Password" HorizontalAlignment="Center" FontSize="20" Margin="0,10,0,0"/>
+                <TextBlock Text="Password"/>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                     <components:BindablePasswordBox FontFamily="Helvetica" FontWeight="Light" Password="{Binding Path=Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  FontSize="22" HorizontalAlignment="Center" Foreground="White"
                          Background="Transparent" BorderThickness="0" Width="235" Opacity="0.5" Height="25" />
@@ -64,8 +65,8 @@
                 <Border Width="250" Height="2" Background="White" Opacity="0.5"/>
                 <CheckBox HorizontalAlignment="Center" Margin="0,10,150,0" IsChecked="{Binding Path=SaveLogIn}">Save LogIn</CheckBox>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,0">
-                    <Button Margin="0,0,10,0" Width="100" Height="50" Foreground="White" HorizontalAlignment="Center" Command="{Binding Path=LogInCommand}" >LogIn</Button>
-                    <Button Margin="10,0,0,0" Width="100" Height="50" Foreground="White" HorizontalAlignment="Center" Command="{Binding Path=RegisterCommand}" >Register</Button>
+                    <Button Margin="0,20,10,0" Style="{StaticResource SignIn}" Command="{Binding Path=LogInCommand}" >LogIn</Button>
+                    <Button Style="{StaticResource SignIn}" Command="{Binding Path=RegisterCommand}" >Register</Button>
                 </StackPanel>
 
 

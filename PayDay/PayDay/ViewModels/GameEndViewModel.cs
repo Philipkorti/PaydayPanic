@@ -20,18 +20,27 @@ namespace PayDay.ViewModels
     public class GameEndViewModel : ViewModelBase
     {
         #region ------------------------- Fields, Constants, Delegates, Events --------------------------------------------
+        /// <summary> The new elo of player. </summary>
         private int newelo;
+        /// <summary> The elo of the player. </summary>
         private int elo;
+        /// <summary> Username of player. </summary>
         string username;
+        /// <summary> Stage system. </summary>
         string stage;
+        /// <summary> Game round data. </summary>
         private Game game;
+        /// <summary> Rank upgrade dispacerTimer. </summary>
         private DispatcherTimer dispatcherTimer;
+        /// <summary> The picture of the player rank. </summary>
         private string rankPicture;
         #endregion
 
-
-
         #region ------------------------- Constructors, Destructors, Dispose, Clone ---------------------------------------
+        /// <summary>
+        /// Initialize a new instance of the <see cref="GameEndViewModel"/> class.
+        /// </summary>
+        /// <param name="game">game datas</param>
         public GameEndViewModel(IEventAggregator eventAggregator, Game game) : base(eventAggregator)
         {
             this.ButtonNext = new ActionCommand(this.NextCommandExecuted, this.NextCommandCanExecute);
@@ -43,11 +52,11 @@ namespace PayDay.ViewModels
         }
         #endregion
 
-
-
         #region ------------------------- Properties, Indexers ------------------------------------------------------------
+        /// <summary> Gets the mainmenu view button command. </summary>
         public ICommand ButtonNext { get; private set; }
 
+        /// <summary> Gets or sets the the player elo. </summary>
         public int Elo
         {
             get { return this.elo; }
@@ -58,6 +67,7 @@ namespace PayDay.ViewModels
             }
         }
 
+        /// <summary> Gets or sets the player rank picture. </summary>
         public string RankPicture
         {
             get { return this.rankPicture; }
@@ -69,10 +79,8 @@ namespace PayDay.ViewModels
         }
         #endregion
 
-
-
         #region ------------------------- Private helper ------------------------------------------------------------------
-
+        /// <summary> Caunt the new player elo. </summary>
         private void EloAdjustment(object sender, EventArgs e)
         {
             if (this.newelo > this.Elo)
@@ -91,22 +99,8 @@ namespace PayDay.ViewModels
                 this.stage = "window";
             }
         }
-
-        public void SaveData()
-        {
-            string rankurl = GameEndServices.RankUpgrade(this.newelo);
-            using (var context = new PayDayContext())
-            {
-                var items = context.Highscore.Where(f => f.User.UserName == game.Username).ToList();
-                var rank = context.Ranks.Where(f=> f.RankURL == rankurl).ToList();
-                items[0].Elo = this.newelo;
-                items[0].RankID = rank[0].Id;
-                context.SaveChanges();
-            }
-        }
+        
         #endregion
-
-
 
         #region ------------------------- Commands ------------------------------------------------------------------------
         /// <summary>
@@ -134,7 +128,7 @@ namespace PayDay.ViewModels
                         this.dispatcherTimer.Interval = TimeSpan.FromTicks(20);
                         this.dispatcherTimer.Tick += this.EloAdjustment;
                         this.dispatcherTimer.Start();
-                        SaveData();
+                        DataBaseService.SaveData(this.newelo, this.game);
                         GameEndServices.SaveDateaStatic(game);
                         
                         break;
@@ -158,7 +152,5 @@ namespace PayDay.ViewModels
            
         }
         #endregion
-
-
     }
 }

@@ -13,7 +13,11 @@ namespace Services.Services
 {
     public class CountGoldService
     {
-
+        /// <summary>
+        /// The price of gold is calculated.
+        /// </summary>
+        /// <param name="game">Game data</param>
+        /// <returns>Gold price</returns>
         public static Game GoldpriceCount(Game game)
         {
             Random random = new Random();
@@ -32,6 +36,10 @@ namespace Services.Services
             }
             return game;
         }
+        /// <summary>
+        /// The price of games is calculated.
+        /// </summary>
+        /// <param name="shopItems">List of shop items.</param>
         public static void GamePriceCalculate(ObservableCollection<ShopItems> shopItems)
         {
             Random random = new Random();

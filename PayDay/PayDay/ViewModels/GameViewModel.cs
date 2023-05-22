@@ -26,10 +26,15 @@ namespace PayDay.ViewModels
         private DispatcherTimer time;
 
         /// <summary>
-        /// DateTime to save the playtime.
+        /// The maximum game time.
         /// </summary>
         private DateTime datetime;
+
+        /// <summary>
+        /// The rest of the game time.
+        /// </summary>
         private DateTime dateTime;
+
         /// <summary>
         /// timeText is for the output the play time.
         /// </summary>
@@ -44,9 +49,16 @@ namespace PayDay.ViewModels
         /// Instance of the game class.
         /// </summary>
         private Game game;
+
+        /// <summary>
+        /// Instance of the gamebordview userconrol.
+        /// </summary>
         private GameBordView gameBordView;
+
+        /// <summary>
+        /// Whether the home button can be active.
+        /// </summary>
         private bool backButton;
-        private bool toolTip;
 
         #endregion
 
@@ -58,11 +70,11 @@ namespace PayDay.ViewModels
         public GameViewModel(IEventAggregator eventAggregator, Game game) : base(eventAggregator) 
         {
             this.Game = game;
-            TimerText = "15:00";
+            TimerText = "10:00";
             this.backButton= true;
             this.dateTime = new DateTime();
             time = new DispatcherTimer();
-            datetime= new DateTime(1,1,1,0,1,0);
+            datetime= new DateTime(1,1,1,0,10,0);
             time.Interval = TimeSpan.FromSeconds(1);
             time.Tick += TimerTick;
             time.Start();
@@ -92,15 +104,6 @@ namespace PayDay.ViewModels
                     this.OnPropertyChanged(nameof(TimerText));
                 }
                 
-            }
-        }
-        public bool ToolTip
-        {
-            get { return this.toolTip; }
-            set
-            {
-                this.toolTip = value;
-                this.OnPropertyChanged(nameof(this.ToolTip));
             }
         }
         
@@ -139,6 +142,9 @@ namespace PayDay.ViewModels
         #endregion
 
         #region ------------------------- Private helper ------------------------------------------------------------------
+        /// <summary>
+        /// Method for the game timer.
+        /// </summary>
         private void TimerTick(object sender, EventArgs e)
         {
             TimeSpan timeSpan = datetime - dateTime;
@@ -162,9 +168,17 @@ namespace PayDay.ViewModels
         {
             this.CurrentView = casinoView;
         }
+
         private void OnGameDataChanged(Game game)
         {
             this.Game = game;
+            if (this.Game.Money < 0)
+            {
+                GameEndView gameEndView = new GameEndView();
+                GameEndViewModel gameEndViewModel = new GameEndViewModel(this.EventAggregator, this.Game);
+                gameEndView.DataContext = gameEndViewModel;
+                this.EventAggregator.GetEvent<GameEndViewDataChangeEvent>().Publish(gameEndView);
+            }
         }
 
         private void OnShopViewChanged(ShopView shopView)

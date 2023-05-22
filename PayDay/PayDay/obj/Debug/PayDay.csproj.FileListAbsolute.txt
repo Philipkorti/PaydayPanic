@@ -31,10 +31,8 @@ C:\Users\phili\OneDrive - HTBLuVA Mödling\Schule\3.Klasse\2.Semester\POS\POS Pr
 C:\Users\phili\OneDrive - HTBLuVA Mödling\Schule\3.Klasse\2.Semester\POS\POS Projekt\PaydayPanic\PayDay\PayDay\obj\Debug\Views\MainMenu.baml
 C:\Users\phili\OneDrive - HTBLuVA Mödling\Schule\3.Klasse\2.Semester\POS\POS Projekt\PaydayPanic\PayDay\PayDay\obj\Debug\Views\GameView.g.cs
 C:\Users\phili\OneDrive - HTBLuVA Mödling\Schule\3.Klasse\2.Semester\POS\POS Projekt\PaydayPanic\PayDay\PayDay\obj\Debug\Views\GameView.baml
-C:\Users\phili\OneDrive - HTBLuVA Mödling\Schule\3.Klasse\2.Semester\POS\POS Projekt\PaydayPanic\PayDay\PayDay\obj\Debug\ResourceDictionarys\MainMenuResourceDictionary.baml
 C:\Users\phili\OneDrive - HTBLuVA Mödling\Schule\3.Klasse\2.Semester\POS\POS Projekt\PaydayPanic\PayDay\PayDay\obj\Debug\Views\SignInView.g.cs
 C:\Users\phili\OneDrive - HTBLuVA Mödling\Schule\3.Klasse\2.Semester\POS\POS Projekt\PaydayPanic\PayDay\PayDay\obj\Debug\Views\SignInView.baml
-C:\Users\phili\OneDrive - HTBLuVA Mödling\Schule\3.Klasse\2.Semester\POS\POS Projekt\PaydayPanic\PayDay\PayDay\obj\Debug\ResourceDictionarys\SignInViewResourceDictionary.baml
 C:\Users\phili\OneDrive - HTBLuVA Mödling\Schule\3.Klasse\2.Semester\POS\POS Projekt\PaydayPanic\PayDay\PayDay\obj\Debug\Views\LogInView.g.cs
 C:\Users\phili\OneDrive - HTBLuVA Mödling\Schule\3.Klasse\2.Semester\POS\POS Projekt\PaydayPanic\PayDay\PayDay\obj\Debug\Views\LogInView.baml
 C:\Users\phili\OneDrive - HTBLuVA Mödling\Schule\3.Klasse\2.Semester\POS\POS Projekt\PaydayPanic\PayDay\PayDay\obj\Debug\Components\BindablePasswordBox.g.cs
@@ -52,6 +50,12 @@ C:\Users\phili\OneDrive - HTBLuVA Mödling\Schule\3.Klasse\2.Semester\POS\POS Pr
 C:\Users\phili\OneDrive - HTBLuVA Mödling\Schule\3.Klasse\2.Semester\POS\POS Projekt\PaydayPanic\PayDay\PayDay\obj\Debug\App.baml
 C:\Users\phili\OneDrive - HTBLuVA Mödling\Schule\3.Klasse\2.Semester\POS\POS Projekt\PaydayPanic\PayDay\PayDay\obj\Debug\Views\HighscoreVew.g.cs
 C:\Users\phili\OneDrive - HTBLuVA Mödling\Schule\3.Klasse\2.Semester\POS\POS Projekt\PaydayPanic\PayDay\PayDay\obj\Debug\Views\HighscoreVew.baml
-C:\Users\phili\OneDrive - HTBLuVA Mödling\Schule\3.Klasse\2.Semester\POS\POS Projekt\PaydayPanic\PayDay\PayDay\obj\Debug\ResourceDictionarys\DataGrid.baml
 C:\Users\phili\OneDrive - HTBLuVA Mödling\Schule\3.Klasse\2.Semester\POS\POS Projekt\PaydayPanic\PayDay\PayDay\obj\Debug\Views\GameEndView.g.cs
 C:\Users\phili\OneDrive - HTBLuVA Mödling\Schule\3.Klasse\2.Semester\POS\POS Projekt\PaydayPanic\PayDay\PayDay\obj\Debug\Views\GameEndView.baml
+C:\Users\phili\OneDrive - HTBLuVA Mödling\Schule\3.Klasse\2.Semester\POS\POS Projekt\PaydayPanic\PayDay\PayDay\obj\Debug\ResourceDictionarys\TextBlockResourceDictionary.baml
+C:\Users\phili\OneDrive - HTBLuVA Mödling\Schule\3.Klasse\2.Semester\POS\POS Projekt\PaydayPanic\PayDay\PayDay\obj\Debug\ResourceDictionarys\TextBoxResourceDictionary.baml
+C:\Users\phili\OneDrive - HTBLuVA Mödling\Schule\3.Klasse\2.Semester\POS\POS Projekt\PaydayPanic\PayDay\PayDay\obj\Debug\ResourceDictionarys\DataGrid.baml
+C:\Users\phili\OneDrive - HTBLuVA Mödling\Schule\3.Klasse\2.Semester\POS\POS Projekt\PaydayPanic\PayDay\PayDay\obj\Debug\ResourceDictionarys\PolygonResourceDictionary.baml
+C:\Users\phili\OneDrive - HTBLuVA Mödling\Schule\3.Klasse\2.Semester\POS\POS Projekt\PaydayPanic\PayDay\PayDay\obj\Debug\Views\StatisticsView.g.cs
+C:\Users\phili\OneDrive - HTBLuVA Mödling\Schule\3.Klasse\2.Semester\POS\POS Projekt\PaydayPanic\PayDay\PayDay\obj\Debug\Views\StatisticsView.baml
+C:\Users\phili\OneDrive - HTBLuVA Mödling\Schule\3.Klasse\2.Semester\POS\POS Projekt\PaydayPanic\PayDay\PayDay\obj\Debug\ResourceDictionarys\TabControlResourceDictionary.baml

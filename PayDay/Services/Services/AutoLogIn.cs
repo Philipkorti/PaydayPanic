@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Data;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -10,18 +11,20 @@ namespace Services.Services
 {
     public class AutoLogIn
     {
+        /// <summary>
+        /// Create a new auto login file.
+        /// </summary>
+        /// <param name="username">User username</param>
+        /// <param name="password">User password</param>
         public static void CreateFile(string username, string password)
         {
-            string path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\PayDay";
-            string file = path + "\\login.txt";
-
-            if (!Directory.Exists(path))
+            if (!Directory.Exists(ConstData.Path))
             {
-                Directory.CreateDirectory(path);
+                Directory.CreateDirectory(ConstData.Path);
             }
-            if (!File.Exists(file))
+            if (!File.Exists(ConstData.File))
             {
-                using (FileStream fileStream = File.Create(file))
+                using (FileStream fileStream = File.Create(ConstData.File))
                 {
                     byte[] usernamebyte = new UTF8Encoding(true).GetBytes(username);
                     byte[] passwordbyte = new UTF8Encoding(true).GetBytes(password);
@@ -34,12 +37,14 @@ namespace Services.Services
             }
         }
 
+        /// <summary>
+        /// Auto login.
+        /// </summary>
+        /// <param name="userinfo">User informaion.</param>
         public static void ReadLogIn(out List<string> userinfo)
         {
             userinfo = new List<string>();
-            string path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\PayDay";
-            string file = path + "\\login.txt";
-            using (StreamReader sr = new StreamReader(file))
+            using (StreamReader sr = new StreamReader(ConstData.File))
             {
                while(!sr.EndOfStream)
                {

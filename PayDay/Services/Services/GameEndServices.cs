@@ -43,7 +43,7 @@ namespace Services.Services
             }
             moneywin = (game.MoneyWin - averageMonyWin);
             moneylose = (game.MoneyLose - averageMonyLose);
-            money = ((moneywin - moneylose) / 8);
+            money = ((moneywin - moneylose) / 10);
             newelo = elo + Convert.ToInt32(Math.Round(money, 0));
             newelo = newelo < 0 ? 0 : newelo;
             return newelo;

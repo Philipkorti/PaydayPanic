@@ -15,6 +15,8 @@
         <Setter Property="HorizontalAlignment" Value="Center"/>
         <Setter Property="CanUserSortColumns" Value="False"/>
         <Setter Property="IsManipulationEnabled" Value="False"/>
+        <Setter Property="Background" Value="White"/>
+        <Setter Property="Focusable" Value="False"/>
     </Style>
     <Style x:Key="HederDataGridRechnung" TargetType="DataGridColumnHeader">
         <Setter Property="Background" Value="Transparent"/>

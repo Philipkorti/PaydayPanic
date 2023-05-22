@@ -8,7 +8,7 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <ScrollViewer>
-            <TextBlock Foreground="White" TextWrapping="Wrap" FontSize="25">
+            <TextBlock Foreground="Black" Background="White" Opacity="0.7" TextWrapping="Wrap" FontSize="25" Margin="0 0 0 0">
                 Willkommen bei PayDay Panic.<LineBreak/><LineBreak/>
 
             In diesem Spiel ist es die Hauptaufgabe so viel Geld zuverdienen wie es geht.

@@ -47,16 +47,21 @@ namespace PayDay.ViewModels
         /// </summary>
         private int userLength;
 
+        /// <summary>
+        /// Is signin loading.
+        /// </summary>
         private bool isLoading;
 
         /// <summary>
         /// Gets the signin button command.
         /// </summary>
         public ICommand SignIn { get; private set; }
+
+        /// <summary>
+        /// Is signin successful
+        /// </summary>
         private bool isSignIn;
         #endregion
-
-
 
         #region ------------------------- Constructors, Destructors, Dispose, Clone ---------------------------------------
         /// <summary>
@@ -69,8 +74,6 @@ namespace PayDay.ViewModels
             UserLength = ConstData.StringLengh;
         }
         #endregion
-
-
 
         #region ------------------------- Properties, Indexers ------------------------------------------------------------
         /// <summary>
@@ -127,6 +130,9 @@ namespace PayDay.ViewModels
             set { this.userLength = value; }
         }
 
+        /// <summary>
+        /// Gets or sets is loading.
+        /// </summary>
         public bool IsLoading
         {
             get { return this.isLoading; }
@@ -141,10 +147,11 @@ namespace PayDay.ViewModels
         }
         #endregion
 
-
-
-       #region ------------------------- Private helper ------------------------------------------------------------------
-       private void DataBaseConect(object sender, DoWorkEventArgs e)
+        #region ------------------------- Private helper ------------------------------------------------------------------
+        /// <summary>
+        /// Is the method for registration.
+        /// </summary>
+        private void DataBaseConect(object sender, DoWorkEventArgs e)
         {
             IsLoading = true;
             bool check = true;
@@ -164,7 +171,9 @@ namespace PayDay.ViewModels
                 MessageBox.Show("Welcome to PayDay Panic!", "Register", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
-
+        /// <summary>
+        /// Forwards to the next view.
+        /// </summary>
         private void DataBaseConectEnd(object sender, RunWorkerCompletedEventArgs e) 
         {
             if (isSignIn)
@@ -177,8 +186,7 @@ namespace PayDay.ViewModels
         }
         #endregion
        
-
-           #region ------------------------- Commands ------------------------------------------------------------------------
+        #region ------------------------- Commands ------------------------------------------------------------------------
         /// <summary>
         /// Determines wheter the students view command can be executed.
         /// </summary>

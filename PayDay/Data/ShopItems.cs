@@ -1,24 +1,29 @@
 ﻿using Common.Command.NotifyPropertyChanged;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Data
 {
-   
+
     public class ShopItems : NotifyPropertyChanged
     {
+        #region ------------------------- Fields, Constants, Delegates, Events --------------------------------------------
+        /// <summary> The number of products in stock. </summary>
         private int inStock;
+        /// <summary> The price of the products. </summary>
         private double price;
+        #endregion
+
+        #region ------------------------- Properties, Indexers ------------------------------------------------------------
+        /// <summary> Gets or sets the itemID. </summary>
         public int ItemID { get; set; }
 
+        /// <summary> Gets or sets the PictureURL of the product. </summary>
         public string PictureURL { get; set; }
 
+        /// <summary> Gets or sets the title of the product. </summary>
         public string Title { get; set; }
 
+        /// <summary> Gets or sets the price of the product. </summary>
         public double Price 
         { 
             get 
@@ -32,6 +37,7 @@ namespace Data
             } 
         }
 
+        /// <summary> Gets or sets the number of products in stock. </summary>
         public int InStock 
         {
             get { return inStock; }
@@ -41,5 +47,6 @@ namespace Data
                 this.OnPropertyChanged(nameof(InStock));
             }
         }
+        #endregion
     }
 }

@@ -26,15 +26,32 @@ namespace PayDay.ViewModels
     public class ShopViewModel : ViewModelBase
     {
         #region ------------------------- Fields, Constants, Delegates, Events --------------------------------------------
+        /// <summary>
+        /// List of items from the shop.
+        /// </summary>
         private ObservableCollection<ShopItems> shopItems;
-        private PointCollection points;
+        /// <summary>
+        /// The amount of gold the player has.
+        /// </summary>
         private int goldCount;
+        /// <summary>
+        /// Game data.
+        /// </summary>
         private Game game;
+        /// <summary>
+        /// The color for the text.
+        /// </summary>
         private Brush color;
 
         #endregion
 
         #region ------------------------- Constructors, Destructors, Dispose, Clone ---------------------------------------
+        /// <summary>
+        /// Initialize a new instance of the <see cref="ShopViewModel"/> class.
+        /// </summary>
+        /// <param name="roundRobinCollection">List of points for the gold price graph.</param>
+        /// <param name="game">Game data</param>
+        /// <param name="shopItems">List of items from the shop.</param>
         public ShopViewModel(IEventAggregator eventAggregator, RoundRobinCollection roundRobinCollection, Game game, ObservableCollection<ShopItems> shopItems) : base(eventAggregator) 
         {
             this.EventAggregator.GetEvent<GameDataChangeEvent>().Subscribe(this.OnGameDataChange, ThreadOption.UIThread);
@@ -42,13 +59,12 @@ namespace PayDay.ViewModels
             this.ShopItems = new ObservableCollection<ShopItems>();
            this.ShopItems = shopItems;
             this.BuyCommand = new ActionCommand(this.BuyCommandExecuted, this.BuyCommandCanExecute);
-            this.SellCommand = new ActionCommand(this.SellCommandExecuted, this.BuyCommandCanExecute);
+            this.SellCommand = new ActionCommand(this.SellCommandExecuted, this.SellCommandCanExecute);
             this.BuyGameCommand = new ActionCommand(this.BuyGameCommandExecuted, this.BuyGameCommandCanExecute);
             this.SellGameCommand = new ActionCommand(this.SellGameCommandExecuted, this.SellGameCommandCanExecute);
-            this.SellMaxCommand = new ActionCommand(this.SellMaxCommandExecuted, this.BuyCommandCanExecute);
+            this.SellMaxCommand = new ActionCommand(this.SellMaxCommandExecuted, this.SellCommandCanExecute);
             this.BuyMaxCommand = new ActionCommand(this.BuyMaxCommandExecuted, this.BuyCommandCanExecute);
             this.Game = game;
-            this.Points = points;
             ProcessorTime = new RoundRobinCollection(100);
             ProcessorTime = roundRobinCollection;
             this.Color = Brushes.Red;
@@ -57,7 +73,14 @@ namespace PayDay.ViewModels
         #endregion
 
         #region ------------------------- Properties, Indexers ------------------------------------------------------------
+        /// <summary>
+        /// Gets the list of points for the gold price graph.
+        /// </summary>
         public RoundRobinCollection ProcessorTime { get; }
+
+        /// <summary>
+        /// Gets or sets the List of items from the shop.
+        /// </summary>
         public ObservableCollection<ShopItems> ShopItems
         {
             get { return this.shopItems; }
@@ -67,41 +90,57 @@ namespace PayDay.ViewModels
             }
         }
 
-        public PointCollection Points
-        {
-            get { return this.points; }
-            set
-            {
-                this.points = value;
-                this.OnPropertyChanged(nameof(this.Points));
-            }
-        }
+        /// <summary>
+        /// Gets the buy game button.
+        /// </summary>
         public ICommand BuyGameCommand
         {
             get; private set;
         }
+
+        /// <summary>
+        /// Gets the sell game button.
+        /// </summary>
         public ICommand SellGameCommand
         {
             get; private set;
         }
+
+        /// <summary>
+        /// Gets the buy gold button.
+        /// </summary>
         public ICommand BuyCommand
         {
             get; private set;
         }
 
+        /// <summary>
+        /// Gets the sell gold button.
+        /// </summary>
         public ICommand SellCommand
         {
             get; private set;
         }
+
+        /// <summary>
+        /// Gets the sell max gold button.
+        /// </summary>
         public ICommand SellMaxCommand
         {
             get; private set;
         }
+
+        /// <summary>
+        /// Gets the buy max gold button.,
+        /// </summary>
         public ICommand BuyMaxCommand
         {
             get; private set;
         }
 
+        /// <summary>
+        /// Gets or sets the game data.
+        /// </summary>
         public Game Game
         {
             get { return this.game; }
@@ -120,6 +159,10 @@ namespace PayDay.ViewModels
 
             }
         }
+
+        /// <summary>
+        /// Gets or sets the gold that the player has.
+        /// </summary>
         public string GoldCount
         {
             get { return this.goldCount.ToString(); }
@@ -129,6 +172,9 @@ namespace PayDay.ViewModels
             }
         }
 
+        /// <summary>
+        /// Gets or sets the color of the text.
+        /// </summary>
         public Brush Color
         {
             get
@@ -161,7 +207,7 @@ namespace PayDay.ViewModels
 
         #region ------------------------- Commands ------------------------------------------------------------------------
         /// <summary>
-        /// Determines wheter the rolle slot machine can be executed.
+        /// Determines wheter buy gold can be executed.
         /// </summary>
         /// <param name="parameter">Data used by the commsnd.</param>
         /// <returns><c>true</c> if the command can be executed otherwise <c>false</c>.</returns>
@@ -170,26 +216,33 @@ namespace PayDay.ViewModels
             return true;
 
         }
+
         /// <summary>
-        /// Ocures when the user clicks the rolle button.
+        /// Determines wheter sell gold can be executed.
+        /// </summary>
+        /// <param name="parameter">Data used by the command</param>
+        /// <returns><c>true</c> if the command can be executed otherwise <c>false</c></returns>
+        private bool SellCommandCanExecute(object parameter)
+        {
+            if(this.Game.Gold > 0)
+            {
+                return true;
+            }
+            return false;
+
+        }
+        /// <summary>
+        /// Ocures when the user clicks the buy button.
         /// </summary>
         /// <param name="parameter">Data use by the command.</param>
         private void BuyCommandExecuted(object parameter)
         {
-            this.Game.Gold = this.Game.Gold + this.goldCount;
-            this.Game.EditMoney(-(this.goldCount * this.Game.GoldPrice));
-            if (this.Game.Money < 0)
-            {
-                GameEndView gameEndView = new GameEndView();
-                GameEndViewModel gameEndViewModel = new GameEndViewModel(this.EventAggregator, this.Game);
-                gameEndView.DataContext = gameEndViewModel;
-                this.EventAggregator.GetEvent<GameEndViewDataChangeEvent>().Publish(gameEndView);
-            }
+            this.Game.BuyGold(goldCount);
             this.EventAggregator.GetEvent<GameDataChangeEvent>().Publish(this.Game);
         }
 
         /// <summary>
-        /// Determines wheter the rolle slot machine can be executed.
+        /// Determines wheter buy game can be executed.
         /// </summary>
         /// <param name="parameter">Data used by the commsnd.</param>
         /// <returns><c>true</c> if the command can be executed otherwise <c>false</c>.</returns>
@@ -209,7 +262,7 @@ namespace PayDay.ViewModels
 
         }
         /// <summary>
-        /// Ocures when the user clicks the rolle button.
+        /// Ocures when the user clicks the buy game button.
         /// </summary>
         /// <param name="parameter">Data use by the command.</param>
         private void BuyGameCommandExecuted(object parameter)
@@ -221,21 +274,14 @@ namespace PayDay.ViewModels
                     this.Game.EditMoney(-item.Price);
                     this.Game.Items.Add(item);
                     item.InStock--;
-                    
+                    DataBaseService.BuyGamePlusDatabase(this.Game, item.Price);
                     this.EventAggregator.GetEvent<GameDataChangeEvent>().Publish(this.Game);
                 }
-            }
-            if (this.Game.Money < 0)
-            {
-                GameEndView gameEndView = new GameEndView();
-                GameEndViewModel gameEndViewModel = new GameEndViewModel(this.EventAggregator, this.Game);
-                gameEndView.DataContext = gameEndViewModel;
-                this.EventAggregator.GetEvent<GameEndViewDataChangeEvent>().Publish(gameEndView);
             }
         }
 
         /// <summary>
-        /// Ocures when the user clicks the rolle button.
+        /// Ocures when the user clicks the sell gold button.
         /// </summary>
         /// <param name="parameter">Data use by the command.</param>
         private void SellCommandExecuted(object parameter)
@@ -253,6 +299,11 @@ namespace PayDay.ViewModels
            
         }
 
+        /// <summary>
+        ///  Determines wheter sell game can be executed.
+        /// </summary>
+        /// <param name="parameter">Data use by the command.</param>
+        /// <returns><c>true</c> if the command can be executed otherwise <c>false</c></returns>
         private bool SellGameCommandCanExecute(object parameter)
         {
             foreach(var item in this.Game.Items)
@@ -266,7 +317,7 @@ namespace PayDay.ViewModels
 
         }
         /// <summary>
-        /// Ocures when the user clicks the rolle button.
+        /// Ocures when the user clicks the sell button.
         /// </summary>
         /// <param name="parameter">Data use by the command.</param>
         private void SellGameCommandExecuted(object parameter)
@@ -282,12 +333,17 @@ namespace PayDay.ViewModels
                         {
                             item.InStock++;
                         }
+                        DataBaseService.SellGamePlusDatabase(this.Game, item.Price);
                     }
                     this.Game.Items.RemoveAt(i);
                     this.EventAggregator.GetEvent<GameDataChangeEvent>().Publish(this.Game);
                 }
             }
         }
+        /// <summary>
+        /// Ocures when the user clicks the sell max button.
+        /// </summary>
+        /// <param name="parameter">Data use by the command.</param>
         private void SellMaxCommandExecuted(object parameter)
         {
             this.Game.EditMoney(this.Game.Gold * this.Game.GoldPrice);
@@ -295,14 +351,23 @@ namespace PayDay.ViewModels
             this.EventAggregator.GetEvent<GameDataChangeEvent>().Publish(this.Game);
         }
 
+        /// <summary>
+        /// Ocures when the user clicks the buy max button.
+        /// </summary>
+        /// <param name="parameter">Data use by the command</param>
         private void BuyMaxCommandExecuted(object parameter)
         {
-            do
+            //int buygold = Convert.ToInt32(Math.Abs(this.Game.Money / this.Game.GoldPrice));
+            //buygold--;
+            int buygold = (int)Math.Floor(this.Game.Money / this.Game.GoldPrice);
+            if (buygold > 0)
             {
-                this.Game.Gold = this.Game.Gold + 1;
-                this.Game.EditMoney(-this.Game.GoldPrice);
+                double losemoney = buygold * this.Game.GoldPrice;
+                this.Game.Gold = buygold;
+                this.Game.EditMoney(-(losemoney));
                 this.EventAggregator.GetEvent<GameDataChangeEvent>().Publish(this.Game);
-            } while(this.Game.Money - this.Game.GoldPrice >= 0);
+            }
+            
         }
         #endregion
     }

@@ -12,12 +12,16 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="../ResourceDictionarys/DataGrid.xaml"/>
+                <ResourceDictionary Source="../ResourceDictionarys/ButtonResourceDictionary.xaml"/>
+                <ResourceDictionary Source="../ResourceDictionarys/TextBoxResourceDictionary.xaml"/>
+                <ResourceDictionary Source="../ResourceDictionarys/PolygonResourceDictionary.xaml"/>
+                <ResourceDictionary Source="../ResourceDictionarys/TabControlResourceDictionary.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             <Converter:PolygonConverter x:Key="PolygonConverter"/>
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid>
-        <TabControl >
+        <TabControl>
             <TabItem Header="Games">
                 <Grid>
                     <Grid.RowDefinitions>
@@ -51,13 +55,20 @@
                                             </StackPanel>
                                             <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Center">
                                                 <Border BorderBrush="White" CornerRadius="100" BorderThickness="1">
-                                                    <Button Width="50" Height="50" Background="Green" FontSize="25" FontWeight="Heavy" Foreground="White" Command="{Binding Path=DataContext.BuyGameCommand,RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" Content="Buy" CommandParameter="{Binding ItemID}" x:Name="ShowVehicleButton" Margin="10,10"></Button>
+                                                    <Button Style="{StaticResource BuyButton}" Command="{Binding Path=DataContext.BuyGameCommand,RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" Content="Buy" CommandParameter="{Binding ItemID}"></Button>
                                                 </Border>
+                                                <StackPanel VerticalAlignment="Center">
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">Lager:</TextBlock>
+                                                        <TextBlock Text="{Binding InStock, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                                                    </StackPanel>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">Price:</TextBlock>
+                                                        <TextBlock Text="{Binding Price, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                                                    </StackPanel>
+                                                </StackPanel>
                                                 
-                                                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">Lager:</TextBlock>
-                                                <TextBlock Text="{Binding InStock, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" Margin="10,0,0,0"/>
-                                                <TextBlock Text="{Binding Price, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" Margin="10,0,0,0"/>
-                                                <Button Width="50" Height="50" Command="{Binding Path=DataContext.SellGameCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" Content="Sell" CommandParameter="{Binding ItemID}" Margin="50,0,0,0"/>
+                                                <Button Style="{StaticResource SellButton}" Command="{Binding Path=DataContext.SellGameCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" Content="Sell" CommandParameter="{Binding ItemID}"/>
                                             </StackPanel>
                                             
                                         </Grid>
@@ -87,7 +98,7 @@
                     </Grid.ColumnDefinitions>
                     <Border Margin="5" Grid.Row="0" Grid.RowSpan="5" BorderThickness="1" BorderBrush="White" SnapsToDevicePixels="True">
                         <Canvas ClipToBounds="True" Background="LightBlue">
-                            <Polygon Stroke = "Black" Margin="2.5,5,0,2" StrokeThickness="4" Fill="AliceBlue" >
+                            <Polygon Stroke="Black" StrokeThickness="4" Margin="2.5,5,0,2" Fill="AliceBlue">
                                 <Polygon.Resources>
                                     <Style TargetType="Polygon">
                                         <Setter Property="Points">
@@ -111,17 +122,20 @@
                     <TextBlock Grid.Column="1" Grid.Row="0" FontSize="25" VerticalAlignment="Top" HorizontalAlignment="Center">100</TextBlock>
                     <StackPanel Grid.Column="2" Grid.Row="2" Grid.RowSpan="2">
                         <TextBlock FontSize="25" HorizontalAlignment="Center">Gold Price</TextBlock>
-                        <TextBlock FontSize="25" Text="{Binding Path=Game.GoldPrice, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Foreground="{Binding Color, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center"/>
+                        <TextBlock FontSize="30" Text="{Binding Path=Game.GoldPrice, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Foreground="{Binding Color, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center"/>
                     </StackPanel>
-                    <StackPanel Grid.Row="6" Orientation="Horizontal" HorizontalAlignment="Center">
+                    <StackPanel Grid.Row="6" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.ColumnSpan="3">
                         <StackPanel>
-                            <Button Margin="10" Height="20" Width="200" Command="{Binding Path=BuyCommand}" Background="Green" Foreground="White">Buy</Button>
-                            <Button Margin="10" Height="20" Background="Green" Command="{Binding Path=BuyMaxCommand}" Foreground="White">Max Buy</Button>
+                            <Button Style="{StaticResource BuyButton}" Width="200" Command="{Binding Path=BuyCommand}">Buy</Button>
+                            <Button Style="{StaticResource BuyButton}" Width="200" Command="{Binding Path=BuyMaxCommand}">Max Buy</Button>
                         </StackPanel>
-                        <TextBox Width="200" Text="{Binding Path=GoldCount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                        <Border Height="60" CornerRadius="10" BorderBrush="Black" BorderThickness="1" VerticalAlignment="Center">
+                            <TextBox Style="{StaticResource Gold}" Text="{Binding Path=GoldCount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                        </Border>
+                        
                         <StackPanel>
-                            <Button Margin="10" Height="20" Width="200" Command="{Binding Path=SellCommand}" Background="Red" Foreground="White">Sell</Button>
-                            <Button Margin="10" Height="20" Background="Red" Command="{Binding Path=SellMaxCommand}" Foreground="White">Max Sell</Button>
+                            <Button Style="{StaticResource SellButton}" HorizontalContentAlignment="Center" Width="200" Command="{Binding Path=SellCommand}">Sell</Button>
+                            <Button Style="{StaticResource SellButton}" HorizontalContentAlignment="Center" Width="200" Command="{Binding Path=SellMaxCommand}">Max Sell</Button>
                         </StackPanel>
                     </StackPanel>
                     

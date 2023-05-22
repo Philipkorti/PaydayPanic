@@ -9,7 +9,7 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="../ResourceDictionarys/MainMenuResourceDictionary.xaml"/>
+                <ResourceDictionary Source="../ResourceDictionarys/ButtonResourceDictionary.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
@@ -18,9 +18,9 @@
             <ImageBrush ImageSource="\Pictures\background.jpg"/>
         </DockPanel.Background>
         <StackPanel Orientation="Vertical" Margin="20" DockPanel.Dock="Left" VerticalAlignment="Center">
-            <Button Margin="10,0,0,0" Command="{Binding Path=PlayCommand}">Play</Button>
-            <Button Margin="10,0,0,0" Command="{Binding Path=ExitCommand}">Exit</Button>
-            <Button Margin="10,0,0,0" Command="{Binding Path=LogOutCommand}" FontSize="25">LogOut</Button>
+            <Button Style="{StaticResource MainMenu}" Command="{Binding Path=PlayCommand}">Play</Button>
+            <Button Style="{StaticResource MainMenu}" Command="{Binding Path=ExitCommand}">Exit</Button>
+            <Button Style="{StaticResource MainMenu}" Command="{Binding Path=LogOutCommand}" FontSize="25">LogOut</Button>
         </StackPanel>
         <Grid>
             <Grid.RowDefinitions>
@@ -28,8 +28,9 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <StackPanel Orientation="Horizontal">
-                <Button FontSize="30" Command="{Binding Path=RulleCommand}">Rules</Button>
-                <Button FontSize="30" Command="{Binding Path=TopPlayerCommand}">Top 20</Button>
+                <Button FontSize="30" Margin="10" Style="{StaticResource MainMenu}" Command="{Binding Path=RulleCommand}">Rules</Button>
+                <Button FontSize="30" Margin="10" Style="{StaticResource MainMenu}" Command="{Binding Path=TopPlayerCommand}">Top 20</Button>
+                <Button FontSize="30" Margin="10" Style="{StaticResource MainMenu}" Command="{Binding Path=StatisticsCommand}">Statistics</Button>
             </StackPanel>
             <Border Grid.Row="1" BorderBrush="White" BorderThickness="1" Margin="10">
                 <ContentControl Content="{Binding Path=ViewLeft}"/>

@@ -27,10 +27,10 @@
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Button Height="60" Width="60" VerticalAlignment="Top"  Grid.Row="1" x:Name="Casino" Command="{Binding Path=CasinoCommand}">
+        <Button VerticalAlignment="Top"  Grid.Row="1" x:Name="Casino" Command="{Binding Path=CasinoCommand}">
             <Image Source="\Pictures\Casino.jpg"/>
         </Button>
-        <Button Height="60" Width="60" Grid.Column="1" Grid.Row="2" Command="{Binding Path=ShopCommand}">
+        <Button Grid.Column="1" Grid.Row="2" Command="{Binding Path=ShopCommand}">
             <Image Source="\Pictures\shopping-icon.png"/>
         </Button>
     </Grid>

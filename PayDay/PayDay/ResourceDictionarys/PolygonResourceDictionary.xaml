@@ -1,0 +1,9 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Style TargetType="Polygon" x:Key="GoldPoly">
+        <Setter Property="Stroke" Value="Black"/>
+        <Setter Property="Margin" Value="2.5,5,0,2"/>
+        <Setter Property="StrokeThickness" Value="4"/>
+        <Setter Property="Fill" Value="AliceBlue"/>
+    </Style>
+</ResourceDictionary>

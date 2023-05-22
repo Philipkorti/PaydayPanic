@@ -57,9 +57,9 @@
   <ItemGroup>
     <Compile Include="ConstData.cs" />
     <Compile Include="Context\PayDayContext.cs" />
-    <Compile Include="Migrations\202305081020555_InitialCreate.cs" />
-    <Compile Include="Migrations\202305081020555_InitialCreate.designer.cs">
-      <DependentUpon>202305081020555_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\202305191536163_InitialCreate.cs" />
+    <Compile Include="Migrations\202305191536163_InitialCreate.designer.cs">
+      <DependentUpon>202305191536163_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Casino.cs" />
@@ -76,8 +76,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202305081020555_InitialCreate.resx">
-      <DependentUpon>202305081020555_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202305191536163_InitialCreate.resx">
+      <DependentUpon>202305191536163_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

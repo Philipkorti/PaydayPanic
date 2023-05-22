@@ -1,0 +1,77 @@
+﻿<UserControl x:Class="PayDay.Views.StatisticsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PayDay.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <ScrollViewer Background="White" Opacity="0.7">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <StackPanel>
+                    <TextBlock Margin="30" FontSize="30">Rank: </TextBlock>
+                    <Border BorderBrush="Black" BorderThickness="1"/>
+                    <TextBlock Margin="30" FontSize="30">Elo:</TextBlock>
+                    <Border BorderBrush="Black" BorderThickness="1"/>
+                    <TextBlock Margin="30" FontSize="30">Games count:</TextBlock>
+                    <Border BorderBrush="Black" BorderThickness="1"/>
+                    <TextBlock Margin="30" FontSize="30">Game money win:</TextBlock>
+                    <Border BorderBrush="Black" BorderThickness="1"/>
+                    <TextBlock Margin="30" FontSize="30">Game money loose:</TextBlock>
+                    <Border BorderBrush="Black" BorderThickness="1"/>
+                    <TextBlock Margin="30" FontSize="30">Count games bought:</TextBlock>
+                    <Border BorderBrush="Black" BorderThickness="1"/>
+                    <TextBlock Margin="30" FontSize="30">Count games sold:</TextBlock>
+                    <Border BorderBrush="Black" BorderThickness="1"/>
+                    <TextBlock Margin="30" FontSize="30">Output money:</TextBlock>
+                    <Border BorderBrush="Black" BorderThickness="1"/>
+                    <TextBlock Margin="30" FontSize="30">Input money:</TextBlock>
+                    <Border BorderBrush="Black" BorderThickness="1"/>
+                    <TextBlock Margin="30" FontSize="30">Casino count:</TextBlock>
+                    <Border BorderBrush="Black" BorderThickness="1"/>
+                    <TextBlock Margin="30" FontSize="30">Casino Wins:</TextBlock>
+                    <Border BorderBrush="Black" BorderThickness="1"/>
+                    <TextBlock Margin="30" FontSize="30">Seven wins:</TextBlock>
+                    <Border BorderBrush="Black" BorderThickness="1"/>
+                    <TextBlock Margin="30" FontSize="30">Heart wins:</TextBlock>
+                    <Border BorderBrush="Black" BorderThickness="1"/>
+                    <TextBlock Margin="30" FontSize="30">Money bag wins:</TextBlock>
+                </StackPanel>
+                <StackPanel Grid.Column="1">
+                    <Image Margin="30" Source="{Binding StatisticData.Rank, UpdateSourceTrigger=PropertyChanged}" Width="50" Height="40" HorizontalAlignment="Left"/>
+                    <Border BorderBrush="Black" BorderThickness="1"/>
+                    <TextBlock Margin="30" Text="{Binding StatisticData.Elo, UpdateSourceTrigger=PropertyChanged}" FontSize="30"/>
+                    <Border BorderBrush="Black" BorderThickness="1"/>
+                    <TextBlock Margin="30" Text="{Binding StatisticData.GameCount,UpdateSourceTrigger=PropertyChanged}" FontSize="30"/>
+                    <Border BorderBrush="Black" BorderThickness="1"/>
+                    <TextBlock Margin="30" Text="{Binding StatisticData.GameMoneyWin,UpdateSourceTrigger=PropertyChanged}" FontSize="30"/>
+                    <Border BorderBrush="Black" BorderThickness="1"/>
+                    <TextBlock Margin="30" Text="{Binding StatisticData.GameMoneyLoos,UpdateSourceTrigger=PropertyChanged}" FontSize="30"/>
+                    <Border BorderBrush="Black" BorderThickness="1"/>
+                    <TextBlock Margin="30" Text="{Binding StatisticData.BoughtGamesCount,UpdateSourceTrigger=PropertyChanged}" FontSize="30"/>
+                    <Border BorderBrush="Black" BorderThickness="1"/>
+                    <TextBlock Margin="30" Text="{Binding StatisticData.SoldGamesCount,UpdateSourceTrigger=PropertyChanged}" FontSize="30"/>
+                    <Border BorderBrush="Black" BorderThickness="1"/>
+                    <TextBlock Margin="30" Text="{Binding StatisticData.OutputMoney,UpdateSourceTrigger=PropertyChanged}" FontSize="30"/>
+                    <Border BorderBrush="Black" BorderThickness="1"/>
+                    <TextBlock Margin="30" Text="{Binding StatisticData.InputMoney,UpdateSourceTrigger=PropertyChanged}" FontSize="30"/>
+                    <Border BorderBrush="Black" BorderThickness="1"/>
+                    <TextBlock Margin="30" Text="{Binding StatisticData.CasinoCount,UpdateSourceTrigger=PropertyChanged}" FontSize="30"/>
+                    <Border BorderBrush="Black" BorderThickness="1"/>
+                    <TextBlock Margin="30" Text="{Binding StatisticData.CasinoWins,UpdateSourceTrigger=PropertyChanged}" FontSize="30"/>
+                    <Border BorderBrush="Black" BorderThickness="1"/>
+                    <TextBlock Margin="30" Text="{Binding StatisticData.WinSeven,UpdateSourceTrigger=PropertyChanged}" FontSize="30"/>
+                    <Border BorderBrush="Black" BorderThickness="1"/>
+                    <TextBlock Margin="30" Text="{Binding StatisticData.WinHeart,UpdateSourceTrigger=PropertyChanged}" FontSize="30"/>
+                    <Border BorderBrush="Black" BorderThickness="1"/>
+                    <TextBlock Margin="30" Text="{Binding StatisticData.WinMoneybag,UpdateSourceTrigger=PropertyChanged}" FontSize="30"/>
+                </StackPanel>
+            </Grid>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

@@ -47,8 +47,18 @@ namespace PayDay.ViewModels
         /// </summary>
         public ICommand RegisterCommand { get; private set; }
 
+        /// <summary>
+        /// Is the login loding.
+        /// </summary>
         private bool isLoading;
+        /// <summary>
+        /// Whether the login was successful.
+        /// </summary>
+        
         private bool isLogIn;
+        /// <summary>
+        /// Whether the player wants to save the login.
+        /// </summary>
         private bool saveLogIn;
         #endregion
 
@@ -85,6 +95,9 @@ namespace PayDay.ViewModels
             }
         }
 
+        /// <summary>
+        /// Gets or sets whether the player wants to save the login.
+        /// </summary>
         public bool SaveLogIn
         {
             get { return this.saveLogIn; }
@@ -122,6 +135,9 @@ namespace PayDay.ViewModels
             }
         }
 
+        /// <summary>
+        /// Gets or sets is the login loding.
+        /// </summary>
         public bool IsLoading
         {
             get { return this.isLoading; }
@@ -134,6 +150,11 @@ namespace PayDay.ViewModels
         #endregion
 
         #region ------------------------- Private helper ------------------------------------------------------------------
+        /// <summary>
+        /// The login method.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void LogIn(object sender, DoWorkEventArgs e)
         {
             this.IsLoading = true;
@@ -144,6 +165,9 @@ namespace PayDay.ViewModels
             }
             this.IsLoading = false;
         }
+        /// <summary>
+        /// Login was successful method
+        /// </summary>
         private void LogInEnd(object sender, RunWorkerCompletedEventArgs e)
         {
             if (isLogIn)

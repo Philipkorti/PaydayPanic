@@ -22,8 +22,11 @@ namespace PayDay.ViewModels
     public class GameBordViewModel : ViewModelBase
     {
         #region ------------------------- Fields, Constants, Delegates, Events --------------------------------------------
+        /// <summary> Gold price polilyne points. </summary>
         private RoundRobinCollection roundRobinCollection;
+        /// <summary> Shop items list. </summary>
         private ObservableCollection<ShopItems> shopItems;
+        /// <summary> Game time. </summary>
         DispatcherTimer dispatcherTimer;
         #endregion
 
@@ -51,7 +54,7 @@ namespace PayDay.ViewModels
             }
             dispatcherTimer = new DispatcherTimer
             {
-                Interval = TimeSpan.FromSeconds(10)
+                Interval = TimeSpan.FromSeconds(5)
             };
             dispatcherTimer.Tick += this.GoldPrice;
             dispatcherTimer.Start();
@@ -78,7 +81,11 @@ namespace PayDay.ViewModels
         #endregion
 
         #region ------------------------- Private helper ------------------------------------------------------------------
-
+        /// <summary>
+        /// Calculate gold price.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void GoldPrice(object sender, EventArgs e)
         {
             // Count gold price for shop.

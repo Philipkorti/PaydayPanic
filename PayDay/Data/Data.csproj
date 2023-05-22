@@ -60,10 +60,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Game.cs" />
-    <Compile Include="GoldPrice.cs" />
     <Compile Include="HighscoreViewData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ShopItems.cs" />
+    <Compile Include="StatisticData.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

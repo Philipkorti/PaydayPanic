@@ -10,79 +10,74 @@ namespace Services.Services
 {
     public class CasinoService
     {
-        private List<string> casinoList = new List<string>{"\\Pictures\\seven.png", "\\Pictures\\paydayicon.png", "\\Pictures\\CasinoHerz.png"};
-        
-        public void CalculateWin(double winrate, out List<string> list2)
+        /// <summary>
+        /// Is calculated whether player have won
+        /// </summary>
+        /// <param name="winrate">Win probability of the player</param>
+        /// <param name="winList">Win list of the casino icons</param>
+        public void CalculateWin(double winrate, out List<string> winList)
         {
             double win = 1 - winrate;
             List<string> list = new List<string>();
-            for (int i = 0; i < 3; i++)
-            {
-                list.Add(casinoList[1]);
-            }
+            Random random = new Random();
+            winList = new List<string>();
+            int count;
+
+            list.AddRange(winListAdd(ConstData.CasinoPaydayIcon, 3));
+
             if(win > 5) 
             {
-                for (int i = 3; i < 20; i++)
-                {
-                    if (i <= 10)
-                    {
-                        list.Add(casinoList[2]);
-                    }
-                    else
-                    {
-                        list.Add(casinoList[0]);
-                    }
-                }
+                list.AddRange(winListAdd(ConstData.CasinoHerz, 9));
+                list.AddRange(winListAdd(ConstData.CasinoSeven, 8));
             }
             else
             {
-                for (int i = 3; i < 20; i++)
-                {
-                    if (i > 10)
-                    {
-                        list.Add(casinoList[2]);
-                    }
-                    else
-                    {
-                        list.Add(casinoList[0]);
-                    }
-                }
+                list.AddRange(winListAdd(ConstData.CasinoHerz, 8));
+                list.AddRange(winListAdd(ConstData.CasinoSeven, 9));
             }
-            Random random= new Random();
-            list2 = new List<string>();
-            int count;
+            
             for(int i = 0; i< 3; i++)
             {
                 count =random.Next(0,19 - i);
-                list2.Add(list[count]);
+                winList.Add(list[count]);
                 list.RemoveAt(count);
             }
 
            
         }
 
-        public int Win(List<string> list2, int bet, ref Game game)
+        /// <summary>
+        /// Calculates how much player have won
+        /// </summary>
+        /// <param name="winList">in list of the casino icons</param>
+        /// <param name="bet">Player bet</param>
+        /// <param name="game">Game data</param>
+        /// <returns></returns>
+        public int Win(List<string> winList, int bet, ref Game game)
         {
             int money = 0;
-            if (list2[0] == list2[1] && list2[0] == list2[2])
+            if (winList[0] == winList[1] && winList[0] == winList[2])
             {
                 game.Wins++;
                 game.CasinoCount++;
-                switch (list2[0])
+                switch (winList[0])
                 {
-                    case "\\Pictures\\paydayicon.png":
+                    case ConstData.CasinoPaydayIcon:
                         {
                             money += bet * 100;
+                            DataBaseService.PlusWinsCasino(game, 0, 0, 1);
                             break;
                         }
-                    case "\\Pictures\\seven.png":
+                    case ConstData.CasinoSeven:
                         {
                             money += bet * 10;
+                            DataBaseService.PlusWinsCasino(game, 1, 0, 0);
                             break;
                         }
-                    case "\\Pictures\\CasinoHerz.png":
+                    case ConstData.CasinoHerz:
                         {
                             money += bet *5;
+                            DataBaseService.PlusWinsCasino(game, 0,1,0);
                             break;
                         }
                 }
@@ -90,8 +85,24 @@ namespace Services.Services
             else
             {
                 game.CasinoCount++;
+                DataBaseService.LoosPlusCasino(game);
             }
             return money;
+        }
+
+        /// <summary>
+        /// Win list add
+        /// </summary>
+        /// <param name="icon">casino icons</param>
+        /// <returns></returns>
+        private List<string> winListAdd(string icon, int count)
+        {
+            List<string> casinoList = new List<string>();
+            for (int i = 0; i < count; i++)
+            {
+                casinoList.Add(icon);
+            }
+            return casinoList;
         }
     }
 }

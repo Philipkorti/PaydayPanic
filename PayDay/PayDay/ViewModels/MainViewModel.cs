@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows;
 using Services.Services;
 using System.IO;
+using Data;
 
 namespace PayDay.ViewModels
 {
@@ -29,7 +30,10 @@ namespace PayDay.ViewModels
         /// </summary>
         public MainViewModel(IEventAggregator eventAggregator) : base(eventAggregator)
         {
+            // Init LoginView or MainMenuView
             MainViewCommandExecute();
+
+            // Data change events.
             this.EventAggregator.GetEvent<GameViewDataChageEvent>().Subscribe(this.OnGameViewChanged, ThreadOption.UIThread);
             this.EventAggregator.GetEvent<RegisterDataChageEvent>().Subscribe(this.OnSignInViewChanged, ThreadOption.UIThread);
             this.EventAggregator.GetEvent<MainMenuDataChangeEvent>().Subscribe(this.OnMainMenuViewChanged, ThreadOption.UIThread);
@@ -64,9 +68,7 @@ namespace PayDay.ViewModels
         /// </summary>
         private void MainViewCommandExecute()
         {
-            string path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\PayDay";
-            string file = path + "\\login.txt";
-            if (File.Exists(file))
+            if (File.Exists(ConstData.File))
             {
                 AutoLogIn.ReadLogIn(out List<string> userinfo);
                 if (RegisterServices.LogIn(userinfo[0], userinfo[1]))

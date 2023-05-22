@@ -1,14 +1,9 @@
-﻿using DataBase.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Data.SqlTypes;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Data
 {
-    
+
     public class Game
     {
         #region ------------------------- Fields, Constants, Delegates, Events --------------------------------------------
@@ -85,12 +80,18 @@ namespace Data
          
             set { this.money = value; }
         }
-
+        /// <summary>
+        /// Gets or sets the gold price of the game.
+        /// </summary>
         public double GoldPrice
         {
             get { return this.goldprice; }
             set { this.goldprice = value; }
-        } 
+        }
+
+        /// <summary>
+        /// Gets or sets the cold count of the player.
+        /// </summary>
         public int Gold
         {
             get { return this.gold; }
@@ -146,6 +147,9 @@ namespace Data
             get { return this.casinoCount; }
         }
 
+        /// <summary>
+        /// Gets the game over
+        /// </summary>
         public bool GameEnd
         {
             get 
@@ -163,27 +167,44 @@ namespace Data
             }
         }
 
+        /// <summary>
+        /// Gets or sets the game time is over.
+        /// </summary>
         public bool GameEndTime
         {
             set; get;
         }
+        /// <summary>
+        /// Gets or sets the mony what the player lose.
+        /// </summary>
         public double MoneyLose
         {
             get{ return moneyLose; }
             set { moneyLose = value; }
         }
 
+        /// <summary>
+        /// Gets or sets the mony what the player win.
+        /// </summary>
         public double MoneyWin
         {
             get { return moneyWin; }
             set { moneyWin = value; }
         }
+
+        /// <summary>
+        /// Gets or sets the item list of items waht the playedr bought.
+        /// </summary>
         public List<ShopItems> Items
         {
             get { return this.items; }
             set { this.items = value; }
         }
 
+        /// <summary>
+        /// The medote edit the money of the player.
+        /// </summary>
+        /// <param name="money">This is player's money.</param>
         public void EditMoney(double money)
         {
             if(money< 0)
@@ -195,6 +216,18 @@ namespace Data
                 this.MoneyWin += money;
             }
             this.Money += money;
+        }
+
+        /// <summary>
+        /// The methode add gold to the Gold count of the player.
+        /// </summary>
+        /// <param name="goldCount">This is the count what the player bought.</param>
+        public void BuyGold(int goldCount)
+        {
+            double editMoney = goldCount * this.GoldPrice;
+            this.Gold += goldCount;
+            this.Money -= editMoney;
+            this.MoneyLose += editMoney;
         }
         #endregion
     }

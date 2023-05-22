@@ -33,11 +33,11 @@ namespace PayDay.ViewModels
         private int countRounds;
         /// <summary> The value for how much money is played. </summary>
         private int stake;
+        /// <summary> The amount of money the player has won. </summary>
         private string winMoney;
+        /// <summary> The color of money the player has won. </summary>
         private Brush color;
         #endregion
-
-
 
         #region ------------------------- Constructors, Destructors, Dispose, Clone ---------------------------------------
         /// <summary>
@@ -47,25 +47,22 @@ namespace PayDay.ViewModels
         public CasinoViewModel(IEventAggregator eventAggregator, Game game) :  base(eventAggregator) 
         {
             // Set the default pictures.
-            this.ButtonImgSourceone = "\\Pictures\\seven.png";
-            this.ButtonImgSourcetwo = "\\Pictures\\CasinoHerz.png";
-            this.ButtonImgSourcethre = "\\Pictures\\paydayicon.png";
+            this.ButtonImgSourceone = ConstData.CasinoSeven;
+            this.ButtonImgSourcetwo = ConstData.CasinoHerz;
+            this.ButtonImgSourcethre = ConstData.CasinoPaydayIcon;
             this.RoleCasino = new ActionCommand(this.RoleCommandExecuted, this.RoleCommandCanExecute);
             this.Game = new Game();
             this.Game = game;
             casinoRun = true;
             this.EventAggregator.GetEvent<BackButtonCanExecuteDataChangeEvent>().Publish(this.casinoRun);
+            this.EventAggregator.GetEvent<GameDataChangeEvent>().Subscribe(this.OnGameDataChange, ThreadOption.UIThread);
             this.stake = 10;
             this.countRounds = 1;
         }
         #endregion
 
-
-
         #region ------------------------- Properties, Indexers ------------------------------------------------------------
-        /// <summary>
-        /// Gets or sets the buttonImgSourceOne of the slot machine.
-        /// </summary>
+        /// <summary> Gets or sets the buttonImgSourceOne of the slot machine. </summary>
         public string ButtonImgSourceone
         {
             get { return this.buttonImgSourceone; }
@@ -78,6 +75,7 @@ namespace PayDay.ViewModels
                 }
             }
         }
+        /// <summary> Gets or sets the mony the player won. </summary>
         public string WinMoney
         {
             get { return this.winMoney; }
@@ -88,6 +86,7 @@ namespace PayDay.ViewModels
             }
         }
 
+        /// <summary> Gets or sets if the casino is running. </summary>
         public bool CasinoRun
         {
             get 
@@ -102,9 +101,7 @@ namespace PayDay.ViewModels
             }
         }
 
-        /// <summary>
-        /// Gets or sets stake of the slot machine.
-        /// </summary>
+        /// <summary> Gets or sets stake of the slot machine. </summary>
         public string Stake
         {
             get { return this.stake.ToString(); }
@@ -114,9 +111,7 @@ namespace PayDay.ViewModels
             }
         }
 
-        /// <summary>
-        /// Gets or sets CountRounds.
-        /// </summary>
+        /// <summary> Gets or sets CountRounds. </summary>
         public string CountRounds
         {
             get { return this.countRounds.ToString(); }
@@ -129,9 +124,7 @@ namespace PayDay.ViewModels
         }
 
 
-        /// <summary>
-        /// Gets or sets the buttonImgSourceTwo of the slot machine. 
-        /// </summary>
+        /// <summary> Gets or sets the buttonImgSourceTwo of the slot machine. </summary>
         public string ButtonImgSourcetwo
         {
             get { return buttonImgSourcetwo; }
@@ -146,9 +139,7 @@ namespace PayDay.ViewModels
         }
         public Game Game;
 
-        /// <summary>
-        /// Gets or sets the buttonImgSourceThre of the slot machine.
-        /// </summary>
+        /// <summary> Gets or sets the buttonImgSourceThre of the slot machine. </summary>
         public string ButtonImgSourcethre
         {
             get { return this.buttonImgSourcethre; }
@@ -162,11 +153,10 @@ namespace PayDay.ViewModels
             }
         }
 
-        /// <summary>
-        /// Gets the roleCasino button command.
-        /// </summary>
+        /// <summary> Gets the roleCasino button command. </summary>
         public ICommand RoleCasino { get; private set; }
 
+        /// <summary> Get or sets the color of money the player has won. </summary>
         public Brush Color
         {
             get { return this.color; }
@@ -177,12 +167,13 @@ namespace PayDay.ViewModels
             }
         }
 
-       
+
         #endregion
 
-
-
         #region ------------------------- Private helper ------------------------------------------------------------------
+        /// <summary>
+        /// The method in charge of rolling the casino.
+        /// </summary>
         private void Role()
         {
             List<string> roles = new List<string>() { "/Pictures/Rolle2.gif", "/Pictures/gifrolle.gif", "/Pictures/Rolle3.gif"};
@@ -193,7 +184,7 @@ namespace PayDay.ViewModels
             for (int i = 0; i < this.countRounds; i++)
             {
                 this.Game.EditMoney(-this.stake);
-                if (this.Game.GameEnd)
+                if (this.Game.GameEnd || this.Game.GameEndTime)
                 {
                     break;
                 }
@@ -208,11 +199,13 @@ namespace PayDay.ViewModels
                 Thread.Sleep(count);
                 this.WinMoney = "";
                 
-                casinoService.CalculateWin(Game.WiningRateCasino, out List<string> list2);
-                moneyWin = casinoService.Win(list2, this.stake, ref this.Game);
-                ButtonImgSourceone = list2[0];
-                ButtonImgSourcetwo = list2[1];
-                ButtonImgSourcethre = list2[2];
+                casinoService.CalculateWin(Game.WiningRateCasino, out List<string> winList);
+                moneyWin = casinoService.Win(winList, this.stake, ref this.Game);
+                ButtonImgSourceone = winList[0];
+                Thread.Sleep(1000);
+                ButtonImgSourcetwo = winList[1];
+                Thread.Sleep(1000);
+                ButtonImgSourcethre = winList[2];
                 if(moneyWin > 0)
                 {
                     this.Game.EditMoney(moneyWin);
@@ -225,26 +218,20 @@ namespace PayDay.ViewModels
                 {
                     Thread.Sleep(5000);
                 }
-                
             }
-           
             this.CasinoRun = true;
             this.EventAggregator.GetEvent<BackButtonCanExecuteDataChangeEvent>().Publish(this.casinoRun);
         }
 
         /// <summary>
-        /// Show the GameOver Screen
+        /// Sync game data.
         /// </summary>
-        private void ShowGameEndView()
+        /// <param name="game">All game data.</param>
+        private void OnGameDataChange(Game game)
         {
-            GameEndView gameEndView = new GameEndView();
-            GameEndViewModel gameEndViewModel = new GameEndViewModel(this.EventAggregator,Game);
-            gameEndView.DataContext = gameEndViewModel;
-            this.EventAggregator.GetEvent<GameEndViewDataChangeEvent>().Publish(gameEndView);
+            this.Game = game;
         }
         #endregion
-
-
 
         #region ------------------------- Commands ------------------------------------------------------------------------
         /// <summary>
@@ -275,14 +262,7 @@ namespace PayDay.ViewModels
             Thread thread = new Thread(this.Role);
             thread.Start();
             Thread.Sleep(20);
-            if (this.Game.GameEnd)
-            {
-                this.ShowGameEndView();
-            }
-            
         }
-
-       
         #endregion
     }
 }

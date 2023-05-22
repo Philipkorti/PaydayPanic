@@ -15,7 +15,7 @@
     </UserControl.Resources>
     
     <Grid>
-        <DataGrid ItemsSource="{Binding Path=Highscore}" Background="White" Focusable="False">
+        <DataGrid ItemsSource="{Binding Path=Highscore}" Background="White" Opacity="0.7">
             <DataGrid.Columns>
                 <DataGridTextColumn Width="*" Binding="{Binding UserName}">
                     <DataGridTextColumn.Header>Username</DataGridTextColumn.Header>
