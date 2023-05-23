@@ -12,6 +12,8 @@ using System.Windows;
 using Services.Services;
 using System.IO;
 using Data;
+using Services;
+using System.Security.Policy;
 
 namespace PayDay.ViewModels
 {
@@ -68,19 +70,27 @@ namespace PayDay.ViewModels
         /// </summary>
         private void MainViewCommandExecute()
         {
+            bool check = true;
             if (File.Exists(ConstData.File))
             {
+                
                 AutoLogIn.ReadLogIn(out List<string> userinfo);
-                if (RegisterServices.LogIn(userinfo[0], userinfo[1]))
+                if (RegisterServices.LogIn(userinfo[0], userinfo[1], out ErrorCodes errorCodes))
                 {
                     MainMenu mainMenu = new MainMenu();
                     MainMenuModel mainMenuModel = new MainMenuModel(this.EventAggregator, userinfo[0]);
                     mainMenu.DataContext = mainMenuModel;
                     this.CurrentView = mainMenu;
-
+                    check = false;
+                }
+                else
+                {
+                    MessageBox.Show("There has been an error:" + errorCodes, errorCodes.ToString(), MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
-            else
+           
+
+            if (check)
             {
                 LogInView logInView = new LogInView();
                 LogInViewModel logInViewModel = new LogInViewModel(this.EventAggregator);

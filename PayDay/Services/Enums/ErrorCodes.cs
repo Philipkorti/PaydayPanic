@@ -8,8 +8,10 @@ namespace Services
 {
     public enum ErrorCodes
     {
+        NoError,
         DBSCon2202,
         LoginError,
+        RegisterError
 
     }
 }

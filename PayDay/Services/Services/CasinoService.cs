@@ -23,17 +23,17 @@ namespace Services.Services
             winList = new List<string>();
             int count;
 
-            list.AddRange(winListAdd(ConstData.CasinoPaydayIcon, 3));
+            list.AddRange(WinListAdd(ConstData.CasinoPaydayIcon, 3));
 
             if(win > 5) 
             {
-                list.AddRange(winListAdd(ConstData.CasinoHerz, 9));
-                list.AddRange(winListAdd(ConstData.CasinoSeven, 8));
+                list.AddRange(WinListAdd(ConstData.CasinoHerz, 9));
+                list.AddRange(WinListAdd(ConstData.CasinoSeven, 8));
             }
             else
             {
-                list.AddRange(winListAdd(ConstData.CasinoHerz, 8));
-                list.AddRange(winListAdd(ConstData.CasinoSeven, 9));
+                list.AddRange(WinListAdd(ConstData.CasinoHerz, 8));
+                list.AddRange(WinListAdd(ConstData.CasinoSeven, 9));
             }
             
             for(int i = 0; i< 3; i++)
@@ -56,6 +56,7 @@ namespace Services.Services
         public int Win(List<string> winList, int bet, ref Game game)
         {
             int money = 0;
+            ErrorCodes errorCodes = new ErrorCodes();
             if (winList[0] == winList[1] && winList[0] == winList[2])
             {
                 game.Wins++;
@@ -65,19 +66,19 @@ namespace Services.Services
                     case ConstData.CasinoPaydayIcon:
                         {
                             money += bet * 100;
-                            DataBaseService.PlusWinsCasino(game, 0, 0, 1);
+                            DataBaseService.PlusWinsCasino(game, 0, 0, 1, out errorCodes);
                             break;
                         }
                     case ConstData.CasinoSeven:
                         {
                             money += bet * 10;
-                            DataBaseService.PlusWinsCasino(game, 1, 0, 0);
+                            DataBaseService.PlusWinsCasino(game, 1, 0, 0, out errorCodes);
                             break;
                         }
                     case ConstData.CasinoHerz:
                         {
                             money += bet *5;
-                            DataBaseService.PlusWinsCasino(game, 0,1,0);
+                            DataBaseService.PlusWinsCasino(game, 0,1,0, out errorCodes);
                             break;
                         }
                 }
@@ -85,8 +86,9 @@ namespace Services.Services
             else
             {
                 game.CasinoCount++;
-                DataBaseService.LoosPlusCasino(game);
+                DataBaseService.LoosPlusCasino(game, out errorCodes);
             }
+            ErrorServices.ShowError(errorCodes);
             return money;
         }
 
@@ -95,7 +97,7 @@ namespace Services.Services
         /// </summary>
         /// <param name="icon">casino icons</param>
         /// <returns></returns>
-        private List<string> winListAdd(string icon, int count)
+        private List<string> WinListAdd(string icon, int count)
         {
             List<string> casinoList = new List<string>();
             for (int i = 0; i < count; i++)

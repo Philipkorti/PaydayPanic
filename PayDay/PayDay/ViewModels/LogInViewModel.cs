@@ -158,11 +158,8 @@ namespace PayDay.ViewModels
         private void LogIn(object sender, DoWorkEventArgs e)
         {
             this.IsLoading = true;
-           this.isLogIn = RegisterServices.LogIn(this.Username, this.Password);
-            if(!isLogIn)
-            {
-                MessageBox.Show("Der Username oder das Passwort ist falsch!", ErrorCodes.LoginError.ToString(), MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+            this.isLogIn = RegisterServices.LogIn(this.Username, this.Password, out ErrorCodes errorCodes);
+            ErrorServices.ShowError(errorCodes);
             this.IsLoading = false;
         }
         /// <summary>

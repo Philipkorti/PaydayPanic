@@ -59,7 +59,7 @@
                     <Border BorderBrush="Black" BorderThickness="1"/>
                     <TextBlock Margin="30" Text="{Binding StatisticData.OutputMoney,UpdateSourceTrigger=PropertyChanged}" FontSize="30"/>
                     <Border BorderBrush="Black" BorderThickness="1"/>
-                    <TextBlock Margin="30" Text="{Binding StatisticData.InputMoney,UpdateSourceTrigger=PropertyChanged}" FontSize="30"/>
+                    <TextBlock Margin="30" Text="{Binding StatisticData.InPutMoney,UpdateSourceTrigger=PropertyChanged}" FontSize="30"/>
                     <Border BorderBrush="Black" BorderThickness="1"/>
                     <TextBlock Margin="30" Text="{Binding StatisticData.CasinoCount,UpdateSourceTrigger=PropertyChanged}" FontSize="30"/>
                     <Border BorderBrush="Black" BorderThickness="1"/>

@@ -40,6 +40,7 @@
       <HintPath>..\bin\Debug\DataBase.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -57,6 +58,7 @@
     <Compile Include="Services\CasinoService.cs" />
     <Compile Include="Services\CountGoldService.cs" />
     <Compile Include="Services\DataBaseService.cs" />
+    <Compile Include="Services\ErrorServices.cs" />
     <Compile Include="Services\GameEndServices.cs" />
     <Compile Include="Services\RegisterServices.cs" />
     <Compile Include="Services\SHA.cs" />

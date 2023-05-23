@@ -154,22 +154,16 @@ namespace PayDay.ViewModels
         private void DataBaseConect(object sender, DoWorkEventArgs e)
         {
             IsLoading = true;
-            bool check = true;
-            try
-            {
-                check = RegisterServices.Register(this.Username, this.password);
-            }catch(Exception ex)
-            {
-                IsLoading= false;
-                MessageBox.Show(ErrorCodes.DBSCon2202 + "Contection ERROR", ErrorCodes.DBSCon2202.ToString(), MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+            bool check;
+            check = RegisterServices.Register(this.Username, this.password, out ErrorCodes errorCodes);
 
             if(check)
             {
-                IsLoading = false;
                 isSignIn = true;
                 MessageBox.Show("Welcome to PayDay Panic!", "Register", MessageBoxButton.OK, MessageBoxImage.Information);
             }
+            ErrorServices.ShowError(errorCodes);
+            IsLoading = false;
         }
         /// <summary>
         /// Forwards to the next view.

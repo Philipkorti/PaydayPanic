@@ -14,6 +14,7 @@ using System.Threading;
 using System.ComponentModel;
 using DataBase.Context;
 using System.Windows.Threading;
+using Services;
 
 namespace PayDay.ViewModels
 {
@@ -128,8 +129,9 @@ namespace PayDay.ViewModels
                         this.dispatcherTimer.Interval = TimeSpan.FromTicks(20);
                         this.dispatcherTimer.Tick += this.EloAdjustment;
                         this.dispatcherTimer.Start();
-                        DataBaseService.SaveData(this.newelo, this.game);
+                        DataBaseService.SaveData(this.newelo, this.game, out ErrorCodes errorCodes);
                         GameEndServices.SaveDateaStatic(game);
+                        ErrorServices.ShowError(errorCodes);
                         
                         break;
                     }
@@ -141,7 +143,7 @@ namespace PayDay.ViewModels
                         this.EventAggregator.GetEvent<MainMenuDataChangeEvent>().Publish(mainMenu);
                         break;
                     }
-                case "finish":
+                case "finish": 
                     {
                         dispatcherTimer.Stop();
                         this.stage = "window";

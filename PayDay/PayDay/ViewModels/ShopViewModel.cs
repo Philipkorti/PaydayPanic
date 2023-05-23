@@ -20,6 +20,7 @@ using System.Collections.ObjectModel;
 using System.Windows.Media.TextFormatting;
 using System.Collections.Specialized;
 using PayDay.Views;
+using Services;
 
 namespace PayDay.ViewModels
 {
@@ -237,7 +238,10 @@ namespace PayDay.ViewModels
         /// <param name="parameter">Data use by the command.</param>
         private void BuyCommandExecuted(object parameter)
         {
-            this.Game.BuyGold(goldCount);
+            double money = this.Game.GoldPrice * this.goldCount;
+            this.Game.BuyGold(this.goldCount);
+            DataBaseService.BuyGoldPlusDatabase(this.Game,money, out ErrorCodes errorCodes);
+            ErrorServices.ShowError(errorCodes);
             this.EventAggregator.GetEvent<GameDataChangeEvent>().Publish(this.Game);
         }
 
@@ -274,7 +278,8 @@ namespace PayDay.ViewModels
                     this.Game.EditMoney(-item.Price);
                     this.Game.Items.Add(item);
                     item.InStock--;
-                    DataBaseService.BuyGamePlusDatabase(this.Game, item.Price);
+                    DataBaseService.BuyGamePlusDatabase(this.Game, item.Price, out ErrorCodes errorCodes);
+                    ErrorServices.ShowError(errorCodes);
                     this.EventAggregator.GetEvent<GameDataChangeEvent>().Publish(this.Game);
                 }
             }
@@ -286,17 +291,20 @@ namespace PayDay.ViewModels
         /// <param name="parameter">Data use by the command.</param>
         private void SellCommandExecuted(object parameter)
         {
+            ErrorCodes errorCodes = new ErrorCodes();
+            double money = this.goldCount * this.Game.GoldPrice;
             if (this.Game.Gold >= this.goldCount)
             {
                 this.Game.Gold = this.Game.Gold - this.goldCount;
-                this.Game.EditMoney(this.goldCount * this.Game.GoldPrice);
+                this.Game.EditMoney(money);
                 this.EventAggregator.GetEvent<GameDataChangeEvent>().Publish(this.Game);
+                DataBaseService.SellGoldPlusDatabase(this.Game, money, out errorCodes);
             }
             else
             {
                 MessageBox.Show("Du kannst nicht so viel Gold verkaufen!");
             }
-           
+            ErrorServices.ShowError(errorCodes);
         }
 
         /// <summary>
@@ -322,6 +330,7 @@ namespace PayDay.ViewModels
         /// <param name="parameter">Data use by the command.</param>
         private void SellGameCommandExecuted(object parameter)
         {
+            ErrorCodes errorCodes = new ErrorCodes();
             for (int i = 0; i < this.Game.Items.Count; i++)
             {
                 if (this.Game.Items[i].ItemID == Convert.ToInt32(parameter))
@@ -333,12 +342,13 @@ namespace PayDay.ViewModels
                         {
                             item.InStock++;
                         }
-                        DataBaseService.SellGamePlusDatabase(this.Game, item.Price);
+                        DataBaseService.SellGamePlusDatabase(this.Game, item.Price, out errorCodes);
                     }
                     this.Game.Items.RemoveAt(i);
                     this.EventAggregator.GetEvent<GameDataChangeEvent>().Publish(this.Game);
                 }
             }
+            ErrorServices.ShowError(errorCodes);
         }
         /// <summary>
         /// Ocures when the user clicks the sell max button.
@@ -346,9 +356,12 @@ namespace PayDay.ViewModels
         /// <param name="parameter">Data use by the command.</param>
         private void SellMaxCommandExecuted(object parameter)
         {
-            this.Game.EditMoney(this.Game.Gold * this.Game.GoldPrice);
+            double money = this.Game.Gold * this.Game.GoldPrice;
+            this.Game.EditMoney(money);
+            DataBaseService.SellGoldPlusDatabase(this.Game, money, out ErrorCodes errorCodes);
             this.Game.Gold = this.Game.Gold - this.Game.Gold;
             this.EventAggregator.GetEvent<GameDataChangeEvent>().Publish(this.Game);
+            ErrorServices.ShowError(errorCodes);
         }
 
         /// <summary>
@@ -357,17 +370,18 @@ namespace PayDay.ViewModels
         /// <param name="parameter">Data use by the command</param>
         private void BuyMaxCommandExecuted(object parameter)
         {
-            //int buygold = Convert.ToInt32(Math.Abs(this.Game.Money / this.Game.GoldPrice));
-            //buygold--;
+            
             int buygold = (int)Math.Floor(this.Game.Money / this.Game.GoldPrice);
             if (buygold > 0)
             {
                 double losemoney = buygold * this.Game.GoldPrice;
-                this.Game.Gold = buygold;
+                
+                DataBaseService.BuyGoldPlusDatabase(this.Game, losemoney, out ErrorCodes errorCodes);
+                ErrorServices.ShowError(errorCodes);
+                this.Game.Gold += buygold;
                 this.Game.EditMoney(-(losemoney));
                 this.EventAggregator.GetEvent<GameDataChangeEvent>().Publish(this.Game);
             }
-            
         }
         #endregion
     }

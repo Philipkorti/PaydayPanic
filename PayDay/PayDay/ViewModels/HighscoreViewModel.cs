@@ -3,6 +3,7 @@ using DataBase.Context;
 using DataBase.Models;
 using Microsoft.Practices.Prism.Events;
 using PayDay.Views;
+using Services;
 using Services.Services;
 using System;
 using System.Collections.Generic;
@@ -30,8 +31,8 @@ namespace PayDay.ViewModels
         public HighscoreViewModel(IEventAggregator eventAggregator) : base(eventAggregator)
         {
             Highscore= new List<HighscoreViewData>();
-            DataBaseService.LoadHighscore(Highscore);
-           
+            DataBaseService.LoadHighscore(Highscore, out ErrorCodes errorCodes);
+           ErrorServices.ShowError(errorCodes);
         }
         #endregion
 
