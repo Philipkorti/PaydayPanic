@@ -1,0 +1,159 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="PayDay.NotifyPropertyChanged" Collapsed="true">
+    <Position X="19" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAIAAAAAAAgAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>NotifyPropertyChanged.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="PayDay.RoundRobinCollection">
+    <Position X="31.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAACCA=</HashCode>
+      <FileName>RoundRobinCollection.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PayDay.ViewModels.CasinoViewModel" Collapsed="true">
+    <Position X="22.5" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAABABBAAQAAAAEAAAEAAAAIgQAQCAIAEAgCAgAAE=</HashCode>
+      <FileName>ViewModels\CasinoViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PayDay.ViewModels.GameBordViewModel">
+    <Position X="27" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAAAAABAAgAEAAABAAAwACACAAIAAAAAAAQA=</HashCode>
+      <FileName>ViewModels\GameBordViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PayDay.ViewModels.GameEndViewModel">
+    <Position X="6.75" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAIAAQAAAAAABAAAAEAAACACAAYAIBIAAAACAA=</HashCode>
+      <FileName>ViewModels\GameEndViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PayDay.ViewModels.GameViewModel" Collapsed="true">
+    <Position X="11.25" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AkABAQACAAAAggAAIIAEAAAABZgAQAEIAABAAAAAAAA=</HashCode>
+      <FileName>ViewModels\GameViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PayDay.ViewModels.HighscoreViewModel">
+    <Position X="13.5" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\HighscoreViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PayDay.ViewModels.LogInViewModel" Collapsed="true">
+    <Position X="18" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>pIAAAoAAAAAAAAAIAQAAACMAAAAgQBiCAAAAAgAAAAI=</HashCode>
+      <FileName>ViewModels\LogInViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PayDay.ViewModels.MainMenuModel" Collapsed="true">
+    <Position X="20.25" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAgAAAoACAAAgAEIBAVAgAAAwAIAgAAAAAAAgAASA=</HashCode>
+      <FileName>ViewModels\MainMenuModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PayDay.ViewModels.MainViewModel">
+    <Position X="24.75" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACBCAAAIAgAIAAAAAAAAEAAAAAAAAEAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\MainViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PayDay.ViewModels.RulesViewModel">
+    <Position X="29.25" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\RulesViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PayDay.ViewModels.ShopViewModel" Collapsed="true">
+    <Position X="9" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAABBAACAAAAABIBAAAAAQgAAgIAEiZAAwBoAAEgQE=</HashCode>
+      <FileName>ViewModels\ShopViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PayDay.ViewModels.StatisticViewModel">
+    <Position X="15.75" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\StatisticViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PayDay.ViewModels.ViewModelBase" Collapsed="true">
+    <Position X="18" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>ViewModels\ViewModelBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Data.Game">
+    <Position X="19" Y="10.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Data.HighscoreViewData">
+    <Position X="22.75" Y="10.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Data.ShopItems">
+    <Position X="20.75" Y="10.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Data.StatisticData">
+    <Position X="24.5" Y="10.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Services.Services.AutoLogIn">
+    <Position X="7" Y="10.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Services.Services.CasinoService">
+    <Position X="8.75" Y="10.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Services.Services.CountGoldService">
+    <Position X="10.5" Y="10.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Services.Services.DataBaseService">
+    <Position X="14.25" Y="10.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Services.Services.ErrorServices">
+    <Position X="12.5" Y="12.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Services.Services.GameEndServices">
+    <Position X="12.5" Y="10.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Services.Services.RegisterServices">
+    <Position X="8.75" Y="12.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Services.Services.SHA">
+    <Position X="10.5" Y="12.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Enum Name="Services.ErrorCodes">
+    <Position X="7" Y="12.5" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="Services.Enums.Ranks">
+    <Position X="14.25" Y="13.25" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

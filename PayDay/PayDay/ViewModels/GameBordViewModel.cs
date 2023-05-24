@@ -141,7 +141,7 @@ namespace PayDay.ViewModels
         public void ShopCommandExecuted(object parameter)
         {
 
-            ShopView shopView = new ShopView();
+            L shopView = new L();
             ShopViewModel shopViewModel = new ShopViewModel(this.EventAggregator, roundRobinCollection, this.Game, this.shopItems);
             shopView.DataContext = shopViewModel;
             this.EventAggregator.GetEvent<ShopViewDataChangeEvent>().Publish(shopView);

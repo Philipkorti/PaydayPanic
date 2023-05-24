@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace PayDay.Events
 {
-    public class ShopViewDataChangeEvent : CompositePresentationEvent<ShopView>
+    public class ShopViewDataChangeEvent : CompositePresentationEvent<L>
     {
     }
 }

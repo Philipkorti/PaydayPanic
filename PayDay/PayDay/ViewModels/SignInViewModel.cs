@@ -70,7 +70,7 @@ namespace PayDay.ViewModels
         public SignInViewModel(IEventAggregator eventAggregator) : base(eventAggregator)
         {
             SignIn = new ActionCommand(this.SignInCommandExecute, this.SignInCommandCanExecute);
-            UsernameCount= 0;
+            UsernameCount = 0;
             UserLength = ConstData.StringLengh;
         }
         #endregion
@@ -93,7 +93,7 @@ namespace PayDay.ViewModels
                 {
                     UsernameCount--;
                 }
-                
+
             }
         }
 
@@ -114,8 +114,8 @@ namespace PayDay.ViewModels
         public int UsernameCount
         {
             get { return usernameCount; }
-            set 
-            { 
+            set
+            {
                 this.usernameCount = value;
                 this.OnPropertyChanged(nameof(UsernameCount));
             }
@@ -157,7 +157,7 @@ namespace PayDay.ViewModels
             bool check;
             check = RegisterServices.Register(this.Username, this.password, out ErrorCodes errorCodes);
 
-            if(check)
+            if (check)
             {
                 isSignIn = true;
                 MessageBox.Show("Welcome to PayDay Panic!", "Register", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -168,7 +168,7 @@ namespace PayDay.ViewModels
         /// <summary>
         /// Forwards to the next view.
         /// </summary>
-        private void DataBaseConectEnd(object sender, RunWorkerCompletedEventArgs e) 
+        private void DataBaseConectEnd(object sender, RunWorkerCompletedEventArgs e)
         {
             if (isSignIn)
             {
@@ -179,7 +179,7 @@ namespace PayDay.ViewModels
             }
         }
         #endregion
-       
+
         #region ------------------------- Commands ------------------------------------------------------------------------
         /// <summary>
         /// Determines wheter the students view command can be executed.

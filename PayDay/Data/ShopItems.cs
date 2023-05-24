@@ -25,11 +25,12 @@ namespace Data
 
         /// <summary> Gets or sets the price of the product. </summary>
         public double Price 
-        { 
-            get 
-            { 
-                return Math.Round(this.price); 
-            } 
+        {
+            get
+            {
+                return Math.Round(this.price);
+            }
+
             set 
             { 
                 this.price = value;

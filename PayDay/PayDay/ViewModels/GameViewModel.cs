@@ -181,7 +181,7 @@ namespace PayDay.ViewModels
             }
         }
 
-        private void OnShopViewChanged(ShopView shopView)
+        private void OnShopViewChanged(L shopView)
         {
             this.CurrentView = shopView;
         }

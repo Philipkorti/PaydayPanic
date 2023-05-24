@@ -18,9 +18,9 @@ namespace PayDay.Views
     /// <summary>
     /// Interaktionslogik für ShopView.xaml
     /// </summary>
-    public partial class ShopView : UserControl
+    public partial class L : UserControl
     {
-        public ShopView()
+        public L()
         {
             InitializeComponent();
         }
