@@ -42,8 +42,6 @@ namespace Services.Services
                 winList.Add(list[count]);
                 list.RemoveAt(count);
             }
-
-           
         }
 
         /// <summary>

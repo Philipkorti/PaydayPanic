@@ -79,6 +79,7 @@ namespace Services.Services
                         if (username == user.UserName && password == user.Password)
                         {
                             isLogin = true;
+                            errorCodes = ErrorCodes.NoError;
                             break;
                         }
                         else

@@ -17,7 +17,6 @@ namespace DataBase.Context
         public DbSet<Highscore> Highscore { get; set; } = null;
         public DbSet<Shop> Shop { get; set; } = null;
         public DbSet<Statistics> Statistics { get; set; } = null;
-
         public DbSet<Ranks> Ranks { get; set; }
     }
 }
