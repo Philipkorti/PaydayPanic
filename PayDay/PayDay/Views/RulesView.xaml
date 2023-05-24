@@ -9,23 +9,23 @@
     <Grid>
         <ScrollViewer>
             <TextBlock Foreground="Black" Background="White" Opacity="0.7" TextWrapping="Wrap" FontSize="25" Margin="0 0 0 0">
-                Willkommen bei PayDay Panic.<LineBreak/><LineBreak/>
+                Welcome to PayDay Panic.<LineBreak/><LineBreak/>
 
-            In diesem Spiel ist es die Hauptaufgabe so viel Geld zuverdienen wie es geht.
+               In this game the main task is to earn as much money as possible.
                 <LineBreak/><LineBreak/>
                 GameOver:
                 
-                Der Spieler geht Gameover wenn er kein Geld mehr hat.
+                The player goes gameover when he runs out of money or when the time is up
                 <LineBreak/><LineBreak/>
-                Geldverdinen:
+                Earn money:
                 
-                Der Spieler kann unterschiedlich sein Geld verdienen. Er kann in das Casino gehen und sein Geld dort verlieren oder gewinnen.
+                The player can earn his money differently. He can go to the casino and lose or win his money there.
                 
-                Der Spieler kann auch Spiele einkaufen und verkaufen. Aber Achtung die Spiele können an Wert gewinnen oder Verlieren.
+                The player can also buy and sell games. But be careful, the games can gain or lose in value.
                 
-                Das Gleiche ist es auch mit Gold.
+                It's the same with gold.
                 <LineBreak/><LineBreak/>
-                Spieler bist du der Aufgabe gewachsen so viel Geld zu verdinen wie es geht.
+                Player, are you up to the task of making as much money as you can.
             </TextBlock>
         </ScrollViewer>
         
