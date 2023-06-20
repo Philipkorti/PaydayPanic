@@ -1,9 +1,11 @@
 ﻿using Data;
 using DataBase.Context;
 using DataBase.Models;
+using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -11,21 +13,26 @@ namespace Services.Services
 {
     public class DataBaseService
     {
+        public static IMongoCollection<User> DBConection()
+        {
+            var client = new MongoClient(ConstData.DataBaseCon);
+            var db = client.GetDatabase("PayDay");
+            var productCollection = db.GetCollection<User>("User");
+            return productCollection;
+        } 
         public static void PlusWinsCasino(Game game, int sevenWin, int heartWins, int paydayWins, out ErrorCodes errorCodes)
         {
             errorCodes = new ErrorCodes();
             try
             {
-                using (var context = new PayDayContext())
-                {
-                    var casino = context.Casino.Where(f => f.Statistics.User.UserName == game.Username).ToList();
-                    casino[0].WinSeven = casino[0].WinSeven + sevenWin;
-                    casino[0].WinHeart = casino[0].WinHeart + heartWins;
-                    casino[0].WinMoneyBag = casino[0].WinMoneyBag + paydayWins;
-                    casino[0].GameCasinoCount++;
-                    casino[0].CasinoWinCount++;
-                    context.SaveChanges();
-                }
+                var productCollection = DataBaseService.DBConection();
+                var filter = Builders<User>.Filter.Eq(a => a.UserName, game.Username);
+                var update = Builders<User>.Update.Inc(a => a.Statistics[0].Casino[0].WinSeven, sevenWin)
+                    .Inc(a => a.Statistics[0].Casino[0].WinMoneyBag,paydayWins)
+                    .Inc(a => a.Statistics[0].Casino[0].WinHeart, heartWins)
+                    .Inc(a => a.Statistics[0].Casino[0].GameCasinoCount,1)
+                    .Inc(a => a.Statistics[0].Casino[0].CasinoWinCount,1);
+                var user = productCollection.UpdateOne(filter, update);
             }
             catch (Exception)
             {
@@ -38,12 +45,10 @@ namespace Services.Services
             errorCodes = new ErrorCodes();
             try
             {
-                using (var context = new PayDayContext())
-                {
-                    var casino = context.Casino.Where(f => f.Statistics.User.UserName == game.Username).ToList();
-                    casino[0].GameCasinoCount++;
-                    context.SaveChanges();
-                }
+                var productCollection = DataBaseService.DBConection();
+                var filter = Builders<User>.Filter.Eq(a => a.UserName, game.Username);
+                var update = Builders<User>.Update.Inc(a => a.Statistics[0].Casino[0].GameCasinoCount, 1);
+                var user = productCollection.UpdateOne(filter, update);
             }
             catch (Exception)
             {
@@ -56,13 +61,12 @@ namespace Services.Services
             errorCodes = new ErrorCodes();
             try
             {
-                using (var context = new PayDayContext())
-                {
-                    var shop = context.Shop.Where(f => f.Statistics.User.UserName == game.Username).ToList();
-                    shop[0].OutputMoney += money;
-                    shop[0].BoughtGamesCount++;
-                    context.SaveChanges();
-                }
+                var productCollection = DataBaseService.DBConection();
+                var filter = Builders<User>.Filter.Eq(a => a.UserName, game.Username);
+                var update = Builders<User>.Update
+                    .Inc(a => a.Statistics[0].Shop[0].BoughtGamesCount, 1)
+                    .Inc(a => a.Statistics[0].Shop[0].OutputMoney, money);
+                var user = productCollection.UpdateOne(filter, update);
             }
             catch (Exception)
             {
@@ -75,13 +79,12 @@ namespace Services.Services
             errorCodes = new ErrorCodes();
             try
             {
-                using (var context = new PayDayContext())
-                {
-                    var shop = context.Shop.Where(f => f.Statistics.User.UserName == game.Username).ToList();
-                    shop[0].InputMoney += money;
-                    shop[0].GamesSoldCount++;
-                    context.SaveChanges();
-                }
+                var productCollection = DataBaseService.DBConection();
+                var filter = Builders<User>.Filter.Eq(a => a.UserName, game.Username);
+                var update = Builders<User>.Update
+                    .Inc(a => a.Statistics[0].Shop[0].InputMoney, money)
+                    .Inc(a => a.Statistics[0].Shop[0].GamesSoldCount,1);
+                var user = productCollection.UpdateOne(filter, update);
             }
             catch (Exception)
             {
@@ -99,14 +102,10 @@ namespace Services.Services
             errorCodes = new ErrorCodes();
             try
             {
-                using (var context = new PayDayContext())
-                {
-                    var items = context.Highscore.Where(f => f.User.UserName == game.Username).ToList();
-                    var rank = context.Ranks.Where(f => f.RankURL == rankurl).ToList();
-                    items[0].Elo = newElo;
-                    items[0].RankID = rank[0].Id;
-                    context.SaveChanges();
-                }
+                var productCollection = DataBaseService.DBConection();
+                var filter = Builders<User>.Filter.Eq(a => a.UserName, game.Username);
+                var update = Builders<User>.Update.Set(a => a.Highscore[0].Rank, rankurl).Set(a => a.Highscore[0].Elo, newElo);
+                var user = productCollection.UpdateOne(filter, update);
             }
             catch (Exception)
             {
@@ -115,33 +114,51 @@ namespace Services.Services
            
         }
 
+        public static void LoadStatistic(out StatisticData statisticData, out ErrorCodes errorCodes, Game game)
+        {
+            statisticData = null;
+            try
+            {
+                var productCollection = DataBaseService.DBConection();
+                var filter = Builders<User>.Filter.Eq(a => a.UserName, game.Username);
+                var user = productCollection.Find(filter).ToList();
+                statisticData = new StatisticData
+                {
+                    BoughtGamesCount = user[0].Statistics[0].Shop[0].BoughtGamesCount,
+                    CasinoCount = user[0].Statistics[0].Casino[0].GameCasinoCount,
+                    CasinoWins = user[0].Statistics[0].Casino[0].CasinoWinCount,
+                    GameMoneyLoos = user[0].Statistics[0].GameMoneyLose,
+                    GameCount = user[0].Statistics[0].GameCount,
+                    GameMoneyWin = user[0].Statistics[0].GameMoneyWin,
+                    Rank = user[0].Highscore[0].Rank,
+                    Elo = user[0].Highscore[0].Elo,
+                    SoldGamesCount = user[0].Statistics[0].Shop[0].GamesSoldCount,
+                    InPutMoney = user[0].Statistics[0].Shop[0].InputMoney,
+                    OutputMoney = user[0].Statistics[0].Shop[0].OutputMoney,
+                    WinHeart = user[0].Statistics[0].Casino[0].WinHeart,
+                    WinMoneybag = user[0].Statistics[0].Casino[0].WinMoneyBag,
+                    WinSeven = user[0].Statistics[0].Casino[0].WinSeven
+                };
+                errorCodes = ErrorCodes.NoError;
+            }
+            catch
+            {
+                errorCodes = ErrorCodes.DBSCon2202;
+            }
+        }
         public static void LoadHighscore(List<HighscoreViewData> highscore, out ErrorCodes errorCodes)
         {
             errorCodes = new ErrorCodes();
             try
             {
-                using (var context = new PayDayContext())
+                var productCollection = DataBaseService.DBConection();
+                var filter = Builders<User>.Filter.Empty;
+                var user = productCollection.Find(filter).Limit(20).SortByDescending(a => a.Highscore[0].Elo).ToList();
+                foreach(var item in user)
                 {
-
-                    var item = (from high in context.Highscore
-                                join u in context.User on high.UserID equals u.UserId
-                                join r in context.Ranks on high.RankID equals r.Id
-                                where u.UserId == high.UserID
-                                select new
-                                {
-                                    u.UserId,
-                                    u.UserName,
-                                    r.Rank,
-                                    r.RankURL,
-                                    high.Elo
-                                }).OrderByDescending(x => x.Elo).Take(20).ToList();
-
-                    foreach (var high in item)
-                    {
-                        highscore.Add(new HighscoreViewData() { UserID = high.UserId, UserName = high.UserName, Rank = high.Rank, Elo = high.Elo, RankURL = high.RankURL });
-                    }
-
+                    highscore.Add(new HighscoreViewData { UserName = item.UserName, Elo = item.Highscore[0].Elo, RankURL = item.Highscore[0].Rank });
                 }
+
             }
             catch (Exception)
             {
@@ -154,12 +171,10 @@ namespace Services.Services
             errorCodes = new ErrorCodes();
             try
             {
-                using (var context = new PayDayContext())
-                {
-                    var shop = context.Shop.Where(f => f.Statistics.User.UserName == game.Username).ToList();
-                    shop[0].OutputMoney += money;
-                    context.SaveChanges();
-                }
+                var productCollection = DataBaseService.DBConection();
+                var filter = Builders<User>.Filter.Eq(a => a.UserName, game.Username);
+                var update = Builders<User>.Update.Inc(a => a.Statistics[0].Shop[0].OutputMoney, money);
+                var user = productCollection.UpdateOne(filter, update);
             }
             catch (Exception)
             {
@@ -173,12 +188,10 @@ namespace Services.Services
             errorCodes = new ErrorCodes();
             try
             {
-                using (var context = new PayDayContext())
-                {
-                    var shop = context.Shop.Where(f => f.Statistics.User.UserName == game.Username).ToList();
-                    shop[0].InputMoney += money;
-                    context.SaveChanges();
-                }
+                var productCollection = DataBaseService.DBConection();
+                var filter = Builders<User>.Filter.Eq(a => a.UserName, game.Username);
+                var update = Builders<User>.Update.Inc(a => a.Statistics[0].Shop[0].InputMoney, money);
+                var user = productCollection.UpdateOne(filter, update);
             }
             catch (Exception)
             {

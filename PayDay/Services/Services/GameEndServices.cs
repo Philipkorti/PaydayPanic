@@ -20,27 +20,27 @@ namespace Services.Services
             double money;
             int newelo = 0;
             elo = 0;
-            using(var context = new PayDayContext()) 
-            {
-                var item = (from high in context.Highscore
-                        join u in context.User on high.UserID equals u.UserId
-                        join s in context.Statistics on u.UserId equals s.UserID
-                        where u.UserName == game.Username
-                        select new
-                        {
-                            high.Elo,
-                            s.GameMoneyWin,
-                            s.GameMoneyLose,
-                            s.GameCount
-                        }).ToList();
-                elo = item[0].Elo;
-                if (item[0].GameCount !=0)
-                {
-                    averageMonyWin = item[0].GameMoneyWin / item[0].GameCount;
-                    averageMonyLose = item[0].GameMoneyLose / item[0].GameCount;
-                }
+            //using(var context = new PayDayContext()) 
+            //{
+            //    var item = (from high in context.Highscore
+            //            join u in context.User on high.UserID equals u.UserId
+            //            join s in context.Statistics on u.UserId equals s.UserID
+            //            where u.UserName == game.Username
+            //            select new
+            //            {
+            //                high.Elo,
+            //                s.GameMoneyWin,
+            //                s.GameMoneyLose,
+            //                s.GameCount
+            //            }).ToList();
+            //    elo = item[0].Elo;
+            //    if (item[0].GameCount !=0)
+            //    {
+            //        averageMonyWin = item[0].GameMoneyWin / item[0].GameCount;
+            //        averageMonyLose = item[0].GameMoneyLose / item[0].GameCount;
+            //    }
                 
-            }
+            //}
             moneywin = (game.MoneyWin - averageMonyWin);
             moneylose = (game.MoneyLose - averageMonyLose);
             money = ((moneywin - moneylose) / 10);
@@ -51,14 +51,14 @@ namespace Services.Services
 
         public static void SaveDateaStatic(Game game)
         {
-            using(var context = new PayDayContext())
-            {
-                var item = context.Statistics.Where(s => s.User.UserName == game.Username).ToList();
+            //using(var context = new PayDayContext())
+            //{
+            //    var item = context.Statistics.Where(s => s.User.UserName == game.Username).ToList();
 
-                item[0].GameMoneyLose += game.MoneyLose;
-                item[0].GameMoneyWin += game.MoneyWin;
-                context.SaveChanges();
-            }
+            //    item[0].GameMoneyLose += game.MoneyLose;
+            //    item[0].GameMoneyWin += game.MoneyWin;
+            //    context.SaveChanges();
+            //}
         }
         public static string RankUpgrade(int elo)
         {

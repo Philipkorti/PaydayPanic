@@ -1,4 +1,6 @@
 ﻿using Data;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -12,13 +14,22 @@ namespace DataBase.Models
     public class User
     {
         /// <summary> Gets or set the id of the player. </summary>
-        [Key] [DatabaseGenerated(DatabaseGeneratedOption.Identity)] public int UserId { get; set; }
+        [BsonId, BsonElement("UserId"), BsonRepresentation(BsonType.ObjectId)]
+        public string UserId { get; set; }
 
         /// <summary> Gets or sets the username of the player. </summary>
-        [Required] [StringLength(ConstData.StringLengh)] public string UserName { get; set; }
+        [StringLength(ConstData.StringLengh), BsonElement("UserName"), BsonRepresentation(BsonType.String)] 
+        public string UserName { get; set; }
 
         /// <summary> Gets or sets the password of the player. </summary>
-        [Required] public string Password { get; set; }
-  
+        [BsonElement("Password"), BsonRepresentation(BsonType.String)]
+        public string Password { get; set; }
+
+        [BsonElement("Statistics")]
+        public List<Statistics> Statistics { get; set; }
+
+        [BsonElement("Highscore")]
+        public List<Highscore> Highscore { get; set; }
+
     }
 }

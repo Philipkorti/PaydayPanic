@@ -8,3 +8,14 @@ C:\Users\phili\OneDrive - HTBLuVA Mödling\Schule\3.Klasse\2.Semester\POS\POS Pr
 C:\Users\phili\OneDrive - HTBLuVA Mödling\Schule\3.Klasse\2.Semester\POS\POS Projekt\PaydayPanic\PayDay\DataBase\obj\Debug\DataBase.pdb
 C:\Users\phili\OneDrive - HTBLuVA Mödling\Schule\3.Klasse\2.Semester\POS\POS Projekt\PaydayPanic\PayDay\DataBase\obj\Debug\DataBase.Migrations.InitialCreate.resources
 C:\Users\phili\OneDrive - HTBLuVA Mödling\Schule\3.Klasse\2.Semester\POS\POS Projekt\PaydayPanic\PayDay\DataBase\obj\Debug\DataBase.csproj.GenerateResource.cache
+C:\Users\phili\Desktop\PayDayPanicMongo\PaydayPanic\PayDay\bin\Debug\mongocrypt.dll
+C:\Users\phili\Desktop\PayDayPanicMongo\PaydayPanic\PayDay\bin\Debug\DataBase.dll.config
+C:\Users\phili\Desktop\PayDayPanicMongo\PaydayPanic\PayDay\bin\Debug\DataBase.dll
+C:\Users\phili\Desktop\PayDayPanicMongo\PaydayPanic\PayDay\bin\Debug\DataBase.pdb
+C:\Users\phili\Desktop\PayDayPanicMongo\PaydayPanic\PayDay\DataBase\obj\Debug\DataBase.csproj.AssemblyReference.cache
+C:\Users\phili\Desktop\PayDayPanicMongo\PaydayPanic\PayDay\DataBase\obj\Debug\DataBase.Migrations.InitialCreate.resources
+C:\Users\phili\Desktop\PayDayPanicMongo\PaydayPanic\PayDay\DataBase\obj\Debug\DataBase.csproj.GenerateResource.cache
+C:\Users\phili\Desktop\PayDayPanicMongo\PaydayPanic\PayDay\DataBase\obj\Debug\DataBase.csproj.CoreCompileInputs.cache
+C:\Users\phili\Desktop\PayDayPanicMongo\PaydayPanic\PayDay\DataBase\obj\Debug\DataBase.csproj.CopyComplete
+C:\Users\phili\Desktop\PayDayPanicMongo\PaydayPanic\PayDay\DataBase\obj\Debug\DataBase.dll
+C:\Users\phili\Desktop\PayDayPanicMongo\PaydayPanic\PayDay\DataBase\obj\Debug\DataBase.pdb

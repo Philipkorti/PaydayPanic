@@ -44,14 +44,14 @@ namespace PayDay.ViewModels
             roundRobinCollection = new RoundRobinCollection(100);
             roundRobinCollection.Push((float)this.Game.GoldPrice);
             this.shopItems = new ObservableCollection<ShopItems>();
-            using (var context = new PayDayContext())
-            {
-                var item = context.Items.ToList();
-                foreach (var shopitem in item)
-                {
-                    this.shopItems.Add(new ShopItems() { ItemID = shopitem.ItemID, PictureURL = shopitem.PictureURL, InStock = shopitem.InStock, Price = shopitem.Price, Title = shopitem.Title });
-                }
-            }
+            //using (var context = new PayDayContext())
+            //{
+            //    var item = context.Items.ToList();
+            //    foreach (var shopitem in item)
+            //    {
+            //        this.shopItems.Add(new ShopItems() { ItemID = shopitem.ItemID, PictureURL = shopitem.PictureURL, InStock = shopitem.InStock, Price = shopitem.Price, Title = shopitem.Title });
+            //    }
+            //}
             dispatcherTimer = new DispatcherTimer
             {
                 Interval = TimeSpan.FromSeconds(5)

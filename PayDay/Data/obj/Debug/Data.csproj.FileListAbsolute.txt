@@ -6,3 +6,11 @@ C:\Users\phili\OneDrive - HTBLuVA Mödling\Schule\3.Klasse\2.Semester\POS\POS Pr
 C:\Users\phili\OneDrive - HTBLuVA Mödling\Schule\3.Klasse\2.Semester\POS\POS Projekt\PaydayPanic\PayDay\Data\obj\Debug\Data.csproj.CopyComplete
 C:\Users\phili\OneDrive - HTBLuVA Mödling\Schule\3.Klasse\2.Semester\POS\POS Projekt\PaydayPanic\PayDay\Data\obj\Debug\Data.dll
 C:\Users\phili\OneDrive - HTBLuVA Mödling\Schule\3.Klasse\2.Semester\POS\POS Projekt\PaydayPanic\PayDay\Data\obj\Debug\Data.pdb
+C:\Users\phili\Desktop\PayDayPanicMongo\PaydayPanic\PayDay\bin\Debug\Data.dll.config
+C:\Users\phili\Desktop\PayDayPanicMongo\PaydayPanic\PayDay\bin\Debug\Data.dll
+C:\Users\phili\Desktop\PayDayPanicMongo\PaydayPanic\PayDay\bin\Debug\Data.pdb
+C:\Users\phili\Desktop\PayDayPanicMongo\PaydayPanic\PayDay\Data\obj\Debug\Data.csproj.AssemblyReference.cache
+C:\Users\phili\Desktop\PayDayPanicMongo\PaydayPanic\PayDay\Data\obj\Debug\Data.csproj.CoreCompileInputs.cache
+C:\Users\phili\Desktop\PayDayPanicMongo\PaydayPanic\PayDay\Data\obj\Debug\Data.csproj.CopyComplete
+C:\Users\phili\Desktop\PayDayPanicMongo\PaydayPanic\PayDay\Data\obj\Debug\Data.dll
+C:\Users\phili\Desktop\PayDayPanicMongo\PaydayPanic\PayDay\Data\obj\Debug\Data.pdb

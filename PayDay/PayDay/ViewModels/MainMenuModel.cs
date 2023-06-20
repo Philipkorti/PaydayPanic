@@ -164,12 +164,12 @@ namespace PayDay.ViewModels
         /// <param name="parameter">Data use by the command.</param>
         private void PlayCommandExecute(object parameter)
         {
-            using(var context = new PayDayContext())
-            {
-                var item = context.Statistics.Where(s => s.User.UserName == Game.Username).ToList();
-                item[0].GameCount++;
-                context.SaveChanges();
-            }
+            //using(var context = new PayDayContext())
+            //{
+            //    var item = context.Statistics.Where(s => s.User.UserName == Game.Username).ToList();
+            //    item[0].GameCount++;
+            //    context.SaveChanges();
+            //}
             GameView gameView = new GameView();
             GameViewModel gameViewModel = new GameViewModel(this.EventAggregator, this.Game);
             gameView.DataContext = gameViewModel;
