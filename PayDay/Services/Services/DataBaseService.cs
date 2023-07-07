@@ -19,7 +19,14 @@ namespace Services.Services
             var db = client.GetDatabase("PayDay");
             var productCollection = db.GetCollection<User>("User");
             return productCollection;
-        } 
+        }
+        public static void PlusGame(Game game)
+        {
+            var productCollection = DataBaseService.DBConection();
+            var filter = Builders<User>.Filter.Eq(a => a.UserName, game.Username);
+            var uodate = Builders<User>.Update.Inc(a => a.Statistics[0].GameCount, 1);
+            var user = productCollection.UpdateOne(filter, uodate);
+        }
         public static void PlusWinsCasino(Game game, int sevenWin, int heartWins, int paydayWins, out ErrorCodes errorCodes)
         {
             errorCodes = new ErrorCodes();
@@ -175,6 +182,7 @@ namespace Services.Services
                 var filter = Builders<User>.Filter.Eq(a => a.UserName, game.Username);
                 var update = Builders<User>.Update.Inc(a => a.Statistics[0].Shop[0].OutputMoney, money);
                 var user = productCollection.UpdateOne(filter, update);
+                
             }
             catch (Exception)
             {
@@ -198,6 +206,38 @@ namespace Services.Services
                 errorCodes = ErrorCodes.DBSCon2202;
             }
            
+        }
+
+        public static void OutPutMoney(Game game, double money, out ErrorCodes errorCodes)
+        {
+            errorCodes = new ErrorCodes();
+            try
+            {
+                var productCollection = DataBaseService.DBConection();
+                var filter = Builders<User>.Filter.Eq(a => a.UserName, game.Username);
+                var update = Builders<User>.Update.Inc(a => a.Statistics[0].GameMoneyLose, money);
+                var user = productCollection.UpdateOne(filter, update);
+            }
+            catch (Exception)
+            {
+                errorCodes = ErrorCodes.DBSCon2202;
+            }
+        }
+
+        public static void InputPutMoney(Game game, double money, out ErrorCodes errorCodes)
+        {
+            errorCodes = new ErrorCodes();
+            try
+            {
+                var productCollection = DataBaseService.DBConection();
+                var filter = Builders<User>.Filter.Eq(a => a.UserName, game.Username);
+                var update = Builders<User>.Update.Inc(a => a.Statistics[0].GameMoneyWin, money);
+                var user = productCollection.UpdateOne(filter, update);
+            }
+            catch (Exception)
+            {
+                errorCodes = ErrorCodes.DBSCon2202;
+            }
         }
 
     }

@@ -21,6 +21,7 @@ using System.Windows.Media.TextFormatting;
 using System.Collections.Specialized;
 using PayDay.Views;
 using Services;
+using System.Security.Policy;
 
 namespace PayDay.ViewModels
 {
@@ -242,6 +243,8 @@ namespace PayDay.ViewModels
             this.Game.BuyGold(this.goldCount);
             DataBaseService.BuyGoldPlusDatabase(this.Game,money, out ErrorCodes errorCodes);
             ErrorServices.ShowError(errorCodes);
+            DataBaseService.OutPutMoney(this.Game,money, out errorCodes);
+            ErrorServices.ShowError(errorCodes);
             this.EventAggregator.GetEvent<GameDataChangeEvent>().Publish(this.Game);
         }
 
@@ -299,6 +302,7 @@ namespace PayDay.ViewModels
                 this.Game.EditMoney(money);
                 this.EventAggregator.GetEvent<GameDataChangeEvent>().Publish(this.Game);
                 DataBaseService.SellGoldPlusDatabase(this.Game, money, out errorCodes);
+                DataBaseService.InputPutMoney(this.Game, money, out errorCodes);
             }
             else
             {
@@ -362,6 +366,8 @@ namespace PayDay.ViewModels
             this.Game.Gold = this.Game.Gold - this.Game.Gold;
             this.EventAggregator.GetEvent<GameDataChangeEvent>().Publish(this.Game);
             ErrorServices.ShowError(errorCodes);
+            DataBaseService.InputPutMoney(this.Game, money, out errorCodes);
+            ErrorServices.ShowError(errorCodes);
         }
 
         /// <summary>
@@ -381,6 +387,8 @@ namespace PayDay.ViewModels
                 this.Game.Gold += buygold;
                 this.Game.EditMoney(-(losemoney));
                 this.EventAggregator.GetEvent<GameDataChangeEvent>().Publish(this.Game);
+                DataBaseService.InputPutMoney(this.Game, losemoney, out errorCodes);
+                ErrorServices.ShowError(errorCodes);
             }
         }
         #endregion

@@ -3,10 +3,12 @@ using Data;
 using Microsoft.Practices.Prism.Events;
 using PayDay.Events;
 using PayDay.Views;
+using Services;
 using Services.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Policy;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -184,6 +186,8 @@ namespace PayDay.ViewModels
             for (int i = 0; i < this.countRounds; i++)
             {
                 this.Game.EditMoney(-this.stake);
+                DataBaseService.OutPutMoney(this.Game, this.stake, out ErrorCodes errorCodes);
+                ErrorServices.ShowError(errorCodes);
                 if (this.Game.GameEnd || this.Game.GameEndTime)
                 {
                     break;
@@ -211,6 +215,8 @@ namespace PayDay.ViewModels
                     this.Game.EditMoney(moneyWin);
                     this.WinMoney = "+" + Convert.ToString(moneyWin);
                     this.Color = Brushes.Green;
+                    DataBaseService.InputPutMoney(this.Game, moneyWin, out errorCodes);
+                    ErrorServices.ShowError(errorCodes);
                 }
                 
                 this.EventAggregator.GetEvent<GameDataChangeEvent>().Publish(this.Game);

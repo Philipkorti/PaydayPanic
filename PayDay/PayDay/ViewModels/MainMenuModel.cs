@@ -170,6 +170,7 @@ namespace PayDay.ViewModels
             //    item[0].GameCount++;
             //    context.SaveChanges();
             //}
+            DataBaseService.PlusGame(this.Game);
             GameView gameView = new GameView();
             GameViewModel gameViewModel = new GameViewModel(this.EventAggregator, this.Game);
             gameView.DataContext = gameViewModel;
