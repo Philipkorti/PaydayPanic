@@ -170,11 +170,15 @@ namespace PayDay.ViewModels
             //    item[0].GameCount++;
             //    context.SaveChanges();
             //}
-            DataBaseService.PlusGame(this.Game);
-            GameView gameView = new GameView();
-            GameViewModel gameViewModel = new GameViewModel(this.EventAggregator, this.Game);
-            gameView.DataContext = gameViewModel;
-            this.EventAggregator.GetEvent<GameViewDataChageEvent>().Publish(gameView);
+            //DataBaseService.PlusGame(this.Game);
+            //GameView gameView = new GameView();
+            //GameViewModel gameViewModel = new GameViewModel(this.EventAggregator, this.Game);
+            //gameView.DataContext = gameViewModel;
+            //this.EventAggregator.GetEvent<GameViewDataChageEvent>().Publish(gameView);
+            SelectGameView selectGameView = new SelectGameView();
+            SelectGameViewModel selectGameViewModel = new SelectGameViewModel(this.EventAggregator, this.Game);
+            selectGameView.DataContext = selectGameViewModel;
+            this.EventAggregator.GetEvent<SelectGameViewDataChangeEvent>().Publish(selectGameView);
         }
 
         /// <summary>

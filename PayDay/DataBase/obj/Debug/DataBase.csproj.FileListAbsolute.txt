@@ -19,3 +19,14 @@ C:\Users\phili\Desktop\PayDayPanicMongo\PaydayPanic\PayDay\DataBase\obj\Debug\Da
 C:\Users\phili\Desktop\PayDayPanicMongo\PaydayPanic\PayDay\DataBase\obj\Debug\DataBase.csproj.CopyComplete
 C:\Users\phili\Desktop\PayDayPanicMongo\PaydayPanic\PayDay\DataBase\obj\Debug\DataBase.dll
 C:\Users\phili\Desktop\PayDayPanicMongo\PaydayPanic\PayDay\DataBase\obj\Debug\DataBase.pdb
+F:\Entwicklung\PaydayPanic\PayDay\bin\Debug\mongocrypt.dll
+F:\Entwicklung\PaydayPanic\PayDay\bin\Debug\DataBase.dll.config
+F:\Entwicklung\PaydayPanic\PayDay\bin\Debug\DataBase.dll
+F:\Entwicklung\PaydayPanic\PayDay\bin\Debug\DataBase.pdb
+F:\Entwicklung\PaydayPanic\PayDay\DataBase\obj\Debug\DataBase.csproj.AssemblyReference.cache
+F:\Entwicklung\PaydayPanic\PayDay\DataBase\obj\Debug\DataBase.Migrations.InitialCreate.resources
+F:\Entwicklung\PaydayPanic\PayDay\DataBase\obj\Debug\DataBase.csproj.GenerateResource.cache
+F:\Entwicklung\PaydayPanic\PayDay\DataBase\obj\Debug\DataBase.csproj.CoreCompileInputs.cache
+F:\Entwicklung\PaydayPanic\PayDay\DataBase\obj\Debug\DataBase.csproj.CopyComplete
+F:\Entwicklung\PaydayPanic\PayDay\DataBase\obj\Debug\DataBase.dll
+F:\Entwicklung\PaydayPanic\PayDay\DataBase\obj\Debug\DataBase.pdb

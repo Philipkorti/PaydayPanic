@@ -41,6 +41,7 @@ namespace PayDay.ViewModels
             this.EventAggregator.GetEvent<MainMenuDataChangeEvent>().Subscribe(this.OnMainMenuViewChanged, ThreadOption.UIThread);
             this.EventAggregator.GetEvent<GameEndViewDataChangeEvent>().Subscribe(this.OnGameOverViewChanged, ThreadOption.UIThread);
             this.EventAggregator.GetEvent<LogInDataChangeEvent>().Subscribe(this.OnLogInViewChanged, ThreadOption.UIThread);
+            this.EventAggregator.GetEvent<SelectGameViewDataChangeEvent>().Subscribe(this.OnSelectGameViewChanged, ThreadOption.UIThread);
         }
         #endregion
 
@@ -103,6 +104,10 @@ namespace PayDay.ViewModels
         private void OnGameViewChanged(GameView gameview)
         {
             this.CurrentView = gameview;
+        }
+        private void OnSelectGameViewChanged(SelectGameView selectGameView)
+        {
+            this.CurrentView = selectGameView;
         }
         private void OnLogInViewChanged(LogInView logInView)
         {

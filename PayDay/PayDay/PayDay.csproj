@@ -103,6 +103,7 @@
     <Compile Include="Events\MainMenuDataChangeEvent.cs" />
     <Compile Include="Events\PointColectionChangeEvent.cs" />
     <Compile Include="Events\RegisterDataChageEvent.cs" />
+    <Compile Include="Events\SelectGameViewDataChangeEvent.cs" />
     <Compile Include="Events\ShopItemsDataChangeEvent.cs" />
     <Compile Include="Events\ShopViewDataChangeEvent.cs" />
     <Compile Include="NotifyPropertyChanged.cs" />
@@ -117,6 +118,7 @@
     <Compile Include="ViewModels\MainMenuModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\RulesViewModel.cs" />
+    <Compile Include="ViewModels\SelectGameViewModel.cs" />
     <Compile Include="ViewModels\ShopViewModel.cs" />
     <Compile Include="ViewModels\SignInViewModel.cs" />
     <Compile Include="ViewModels\StatisticViewModel.cs" />
@@ -145,6 +147,9 @@
     <Compile Include="Views\RulesView.xaml.cs">
       <DependentUpon>RulesView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\SelectGameView.xaml.cs">
+      <DependentUpon>SelectGameView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ShopView.xaml.cs">
       <DependentUpon>ShopView.xaml</DependentUpon>
     </Compile>
@@ -170,6 +175,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="ResourceDictionarys\BorderResourceDictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ResourceDictionarys\ButtonResourceDictionary.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -223,6 +232,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\RulesView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SelectGameView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

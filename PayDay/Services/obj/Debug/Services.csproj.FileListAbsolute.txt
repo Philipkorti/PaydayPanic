@@ -14,3 +14,12 @@ C:\Users\phili\Desktop\PayDayPanicMongo\PaydayPanic\PayDay\bin\Debug\Services.dl
 C:\Users\phili\Desktop\PayDayPanicMongo\PaydayPanic\PayDay\bin\Debug\Services.dll
 C:\Users\phili\Desktop\PayDayPanicMongo\PaydayPanic\PayDay\bin\Debug\Services.pdb
 C:\Users\phili\Desktop\PayDayPanicMongo\PaydayPanic\PayDay\Services\obj\Debug\Services.csproj.CopyComplete
+F:\Entwicklung\PaydayPanic\PayDay\bin\Debug\mongocrypt.dll
+F:\Entwicklung\PaydayPanic\PayDay\bin\Debug\Services.dll.config
+F:\Entwicklung\PaydayPanic\PayDay\bin\Debug\Services.dll
+F:\Entwicklung\PaydayPanic\PayDay\bin\Debug\Services.pdb
+F:\Entwicklung\PaydayPanic\PayDay\Services\obj\Debug\Services.csproj.AssemblyReference.cache
+F:\Entwicklung\PaydayPanic\PayDay\Services\obj\Debug\Services.csproj.CoreCompileInputs.cache
+F:\Entwicklung\PaydayPanic\PayDay\Services\obj\Debug\Services.csproj.CopyComplete
+F:\Entwicklung\PaydayPanic\PayDay\Services\obj\Debug\Services.dll
+F:\Entwicklung\PaydayPanic\PayDay\Services\obj\Debug\Services.pdb

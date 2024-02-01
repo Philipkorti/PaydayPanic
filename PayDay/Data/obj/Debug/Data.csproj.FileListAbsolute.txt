@@ -14,3 +14,11 @@ C:\Users\phili\Desktop\PayDayPanicMongo\PaydayPanic\PayDay\Data\obj\Debug\Data.c
 C:\Users\phili\Desktop\PayDayPanicMongo\PaydayPanic\PayDay\Data\obj\Debug\Data.csproj.CopyComplete
 C:\Users\phili\Desktop\PayDayPanicMongo\PaydayPanic\PayDay\Data\obj\Debug\Data.dll
 C:\Users\phili\Desktop\PayDayPanicMongo\PaydayPanic\PayDay\Data\obj\Debug\Data.pdb
+F:\Entwicklung\PaydayPanic\PayDay\bin\Debug\Data.dll.config
+F:\Entwicklung\PaydayPanic\PayDay\bin\Debug\Data.dll
+F:\Entwicklung\PaydayPanic\PayDay\bin\Debug\Data.pdb
+F:\Entwicklung\PaydayPanic\PayDay\Data\obj\Debug\Data.csproj.AssemblyReference.cache
+F:\Entwicklung\PaydayPanic\PayDay\Data\obj\Debug\Data.csproj.CoreCompileInputs.cache
+F:\Entwicklung\PaydayPanic\PayDay\Data\obj\Debug\Data.csproj.CopyComplete
+F:\Entwicklung\PaydayPanic\PayDay\Data\obj\Debug\Data.dll
+F:\Entwicklung\PaydayPanic\PayDay\Data\obj\Debug\Data.pdb
