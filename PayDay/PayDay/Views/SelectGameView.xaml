@@ -30,7 +30,7 @@
             </Button>
         </Border>
         <Border Grid.Column="1" Style="{StaticResource SelectGamesBorder}">
-            <Button Background="#f95738" Opacity="0.5">
+            <Button Background="#f95738" Opacity="0.5" Command="{Binding RankedMultiplayerCommand}">
                 <TextBlock Style="{StaticResource TextBlockSelectGame}">Ranked Multiplayer</TextBlock>
             </Button>
         </Border>

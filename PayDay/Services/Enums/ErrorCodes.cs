@@ -11,7 +11,7 @@ namespace Services
         NoError,
         DBSCon2202,
         LoginError,
-        RegisterError
-
+        RegisterError,
+        WaitingListError
     }
 }

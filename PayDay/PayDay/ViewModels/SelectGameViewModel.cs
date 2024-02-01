@@ -3,12 +3,14 @@ using Data;
 using Microsoft.Practices.Prism.Events;
 using PayDay.Events;
 using PayDay.Views;
+using Services;
 using Services.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace PayDay.ViewModels
@@ -27,6 +29,7 @@ namespace PayDay.ViewModels
         {
             this.Game = game;
             this.SingelPlayerCommand = new ActionCommand(this.SingelplayerCommandExecute, this.SingelPlayerCommandCanExecute);
+            this.RankedMultiplayerCommand = new ActionCommand(this.MultiplayerCommandExecute, this.MultiplayerCommandCanExecute);
         }
         #endregion
 
@@ -67,6 +70,36 @@ namespace PayDay.ViewModels
             gameView.DataContext = gameViewModel;
             this.EventAggregator.GetEvent<GameViewDataChageEvent>().Publish(gameView);
         }
+
+        /// <summary>
+        /// De´termines whether the play command can be executed.
+        /// </summary>
+        /// <param name="parameter">Data used by the command.</param>
+        /// <returns><c>true</c> if the command can be executed otherwise <c>false</c>.</returns>
+        private bool MultiplayerCommandCanExecute(object parameter)
+        {
+            return true;
+        }
+
+        private void MultiplayerCommandExecute(object parameter)
+        {
+            
+            if (WaitingListService.SetWaitingList(this.Game.Username, out ErrorCodes errorCodes))
+            {
+                ErrorServices.ShowError(errorCodes);
+            }
+            else
+            {
+                DataBaseService.PlusGame(this.Game);
+                RankedMultiplayerWaitingView rankedMultiplayerWaitingView = new RankedMultiplayerWaitingView();
+                RankedMultiplayerWaitingViewModel rankedMultiplayerWaitingViewModel = new RankedMultiplayerWaitingViewModel(this.EventAggregator);
+                rankedMultiplayerWaitingView.DataContext = rankedMultiplayerWaitingViewModel;
+                this.EventAggregator.GetEvent<RankedMultiplayerWaitingViewDataChangeEvent>().Publish(rankedMultiplayerWaitingView);
+            }
+           
+            
+        }
+
         #endregion
 
     }

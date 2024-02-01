@@ -168,6 +168,7 @@
     <Compile Include="Services\GameEndServices.cs" />
     <Compile Include="Services\RegisterServices.cs" />
     <Compile Include="Services\SHA.cs" />
+    <Compile Include="Services\WaitingListService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

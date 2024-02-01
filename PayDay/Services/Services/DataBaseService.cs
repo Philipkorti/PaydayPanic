@@ -5,6 +5,7 @@ using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,16 +14,25 @@ namespace Services.Services
 {
     public class DataBaseService
     {
-        public static IMongoCollection<User> DBConection()
+        public static IMongoDatabase DBConection()
         {
             var client = new MongoClient(ConstData.DataBaseCon);
-            var db = client.GetDatabase("PayDay");
-            var productCollection = db.GetCollection<User>("User");
-            return productCollection;
+            return client.GetDatabase("PayDay");
+        }
+        public static IMongoCollection<User> GetUserCollection()
+        {
+            var db = DBConection();
+            return db.GetCollection<User>("User");
+        }
+
+        public static IMongoCollection<WaitingList> GetWaitingListCollection()
+        {
+            var db = DBConection();
+            return db.GetCollection<WaitingList>("WaitingList");
         }
         public static void PlusGame(Game game)
         {
-            var productCollection = DataBaseService.DBConection();
+            var productCollection = DataBaseService.GetUserCollection();
             var filter = Builders<User>.Filter.Eq(a => a.UserName, game.Username);
             var uodate = Builders<User>.Update.Inc(a => a.Statistics[0].GameCount, 1);
             var user = productCollection.UpdateOne(filter, uodate);
@@ -32,7 +42,7 @@ namespace Services.Services
             errorCodes = new ErrorCodes();
             try
             {
-                var productCollection = DataBaseService.DBConection();
+                var productCollection = DataBaseService.GetUserCollection();
                 var filter = Builders<User>.Filter.Eq(a => a.UserName, game.Username);
                 var update = Builders<User>.Update.Inc(a => a.Statistics[0].Casino[0].WinSeven, sevenWin)
                     .Inc(a => a.Statistics[0].Casino[0].WinMoneyBag,paydayWins)
@@ -52,7 +62,7 @@ namespace Services.Services
             errorCodes = new ErrorCodes();
             try
             {
-                var productCollection = DataBaseService.DBConection();
+                var productCollection = DataBaseService.GetUserCollection();
                 var filter = Builders<User>.Filter.Eq(a => a.UserName, game.Username);
                 var update = Builders<User>.Update.Inc(a => a.Statistics[0].Casino[0].GameCasinoCount, 1);
                 var user = productCollection.UpdateOne(filter, update);
@@ -68,7 +78,7 @@ namespace Services.Services
             errorCodes = new ErrorCodes();
             try
             {
-                var productCollection = DataBaseService.DBConection();
+                var productCollection = DataBaseService.GetUserCollection();
                 var filter = Builders<User>.Filter.Eq(a => a.UserName, game.Username);
                 var update = Builders<User>.Update
                     .Inc(a => a.Statistics[0].Shop[0].BoughtGamesCount, 1)
@@ -86,7 +96,7 @@ namespace Services.Services
             errorCodes = new ErrorCodes();
             try
             {
-                var productCollection = DataBaseService.DBConection();
+                var productCollection = DataBaseService.GetUserCollection();
                 var filter = Builders<User>.Filter.Eq(a => a.UserName, game.Username);
                 var update = Builders<User>.Update
                     .Inc(a => a.Statistics[0].Shop[0].InputMoney, money)
@@ -109,7 +119,7 @@ namespace Services.Services
             errorCodes = new ErrorCodes();
             try
             {
-                var productCollection = DataBaseService.DBConection();
+                var productCollection = DataBaseService.GetUserCollection();
                 var filter = Builders<User>.Filter.Eq(a => a.UserName, game.Username);
                 var update = Builders<User>.Update.Set(a => a.Highscore[0].Rank, rankurl).Set(a => a.Highscore[0].Elo, newElo);
                 var user = productCollection.UpdateOne(filter, update);
@@ -126,7 +136,7 @@ namespace Services.Services
             statisticData = null;
             try
             {
-                var productCollection = DataBaseService.DBConection();
+                var productCollection = DataBaseService.GetUserCollection();
                 var filter = Builders<User>.Filter.Eq(a => a.UserName, game.Username);
                 var user = productCollection.Find(filter).ToList();
                 statisticData = new StatisticData
@@ -158,7 +168,7 @@ namespace Services.Services
             errorCodes = new ErrorCodes();
             try
             {
-                var productCollection = DataBaseService.DBConection();
+                var productCollection = DataBaseService.GetUserCollection();
                 var filter = Builders<User>.Filter.Empty;
                 var user = productCollection.Find(filter).Limit(20).SortByDescending(a => a.Highscore[0].Elo).ToList();
                 foreach(var item in user)
@@ -178,7 +188,7 @@ namespace Services.Services
             errorCodes = new ErrorCodes();
             try
             {
-                var productCollection = DataBaseService.DBConection();
+                var productCollection = DataBaseService.GetUserCollection();
                 var filter = Builders<User>.Filter.Eq(a => a.UserName, game.Username);
                 var update = Builders<User>.Update.Inc(a => a.Statistics[0].Shop[0].OutputMoney, money);
                 var user = productCollection.UpdateOne(filter, update);
@@ -196,7 +206,7 @@ namespace Services.Services
             errorCodes = new ErrorCodes();
             try
             {
-                var productCollection = DataBaseService.DBConection();
+                var productCollection = DataBaseService.GetUserCollection();
                 var filter = Builders<User>.Filter.Eq(a => a.UserName, game.Username);
                 var update = Builders<User>.Update.Inc(a => a.Statistics[0].Shop[0].InputMoney, money);
                 var user = productCollection.UpdateOne(filter, update);
@@ -213,7 +223,7 @@ namespace Services.Services
             errorCodes = new ErrorCodes();
             try
             {
-                var productCollection = DataBaseService.DBConection();
+                var productCollection = DataBaseService.GetUserCollection();
                 var filter = Builders<User>.Filter.Eq(a => a.UserName, game.Username);
                 var update = Builders<User>.Update.Inc(a => a.Statistics[0].GameMoneyLose, money);
                 var user = productCollection.UpdateOne(filter, update);
@@ -229,7 +239,7 @@ namespace Services.Services
             errorCodes = new ErrorCodes();
             try
             {
-                var productCollection = DataBaseService.DBConection();
+                var productCollection = DataBaseService.GetUserCollection();
                 var filter = Builders<User>.Filter.Eq(a => a.UserName, game.Username);
                 var update = Builders<User>.Update.Inc(a => a.Statistics[0].GameMoneyWin, money);
                 var user = productCollection.UpdateOne(filter, update);

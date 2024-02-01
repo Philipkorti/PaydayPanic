@@ -162,3 +162,5 @@ F:\Entwicklung\PaydayPanic\PayDay\PayDay\obj\Debug\PayDay.csproj.CopyComplete
 F:\Entwicklung\PaydayPanic\PayDay\PayDay\obj\Debug\PayDay.exe
 F:\Entwicklung\PaydayPanic\PayDay\PayDay\obj\Debug\PayDay.pdb
 F:\Entwicklung\PaydayPanic\PayDay\PayDay\obj\Debug\ResourceDictionarys\BorderResourceDictionary.baml
+F:\Entwicklung\PaydayPanic\PayDay\PayDay\obj\Debug\Views\RankedMultiplayerWaitingView.g.cs
+F:\Entwicklung\PaydayPanic\PayDay\PayDay\obj\Debug\Views\RankedMultiplayerWaitingView.baml

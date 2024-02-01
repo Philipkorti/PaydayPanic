@@ -19,7 +19,7 @@ namespace Services.Services
             errorCodes = new ErrorCodes();
             try
             {
-                var productCollection = DataBaseService.DBConection();
+                var productCollection = DataBaseService.GetUserCollection();
                 var filter = Builders<User>.Filter.Empty;
                 var user = productCollection.Find(filter).ToList();
                 foreach ( var item in user )
@@ -42,7 +42,7 @@ namespace Services.Services
             {
                 try
                 {
-                    var productCollection = DataBaseService.DBConection();
+                    var productCollection = DataBaseService.GetUserCollection();
                     User user = new User
                     {
                         UserName = username,
@@ -106,7 +106,7 @@ namespace Services.Services
             try
             {
 
-                var productCollection = DataBaseService.DBConection();
+                var productCollection = DataBaseService.GetUserCollection();
                 var filter = Builders<User>.Filter.Empty;
                 var users = productCollection.Find(filter).ToList();
                 foreach (var user in users)
