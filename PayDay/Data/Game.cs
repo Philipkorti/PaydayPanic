@@ -8,6 +8,7 @@ namespace Data
     {
         #region ------------------------- Fields, Constants, Delegates, Events --------------------------------------------
         private string gameId;
+        private string userId;
         /// <summary>
         /// Money of the player ingame.
         /// </summary>
@@ -52,7 +53,7 @@ namespace Data
         /// <param name="highscore">The highscore of the player.</param>
         /// <param name="win">Wins in the casino.</param>
         /// <param name="casinoCount">The count of how many times the casino has playerd.</param>
-        public Game(double money, string username, int highscore, int win, int casinoCount, string gameId = null) 
+        public Game(double money, string username, int highscore, int win, int casinoCount,string userId, string gameId = null) 
         {
             // set values
             this.Money=money;
@@ -62,6 +63,7 @@ namespace Data
             this.casinoCount =casinoCount;
             this.GoldPrice = 60;
             this.GameId = gameId;
+            this.UserId= userId;
             this.Items= new List<ShopItems>();
         }
 
@@ -98,6 +100,12 @@ namespace Data
         {
             get { return this.gold; }
             set { this.gold = value; }
+        }
+
+        public string UserId
+        {
+            get { return this.userId; }
+            set { this.userId = value; }
         }
         /// <summary>
         /// Gets or sets the username of the game.

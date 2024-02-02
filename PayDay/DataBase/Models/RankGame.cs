@@ -10,8 +10,8 @@ namespace DataBase.Models
 {
     public class RankGame
     {
-        [BsonId,BsonElement("UserId"), BsonRepresentation(BsonType.ObjectId)]
-        public string UserId { get; set; }
+        [BsonId,BsonElement("GameId"), BsonRepresentation(BsonType.ObjectId)]
+        public string GameId { get; set; }
         [BsonElement("PlayerOneId"), BsonRepresentation(BsonType.ObjectId)]
         public string PlayerOneId { get; set; }
 

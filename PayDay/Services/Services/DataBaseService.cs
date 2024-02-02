@@ -14,7 +14,7 @@ namespace Services.Services
 {
     public class DataBaseService
     {
-        public static IMongoDatabase DBConection()
+        private static IMongoDatabase DBConection()
         {
             var client = new MongoClient(ConstData.DataBaseCon);
             return client.GetDatabase("PayDay");
@@ -24,7 +24,11 @@ namespace Services.Services
             var db = DBConection();
             return db.GetCollection<User>("User");
         }
-
+        public static IMongoCollection<RankGame> GetRankedGameCollection()
+        {
+            var db = DBConection();
+            return db.GetCollection<RankGame>("RankedGame");
+        }
         public static IMongoCollection<WaitingList> GetWaitingListCollection()
         {
             var db = DBConection();

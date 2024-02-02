@@ -9,6 +9,8 @@ namespace DataBase.Models
 {
     public class WaitingList
     {
+        [BsonId, BsonElement("Id"), BsonRepresentation(MongoDB.Bson.BsonType.ObjectId)]
+        public string Id { get; set; }
         [BsonElement("UserId"), BsonRepresentation(MongoDB.Bson.BsonType.ObjectId)]
         public string UserId { get; set; }
     }

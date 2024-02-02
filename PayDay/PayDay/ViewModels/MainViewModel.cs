@@ -77,10 +77,10 @@ namespace PayDay.ViewModels
             {
                 
                 AutoLogIn.ReadLogIn(out List<string> userinfo);
-                if (RegisterServices.LogIn(userinfo[0], userinfo[1], out ErrorCodes errorCodes))
+                if (RegisterServices.LogIn(userinfo[0], userinfo[1], out ErrorCodes errorCodes,out string userId))
                 {
                     MainMenu mainMenu = new MainMenu();
-                    MainMenuModel mainMenuModel = new MainMenuModel(this.EventAggregator, userinfo[0]);
+                    MainMenuModel mainMenuModel = new MainMenuModel(this.EventAggregator, userinfo[0],userId);
                     mainMenu.DataContext = mainMenuModel;
                     this.CurrentView = mainMenu;
                     check = false;

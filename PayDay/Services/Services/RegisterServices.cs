@@ -99,10 +99,11 @@ namespace Services.Services
             return check;
         }
 
-        public static bool LogIn(string username, string password, out ErrorCodes errorCodes)
+        public static bool LogIn(string username, string password, out ErrorCodes errorCodes, out string userId)
         {
             bool isLogin = false;
             errorCodes = new ErrorCodes();
+            userId = null;
             try
             {
 
@@ -115,6 +116,7 @@ namespace Services.Services
                     {
                         isLogin = true;
                         errorCodes = ErrorCodes.NoError;
+                        userId = user.UserId;
                         break;
                     }
                     else

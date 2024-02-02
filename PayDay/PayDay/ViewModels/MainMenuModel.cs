@@ -51,9 +51,9 @@ namespace PayDay.ViewModels
         /// </summary>
         /// <param name="eventAggregator"></param>
         /// <param name="username"></param>
-        public MainMenuModel(IEventAggregator eventAggregator, string username) : base(eventAggregator)
+        public MainMenuModel(IEventAggregator eventAggregator, string username, string userId) : base(eventAggregator)
         {
-            this.Game = new Game(1000, username, 0, 1, 1);
+            this.Game = new Game(1000, username, 0, 1, 1,userId);
             this.EventAggregator.GetEvent<GameDataChangeEvent>().Publish(this.Game);
             this.ExitCommand = new ActionCommand(this.ExitCommandExecute, this.ExitCommandCanExecute);
             this.PlayCommand = new ActionCommand(this.PlayCommandExecute, this.PlayCommandCanExecute);

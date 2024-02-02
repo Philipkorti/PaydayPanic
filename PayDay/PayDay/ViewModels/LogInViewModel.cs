@@ -32,6 +32,8 @@ namespace PayDay.ViewModels
         /// </summary>
         private string password;
 
+        private string userId;
+
         /// <summary>
         /// Error Text if someting goes wrong.
         /// </summary>
@@ -158,7 +160,8 @@ namespace PayDay.ViewModels
         private void LogIn(object sender, DoWorkEventArgs e)
         {
             this.IsLoading = true;
-            this.isLogIn = RegisterServices.LogIn(this.Username, this.Password, out ErrorCodes errorCodes);
+            this.isLogIn = RegisterServices.LogIn(this.Username, this.Password, out ErrorCodes errorCodes,out string userId);
+            this.userId = userId;
             ErrorServices.ShowError(errorCodes);
             this.IsLoading = false;
         }
@@ -170,7 +173,7 @@ namespace PayDay.ViewModels
             if (isLogIn)
             {
                 MainMenu mainMenu = new MainMenu();
-                MainMenuModel mainMenuModel = new MainMenuModel(this.EventAggregator, this.Username);
+                MainMenuModel mainMenuModel = new MainMenuModel(this.EventAggregator, this.Username,this.userId);
                 mainMenu.DataContext = mainMenuModel;
                 this.EventAggregator.GetEvent<MainMenuDataChangeEvent>().Publish(mainMenu);
                 if (this.SaveLogIn)

@@ -26,7 +26,7 @@ namespace PayDay
             Process thisproc = Process.GetCurrentProcess();
 
             // Check how many processes have the same name as the current one
-            if(Process.GetProcessesByName(thisproc.ProcessName).Length > 1)
+            if(Process.GetProcessesByName(thisproc.ProcessName).Length > 2)
             {
                 MessageBox.Show("Application is already running!");
                 Application.Current.Shutdown();

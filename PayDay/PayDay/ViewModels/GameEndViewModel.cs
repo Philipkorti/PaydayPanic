@@ -138,7 +138,7 @@ namespace PayDay.ViewModels
                 case "window":
                     {
                         MainMenu mainMenu = new MainMenu();
-                        MainMenuModel mainMenuModel = new MainMenuModel(this.EventAggregator, username);
+                        MainMenuModel mainMenuModel = new MainMenuModel(this.EventAggregator, username,this.game.UserId);
                         mainMenu.DataContext = mainMenuModel;
                         this.EventAggregator.GetEvent<MainMenuDataChangeEvent>().Publish(mainMenu);
                         break;

@@ -92,7 +92,7 @@ namespace PayDay.ViewModels
             {
                 DataBaseService.PlusGame(this.Game);
                 RankedMultiplayerWaitingView rankedMultiplayerWaitingView = new RankedMultiplayerWaitingView();
-                RankedMultiplayerWaitingViewModel rankedMultiplayerWaitingViewModel = new RankedMultiplayerWaitingViewModel(this.EventAggregator);
+                RankedMultiplayerWaitingViewModel rankedMultiplayerWaitingViewModel = new RankedMultiplayerWaitingViewModel(this.EventAggregator,this.Game);
                 rankedMultiplayerWaitingView.DataContext = rankedMultiplayerWaitingViewModel;
                 this.EventAggregator.GetEvent<RankedMultiplayerWaitingViewDataChangeEvent>().Publish(rankedMultiplayerWaitingView);
             }

@@ -163,10 +163,12 @@
     <Compile Include="Services\AutoLogIn.cs" />
     <Compile Include="Services\CasinoService.cs" />
     <Compile Include="Services\CountGoldService.cs" />
+    <Compile Include="Services\DataBaseRankeGame.cs" />
     <Compile Include="Services\DataBaseService.cs" />
     <Compile Include="Services\ErrorServices.cs" />
     <Compile Include="Services\GameEndServices.cs" />
     <Compile Include="Services\RegisterServices.cs" />
+    <Compile Include="Services\SearchPlayerService.cs" />
     <Compile Include="Services\SHA.cs" />
     <Compile Include="Services\WaitingListService.cs" />
   </ItemGroup>
