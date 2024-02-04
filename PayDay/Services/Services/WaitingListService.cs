@@ -30,5 +30,22 @@ namespace Services.Services
 
             return check;
         }
+
+        public static bool DeleteWaitingList(string userid, out ErrorCodes errorCodes)
+        {
+            bool check = false;
+            errorCodes= new ErrorCodes();
+            try
+            {
+                var waitingListCollection = DataBaseService.GetWaitingListCollection();
+                var filter = Builders<WaitingList>.Filter.Eq(a=>a.UserId, userid);
+                waitingListCollection.DeleteOne(filter);
+            }catch(Exception ex)
+            {
+                errorCodes= ErrorCodes.DBSCon2202;
+                check= true;
+            }
+            return check;
+        }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Data;
 using Microsoft.Practices.Prism.Events;
+using Services;
 using Services.Services;
 using System;
 using System.Collections.Generic;
@@ -66,7 +67,16 @@ namespace PayDay.ViewModels
 
         private void SelectPersonEnd(object sender, RunWorkerCompletedEventArgs e)
         {
-            MessageBox.Show("Fertig");
+            this.timer.Stop();
+            if (!WaitingListService.DeleteWaitingList(this.game.UserId, out ErrorCodes errorCodes))
+            {
+                MessageBox.Show("Fertig");
+            }
+            else
+            {
+                ErrorServices.ShowError(errorCodes);
+            }
+            
         }
         #endregion
 
