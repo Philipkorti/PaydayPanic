@@ -1,5 +1,7 @@
 ﻿using Data;
 using Microsoft.Practices.Prism.Events;
+using PayDay.Events;
+using PayDay.Views;
 using Services;
 using Services.Services;
 using System;
@@ -70,7 +72,10 @@ namespace PayDay.ViewModels
             this.timer.Stop();
             if (!WaitingListService.DeleteWaitingList(this.game.UserId, out ErrorCodes errorCodes))
             {
-                MessageBox.Show("Fertig");
+                ReadyPlayerRankViewModel readyPlayerRankViewModel = new ReadyPlayerRankViewModel(this.EventAggregator, this.game.Username,this.game);
+                ReadyPlayerRankView readyPlayerRankView = new ReadyPlayerRankView();
+                readyPlayerRankView.DataContext = readyPlayerRankViewModel;
+                this.EventAggregator.GetEvent<ReadyPlayerRankDataChangeEvent>().Publish(readyPlayerRankView);
             }
             else
             {

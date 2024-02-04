@@ -164,3 +164,5 @@ F:\Entwicklung\PaydayPanic\PayDay\PayDay\obj\Debug\PayDay.pdb
 F:\Entwicklung\PaydayPanic\PayDay\PayDay\obj\Debug\ResourceDictionarys\BorderResourceDictionary.baml
 F:\Entwicklung\PaydayPanic\PayDay\PayDay\obj\Debug\Views\RankedMultiplayerWaitingView.g.cs
 F:\Entwicklung\PaydayPanic\PayDay\PayDay\obj\Debug\Views\RankedMultiplayerWaitingView.baml
+F:\Entwicklung\PaydayPanic\PayDay\PayDay\obj\Debug\Views\ReadyPlayerRankView.g.cs
+F:\Entwicklung\PaydayPanic\PayDay\PayDay\obj\Debug\Views\ReadyPlayerRankView.baml

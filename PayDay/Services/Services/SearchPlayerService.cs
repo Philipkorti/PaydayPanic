@@ -4,6 +4,7 @@ using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -40,12 +41,18 @@ namespace Services.Services
             string player = null;
             Int64 rankpointsdiff = 2;
             int count;
+            bool check = false;
             do
             {
                 foreach(var item in user)
                 {
                     count = Math.Abs(item.Highscore[0].Elo - game.Highscore);
-                    
+                    check = DataBaseRankeGame.ReadRankGameSecondPlayer(game.UserId);
+                    if (check)
+                    {
+                        player = game.UserId;
+                        break;
+                    }
                     if (count <= rankpointsdiff && item.UserId != game.UserId)
                     {
                         player = item.UserId; 

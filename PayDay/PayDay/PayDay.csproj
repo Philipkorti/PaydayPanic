@@ -103,6 +103,7 @@
     <Compile Include="Events\MainMenuDataChangeEvent.cs" />
     <Compile Include="Events\PointColectionChangeEvent.cs" />
     <Compile Include="Events\RankedMultiplayerWaitingViewDataChangeEvent.cs" />
+    <Compile Include="Events\ReadyPlayerRankDataChangeEvent.cs" />
     <Compile Include="Events\RegisterDataChageEvent.cs" />
     <Compile Include="Events\SelectGameViewDataChangeEvent.cs" />
     <Compile Include="Events\ShopItemsDataChangeEvent.cs" />
@@ -119,6 +120,7 @@
     <Compile Include="ViewModels\MainMenuModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\RankedMultiplayerWaitingViewModel.cs" />
+    <Compile Include="ViewModels\ReadyPlayerRankViewModel.cs" />
     <Compile Include="ViewModels\RulesViewModel.cs" />
     <Compile Include="ViewModels\SelectGameViewModel.cs" />
     <Compile Include="ViewModels\ShopViewModel.cs" />
@@ -148,6 +150,9 @@
     </Compile>
     <Compile Include="Views\RankedMultiplayerWaitingView.xaml.cs">
       <DependentUpon>RankedMultiplayerWaitingView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ReadyPlayerRankView.xaml.cs">
+      <DependentUpon>ReadyPlayerRankView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\RulesView.xaml.cs">
       <DependentUpon>RulesView.xaml</DependentUpon>
@@ -237,6 +242,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\RankedMultiplayerWaitingView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ReadyPlayerRankView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -374,6 +383,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Pictures\home.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\vs.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

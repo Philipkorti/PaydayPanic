@@ -10,11 +10,11 @@ none
 false
 TRACE
 F:\Entwicklung\PaydayPanic\PayDay\PayDay\App.xaml
-221794635026
+23705045041
 
-501274991802
+53-1902563265
 20540711265
-Components\BindablePasswordBox.xaml;MainWindow.xaml;ResourceDictionarys\BorderResourceDictionary.xaml;ResourceDictionarys\ButtonResourceDictionary.xaml;ResourceDictionarys\DataGrid.xaml;ResourceDictionarys\PolygonResourceDictionary.xaml;ResourceDictionarys\TabControlResourceDictionary.xaml;ResourceDictionarys\TextBlockResourceDictionary.xaml;ResourceDictionarys\TextBoxResourceDictionary.xaml;Views\CasinoView.xaml;Views\GameBordView.xaml;Views\GameEndView.xaml;Views\GameView.xaml;Views\HighscoreVew.xaml;Views\LogInView.xaml;Views\MainMenu.xaml;Views\RankedMultiplayerWaitingView.xaml;Views\RulesView.xaml;Views\SelectGameView.xaml;Views\ShopView.xaml;Views\SignInView.xaml;Views\StatisticsView.xaml;
+Components\BindablePasswordBox.xaml;MainWindow.xaml;ResourceDictionarys\BorderResourceDictionary.xaml;ResourceDictionarys\ButtonResourceDictionary.xaml;ResourceDictionarys\DataGrid.xaml;ResourceDictionarys\PolygonResourceDictionary.xaml;ResourceDictionarys\TabControlResourceDictionary.xaml;ResourceDictionarys\TextBlockResourceDictionary.xaml;ResourceDictionarys\TextBoxResourceDictionary.xaml;Views\CasinoView.xaml;Views\GameBordView.xaml;Views\GameEndView.xaml;Views\GameView.xaml;Views\HighscoreVew.xaml;Views\LogInView.xaml;Views\MainMenu.xaml;Views\RankedMultiplayerWaitingView.xaml;Views\ReadyPlayerRankView.xaml;Views\RulesView.xaml;Views\SelectGameView.xaml;Views\ShopView.xaml;Views\SignInView.xaml;Views\StatisticsView.xaml;
 
 True
 

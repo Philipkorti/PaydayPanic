@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Data.Entity.Infrastructure.Design.Executor;
 
 namespace Services.Services
 {
@@ -13,23 +14,71 @@ namespace Services.Services
         public static string SetRankGame(string playerOneId, string playerTwoId)
         {
             var rankedCollection = DataBaseService.GetRankedGameCollection();
-            RankGame rankGame = new RankGame
+            if(playerOneId != playerTwoId)
             {
-                PlayerOneId = playerOneId,
-                PlayerTwoId = playerTwoId,
-                PlayerOneRady = false,
-                PlayerTwoRady = false
-            };
-            rankedCollection.InsertOne(rankGame);
-            var filter = Builders<RankGame>.Filter.Eq(a=>a.PlayerOneId, playerOneId);
-            return rankedCollection.Find(filter).First().GameId;
+                RankGame rankGame = new RankGame
+                {
+                    PlayerOneId = playerOneId,
+                    PlayerTwoId = playerTwoId,
+                    PlayerOneRady = false,
+                    PlayerTwoRady = false
+                };
+
+                rankedCollection.InsertOne(rankGame);
+            }
+            return rankedCollection.Find(a=>a.PlayerOneId == playerOneId || a.PlayerTwoId == playerOneId).First().GameId;
         }
 
-        public static string ReadRankGameSecondPlayer(string userId)
+        public static bool ReadRankGameSecondPlayer(string userId)
         {
-            var rankeedCollection = DataBaseService.GetRankedGameCollection();
-            var filter = Builders<RankGame>.Filter.Eq(a=>a.PlayerTwoId, userId);
-            return rankeedCollection.Find(filter).First().PlayerTwoId;
+            bool check = true;
+            try
+            {
+                var rankeedCollection = DataBaseService.GetRankedGameCollection();
+                var filter = Builders<RankGame>.Filter.Eq(a => a.PlayerTwoId, userId);
+                string id = rankeedCollection.Find(filter).First().PlayerTwoId;
+            }catch(Exception ex) 
+            {
+                check = false;
+            }
+           return check;
+        }
+
+        public static string ReadRankGameSecondPlayerByGameId(string gameId, string userid)
+        {
+            var rankedCollection = DataBaseService.GetRankedGameCollection();
+            var filter = Builders<RankGame>.Filter.Eq(a=>a.GameId, gameId);
+            string playertwo = rankedCollection.Find(filter).First().PlayerTwoId;
+            if(playertwo == userid)
+            {
+                playertwo = rankedCollection.Find(filter).First().PlayerOneId;
+            }
+            return playertwo;
+        }
+        public static string ReadRankSecondName(string userId)
+        {
+            var userCollection = DataBaseService.GetUserCollection();
+            var filter = Builders<User>.Filter.Eq(a=>a.UserId, userId);
+            return userCollection.Find(filter).First().UserName;
+        }
+
+        public static void SetRadyRankedGame(string gameId,string userId)
+        {
+            var rankedCollection = DataBaseService.GetRankedGameCollection();
+            string playerId = rankedCollection.Find(a=> a.GameId == gameId).First().PlayerOneId;
+            var filter = Builders<RankGame>.Filter.Eq(a => a.GameId,gameId);
+            
+            if (playerId == userId)
+            {
+                var update = Builders<RankGame>.Update.Set(a => a.PlayerOneRady,true);
+                rankedCollection.UpdateOne(filter,update);
+            }
+            else
+            {
+                var update = Builders<RankGame>.Update.Set(a => a.PlayerTwoRady, true);
+                rankedCollection.UpdateOne(filter, update);
+            }
+            
         }
     }
 }

@@ -211,7 +211,7 @@ namespace PayDay.ViewModels
         /// <summary>
         /// Determines wheter buy gold can be executed.
         /// </summary>
-        /// <param name="parameter">Data used by the commsnd.</param>
+        /// <param name="parameter">Data used by the command.</param>
         /// <returns><c>true</c> if the command can be executed otherwise <c>false</c>.</returns>
         private bool BuyCommandCanExecute(object parameter)
         {
