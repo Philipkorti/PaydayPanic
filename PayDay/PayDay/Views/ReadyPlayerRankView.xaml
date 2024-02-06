@@ -20,10 +20,14 @@
         </DockPanel.Background>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="0.1*"/>
+            <RowDefinition Height="0.3*"/>
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock Text="{Binding Path=TimerText, Mode=TwoWay}" Foreground="White"/>
+            </StackPanel>
+            
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
@@ -39,8 +43,10 @@
                 <ColumnDefinition/>
                 <ColumnDefinition Width="0.7*"/>
             </Grid.ColumnDefinitions>
-            <Button HorizontalAlignment="Center" VerticalAlignment="Center" Command="{Binding RadyPlayerCommand}" Style="{StaticResource MainMenu}">Rady</Button>
-        </Grid>
+                <Button HorizontalAlignment="Center" VerticalAlignment="Center" Command="{Binding RadyPlayerCommand}" Style="{StaticResource MainMenu}">
+                    <TextBlock FontSize="40" Text="{Binding Path=ButtonText, Mode=TwoWay}"/>
+                </Button>
+            </Grid>
     </Grid>
     </DockPanel>
 </UserControl>

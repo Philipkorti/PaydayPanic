@@ -62,7 +62,7 @@ namespace Services.Services
             return userCollection.Find(filter).First().UserName;
         }
 
-        public static void SetRadyRankedGame(string gameId,string userId)
+        public static void SetRadyRankedGame(string gameId,string userId, bool rady)
         {
             var rankedCollection = DataBaseService.GetRankedGameCollection();
             string playerId = rankedCollection.Find(a=> a.GameId == gameId).First().PlayerOneId;
@@ -70,15 +70,32 @@ namespace Services.Services
             
             if (playerId == userId)
             {
-                var update = Builders<RankGame>.Update.Set(a => a.PlayerOneRady,true);
+                var update = Builders<RankGame>.Update.Set(a => a.PlayerOneRady,rady);
                 rankedCollection.UpdateOne(filter,update);
             }
             else
             {
-                var update = Builders<RankGame>.Update.Set(a => a.PlayerTwoRady, true);
+                var update = Builders<RankGame>.Update.Set(a => a.PlayerTwoRady, rady);
                 rankedCollection.UpdateOne(filter, update);
             }
             
+        }
+
+        public static bool IsRady(string gameId, string userId)
+        {
+            bool check;
+            var colRankedGame = DataBaseService.GetRankedGameCollection();
+            var filter = Builders<RankGame>.Filter.Eq(a=> a.GameId,gameId);
+            var item = colRankedGame.Find(filter).First();
+            if (item.PlayerOneId == userId)
+            {
+                check = item.PlayerTwoRady;
+            }
+            else
+            {
+                check = item.PlayerOneRady;
+            }
+            return check;
         }
     }
 }
