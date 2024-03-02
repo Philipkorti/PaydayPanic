@@ -34,9 +34,19 @@
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <TextBlock Style="{StaticResource ReadyPlayer}" Text="{Binding Path=PlayerOneName, Mode=OneTime}"/>
+                <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                    <TextBlock Style="{StaticResource ReadyPlayer}" Text="{Binding Path=PlayerOneName, Mode=OneTime}"/>
+                    <TextBlock Style="{StaticResource ReadyPlayer}" FontSize="20" Text="{Binding Path=RadyTextPlayerOne, Mode=OneWay}" Margin="10,0,20,0"></TextBlock>
+                    
+                </StackPanel>
+                
             <Image Grid.Column="1" Source="../Pictures/vs.png"/>
-            <TextBlock Style="{StaticResource ReadyPlayer}" Grid.Column="2" Text="{Binding Path=PlayerTwoName, Mode=OneTime}"/>
+                <TextBlock Grid.Column="1" Style="{StaticResource ReadyPlayer}" FontSize="100" Text="{Binding Path=CountownText, Mode=OneWay}"></TextBlock>
+                <StackPanel Grid.Column="2" Orientation="Vertical" VerticalAlignment="Center">
+                    <TextBlock Style="{StaticResource ReadyPlayer}" Text="{Binding Path=PlayerTwoName, Mode=OneTime}"/>
+                    <TextBlock Style="{StaticResource ReadyPlayer}" FontSize="20" Text="{Binding Path=RadyTextPlayerTwo, Mode=OneWay}" Margin="10,0,0,0"></TextBlock>
+                </StackPanel>
+            
         </Grid>
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
@@ -46,6 +56,7 @@
                 <Button HorizontalAlignment="Center" VerticalAlignment="Center" Command="{Binding RadyPlayerCommand}" Style="{StaticResource MainMenu}">
                     <TextBlock FontSize="40" Text="{Binding Path=ButtonText, Mode=TwoWay}"/>
                 </Button>
+                <UserControl Grid.Column="1" Content="{Binding UserControl}"/>
             </Grid>
     </Grid>
     </DockPanel>

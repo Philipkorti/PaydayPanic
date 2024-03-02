@@ -97,5 +97,20 @@ namespace Services.Services
             }
             return check;
         }
+
+        public static void DeletRankGame(string rankGameID)
+        {
+            DeleteMessages(rankGameID);
+            var colRankedGame = DataBaseService.GetRankedGameCollection();
+            var filter = Builders<RankGame>.Filter.Eq(a => a.GameId, rankGameID);
+            colRankedGame.DeleteOne(filter);
+        }
+
+        public static void DeleteMessages(string rankGameId)
+        {
+            var colMessages = DataBaseService.GetTextChatCollection();
+            var filter = Builders<TextChat>.Filter.Eq(a => a.GameId, rankGameId);
+            colMessages.DeleteMany(filter);
+        }
     }
 }

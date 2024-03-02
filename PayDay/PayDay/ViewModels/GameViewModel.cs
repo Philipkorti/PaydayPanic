@@ -154,12 +154,23 @@ namespace PayDay.ViewModels
             if(this.TimerText == "00:00")
             {
                 time.Stop();
-                GameEndView gameEndView = new GameEndView();
-                GameEndViewModel gameEndViewModel = new GameEndViewModel(this.EventAggregator, game);
-                gameEndView.DataContext = gameEndViewModel;
+                if (this.Game.GameId !=null)
+                {
+                    WaitingEndSecondPlayerView waitingEndSecondPlayerView = new WaitingEndSecondPlayerView();
+                    WaitingEndSecondPlayerViewModel waitingEndSecondPlayerViewModel = new WaitingEndSecondPlayerViewModel(this.EventAggregator);
+                    waitingEndSecondPlayerView.DataContext = waitingEndSecondPlayerViewModel;
+                    this.EventAggregator.GetEvent<WaitingSecondPersonGameEndDataChangeEvent>().Publish(waitingEndSecondPlayerView);
+                }
+                else
+                {
+                    GameEndView gameEndView = new GameEndView();
+                    GameEndViewModel gameEndViewModel = new GameEndViewModel(this.EventAggregator, game);
+                    gameEndView.DataContext = gameEndViewModel;
+                    this.EventAggregator.GetEvent<GameEndViewDataChangeEvent>().Publish(gameEndView);
+                }
                 this.Game.GameEndTime = true;
                 this.EventAggregator.GetEvent<GameDataChangeEvent>().Publish(this.Game);
-                this.EventAggregator.GetEvent<GameEndViewDataChangeEvent>().Publish(gameEndView);
+                
             }
             
         }

@@ -59,6 +59,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Chat.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="HighscoreViewData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

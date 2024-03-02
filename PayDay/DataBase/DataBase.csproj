@@ -172,6 +172,7 @@
     <Compile Include="Models\RankGame.cs" />
     <Compile Include="Models\Shop.cs" />
     <Compile Include="Models\Statistics.cs" />
+    <Compile Include="Models\TextChat.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\WaitingList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

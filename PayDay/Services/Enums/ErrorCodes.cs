@@ -12,6 +12,7 @@ namespace Services
         DBSCon2202,
         LoginError,
         RegisterError,
-        WaitingListError
+        WaitingListError,
+        SendTextChatError
     }
 }

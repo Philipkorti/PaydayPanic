@@ -11,6 +11,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Threading;
 
@@ -28,6 +29,10 @@ namespace PayDay.ViewModels
         private string timerText;
         private bool rady;
         private string buttonText;
+        private string radyTextPlayerOne;
+        private string radyTextPlayerTwo;
+        private string countownText;
+        private UserControl userControl;
         #endregion
 
         #region ------------------------- Constructors, Destructors, Dispose, Clone ---------------------------------------
@@ -48,6 +53,10 @@ namespace PayDay.ViewModels
             worker.RunWorkerCompleted += ReadRadyEnd;
             worker.RunWorkerAsync();
             this.ButtonText = "Rady";
+            TextChatView textChatView = new TextChatView(this.game.UserId,this.game.GameId);
+            TextChatViewModel textChatViewModel = new TextChatViewModel(this.EventAggregator,this.game);
+            textChatView.DataContext = textChatViewModel;
+            this.UserControl = textChatView;
             this.RadyPlayerCommand = new ActionCommand(this.RadyPlayerExecuted, this.ReadyPlayerCommandCanExecute);
         }
         #endregion
@@ -66,6 +75,58 @@ namespace PayDay.ViewModels
                 {
                     this.timerText = value;
                     this.OnPropertyChanged(nameof(this.TimerText));
+                }
+            }
+        }
+
+        public UserControl UserControl
+        {
+            get { return this.userControl; }
+            set
+            {
+                if(this.userControl != value)
+                {
+                    this.userControl = value;
+                    this.OnPropertyChanged(nameof(this.UserControl));
+                }
+            }
+        }
+
+        public string RadyTextPlayerOne
+        {
+            get { return this.radyTextPlayerOne;}
+            set
+            {
+                if (this.radyTextPlayerOne != value)
+                {
+                    this.radyTextPlayerOne= value;
+                    this.OnPropertyChanged(nameof(this.RadyTextPlayerOne));
+                }
+            }
+        }
+
+        public string RadyTextPlayerTwo
+        {
+            get { return this.radyTextPlayerTwo;}
+            set
+            {
+                if(this.radyTextPlayerTwo != value)
+                {
+                    this.radyTextPlayerTwo= value;
+                    this.OnPropertyChanged(nameof(this.RadyTextPlayerTwo));
+                }
+            }
+        }
+
+        public string CountownText
+        {
+            get { return this.countownText; }
+            set
+            {
+                if(this.CountownText != value)
+                {
+                    this.countownText= value;
+                    this.OnPropertyChanged(nameof(this.CountownText));
                 }
             }
         }
@@ -94,12 +155,32 @@ namespace PayDay.ViewModels
         private void TimerTick(object sender, EventArgs e)
         {
             TimeSpan timeSpan = this.dateTime2 - this.dateTime1;
+            TimeSpan time = TimeSpan.FromSeconds(3);
             this.dateTime1 = this.dateTime1.AddSeconds(1);
             this.TimerText = timeSpan .ToString(@"mm\:ss");
-
+            if (timeSpan <= time)
+            {
+                this.CountownText = timeSpan.ToString("ss");
+            }
             if(this.TimerText == "00:00")
             {
                 timer.Stop();
+                if (this.rady && this.RadyTextPlayerTwo == "Rady")
+                {
+                    GameView gameView = new GameView();
+                    GameViewModel gameViewModel = new GameViewModel(this.EventAggregator, this.game);
+                    gameView.DataContext = gameViewModel;
+                    this.EventAggregator.GetEvent<GameViewDataChageEvent>().Publish(gameView);
+                }
+                else
+                {
+                    DataBaseRankeGame.DeletRankGame(this.game.GameId);
+                    MainMenu mainMenu = new MainMenu();
+                    MainMenuModel mainMenuModel = new MainMenuModel(this.EventAggregator, this.game.Username, this.game.UserId);
+                    mainMenu.DataContext = mainMenuModel;
+                    this.EventAggregator.GetEvent<MainMenuDataChangeEvent>().Publish(mainMenu);
+                }
+               
             }
         }
 
@@ -109,16 +190,15 @@ namespace PayDay.ViewModels
             do
             {
                 check = DataBaseRankeGame.IsRady(this.game.GameId, this.game.UserId);
+                this.RadyTextPlayerOne = this.rady == true ? "Rady" : "Not Rady";
+                this.RadyTextPlayerTwo = check == true ? "Rady" : "Not Rady";
             } while (!this.rady || !check);
         }
 
         private void ReadRadyEnd(object sender, RunWorkerCompletedEventArgs e)
         {
-            timer.Stop();
-            GameView gameView = new GameView();
-            GameViewModel gameViewModel = new GameViewModel(this.EventAggregator, this.game);
-            gameView.DataContext = gameViewModel;
-            this.EventAggregator.GetEvent<GameViewDataChageEvent>().Publish(gameView);
+            this.dateTime2 = new DateTime(1, 1, 1, 0, 0, 20);
+            this.dateTime1 = new DateTime(1, 1, 1, 0, 0, 0);
         }
         #endregion
 
@@ -130,6 +210,10 @@ namespace PayDay.ViewModels
         /// <returns><c>true</c> if the command can be executed otherwiaw <c>false</c>.</returns>
         private bool ReadyPlayerCommandCanExecute(object parameter)
         {
+            if (this.rady && this.RadyTextPlayerTwo == "Rady" && this.TimerText == "00:10")
+            {
+                return false;
+            }
             return true;
         }
 

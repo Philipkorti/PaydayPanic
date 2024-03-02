@@ -166,3 +166,7 @@ F:\Entwicklung\PaydayPanic\PayDay\PayDay\obj\Debug\Views\RankedMultiplayerWaitin
 F:\Entwicklung\PaydayPanic\PayDay\PayDay\obj\Debug\Views\RankedMultiplayerWaitingView.baml
 F:\Entwicklung\PaydayPanic\PayDay\PayDay\obj\Debug\Views\ReadyPlayerRankView.g.cs
 F:\Entwicklung\PaydayPanic\PayDay\PayDay\obj\Debug\Views\ReadyPlayerRankView.baml
+F:\Entwicklung\PaydayPanic\PayDay\PayDay\obj\Debug\Views\TextChatView.g.cs
+F:\Entwicklung\PaydayPanic\PayDay\PayDay\obj\Debug\Views\TextChatView.baml
+F:\Entwicklung\PaydayPanic\PayDay\PayDay\obj\Debug\Views\WaitingEndSecondPlayerView.g.cs
+F:\Entwicklung\PaydayPanic\PayDay\PayDay\obj\Debug\Views\WaitingEndSecondPlayerView.baml

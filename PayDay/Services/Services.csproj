@@ -170,6 +170,7 @@
     <Compile Include="Services\RegisterServices.cs" />
     <Compile Include="Services\SearchPlayerService.cs" />
     <Compile Include="Services\SHA.cs" />
+    <Compile Include="Services\TextChatService.cs" />
     <Compile Include="Services\WaitingListService.cs" />
   </ItemGroup>
   <ItemGroup>

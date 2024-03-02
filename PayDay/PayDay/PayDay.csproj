@@ -108,6 +108,7 @@
     <Compile Include="Events\SelectGameViewDataChangeEvent.cs" />
     <Compile Include="Events\ShopItemsDataChangeEvent.cs" />
     <Compile Include="Events\ShopViewDataChangeEvent.cs" />
+    <Compile Include="Events\WaitingSecondPersonGameEndDataChangeEvent.cs" />
     <Compile Include="NotifyPropertyChanged.cs" />
     <Compile Include="PolygonConverter.cs" />
     <Compile Include="RoundRobinCollection.cs" />
@@ -126,7 +127,9 @@
     <Compile Include="ViewModels\ShopViewModel.cs" />
     <Compile Include="ViewModels\SignInViewModel.cs" />
     <Compile Include="ViewModels\StatisticViewModel.cs" />
+    <Compile Include="ViewModels\TextChatViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
+    <Compile Include="ViewModels\WaitingEndSecondPlayerViewModel.cs" />
     <Compile Include="Views\CasinoView.xaml.cs">
       <DependentUpon>CasinoView.xaml</DependentUpon>
     </Compile>
@@ -168,6 +171,12 @@
     </Compile>
     <Compile Include="Views\StatisticsView.xaml.cs">
       <DependentUpon>StatisticsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TextChatView.xaml.cs">
+      <DependentUpon>TextChatView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WaitingEndSecondPlayerView.xaml.cs">
+      <DependentUpon>WaitingEndSecondPlayerView.xaml</DependentUpon>
     </Compile>
     <Page Include="Components\BindablePasswordBox.xaml">
       <SubType>Designer</SubType>
@@ -266,6 +275,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\StatisticsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TextChatView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\WaitingEndSecondPlayerView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

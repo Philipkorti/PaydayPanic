@@ -34,6 +34,12 @@ namespace Services.Services
             var db = DBConection();
             return db.GetCollection<WaitingList>("WaitingList");
         }
+
+        public static IMongoCollection<TextChat> GetTextChatCollection()
+        {
+            var db = DBConection();
+            return db.GetCollection<TextChat>("TextChat");
+        }
         public static void PlusGame(Game game)
         {
             var productCollection = DataBaseService.GetUserCollection();
