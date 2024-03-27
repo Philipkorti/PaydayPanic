@@ -74,7 +74,7 @@ namespace PayDay.ViewModels
             this.backButton= true;
             this.dateTime = new DateTime();
             time = new DispatcherTimer();
-            datetime= new DateTime(1,1,1,0,10,0);
+            datetime= new DateTime(1,1,1,0,1,0);
             time.Interval = TimeSpan.FromSeconds(1);
             time.Tick += TimerTick;
             time.Start();
@@ -156,8 +156,9 @@ namespace PayDay.ViewModels
                 time.Stop();
                 if (this.Game.GameId !=null)
                 {
+                    DataBaseRankeGame.SetFinishTrue(this.Game.GameId, this.Game.UserId);
                     WaitingEndSecondPlayerView waitingEndSecondPlayerView = new WaitingEndSecondPlayerView();
-                    WaitingEndSecondPlayerViewModel waitingEndSecondPlayerViewModel = new WaitingEndSecondPlayerViewModel(this.EventAggregator);
+                    WaitingEndSecondPlayerViewModel waitingEndSecondPlayerViewModel = new WaitingEndSecondPlayerViewModel(this.EventAggregator, this.game);
                     waitingEndSecondPlayerView.DataContext = waitingEndSecondPlayerViewModel;
                     this.EventAggregator.GetEvent<WaitingSecondPersonGameEndDataChangeEvent>().Publish(waitingEndSecondPlayerView);
                 }

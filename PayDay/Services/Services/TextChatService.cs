@@ -52,5 +52,12 @@ namespace Services.Services
            
             return messages;
         }
+
+        public static void DeleteMessages(string rankGameId)
+        {
+            var colMessages = DataBaseService.GetTextChatCollection();
+            var filter = Builders<TextChat>.Filter.Eq(a => a.GameId, rankGameId);
+            colMessages.DeleteMany(filter);
+        }
     }
 }

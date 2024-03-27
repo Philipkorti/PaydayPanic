@@ -41,6 +41,7 @@ namespace Data
         private double moneyWin;
         private int gold;
         private double goldprice;
+        private bool win;
 
         #endregion
 
@@ -84,6 +85,7 @@ namespace Data
          
             set { this.money = value; }
         }
+
         /// <summary>
         /// Gets or sets the gold price of the game.
         /// </summary>
@@ -146,6 +148,15 @@ namespace Data
                 this.wins = value;
             }
             get { return this.wins; }
+        }
+
+        public bool Win
+        {
+            set
+            {
+                this.win= value;
+            }
+            get { return this.win; }
         }
 
         /// <summary>

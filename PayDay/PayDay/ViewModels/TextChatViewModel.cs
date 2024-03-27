@@ -1,5 +1,6 @@
 ﻿using Data;
 using Microsoft.Practices.Prism.Events;
+using PayDay.Events;
 using Services.Services;
 using System;
 using System.Collections.Generic;
@@ -23,6 +24,7 @@ namespace PayDay.ViewModels
         {
             this.game = game;
             this.Chat= new List<Chat>();
+            this.EventAggregator.GetEvent<GameDataChangeEvent>().Subscribe(this.SetGame, ThreadOption.UIThread);
             BackgroundWorker worker = new BackgroundWorker();
             worker.DoWork += GetMessages;
             worker.RunWorkerAsync();
@@ -50,8 +52,13 @@ namespace PayDay.ViewModels
             do
             {
                 this.Chat = TextChatService.GetTextChatMessages(this.game.GameId,this.game.UserId,this.game.Username);
-            } while (true);
+            } while (game.GameEndTime);
             
+        }
+
+        private void SetGame(Game game)
+        {
+            this.game = game;
         }
         #endregion
 

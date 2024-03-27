@@ -29,5 +29,11 @@ namespace DataBase.Models
 
         [BsonElement("PlayerTwoMoney"), BsonRepresentation(BsonType.Int64)]
         public int PlayerTwoMoney { get; set; }
+
+        [BsonElement("PlayerOneFinish"), BsonRepresentation(BsonType.Boolean)]
+        public bool PlayerOneFinish { get; set; }
+
+        [BsonElement("PlayerTwoFinish"), BsonRepresentation(BsonType.Boolean)]
+        public bool PlayerTwoFinish { get; set; }
     }
 }
