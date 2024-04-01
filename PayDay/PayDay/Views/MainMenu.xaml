@@ -20,7 +20,8 @@
         <StackPanel Orientation="Vertical" Margin="20" DockPanel.Dock="Left" VerticalAlignment="Center">
             <Button Style="{StaticResource MainMenu}" Command="{Binding Path=PlayCommand}">Play</Button>
             <Button Style="{StaticResource MainMenu}" Command="{Binding Path=ExitCommand}">Exit</Button>
-            <Button Style="{StaticResource MainMenu}" Command="{Binding Path=LogOutCommand}" FontSize="25">LogOut</Button>
+            <Button Style="{StaticResource MainMenu}" Command="{Binding Path=SettingsCommand}" FontSize="30" Height="40">Settings</Button>
+            <Button Style="{StaticResource MainMenu}" Command="{Binding Path=LogOutCommand}" FontSize="25" Height="40">LogOut</Button>
         </StackPanel>
         <Grid>
             <Grid.RowDefinitions>

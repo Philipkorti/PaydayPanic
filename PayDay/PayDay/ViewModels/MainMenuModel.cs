@@ -14,6 +14,8 @@ using System.Windows.Controls;
 using DataBase.Context;
 using Services.Services;
 using System.IO;
+using System.Media;
+using WMPLib;
 
 namespace PayDay.ViewModels
 {
@@ -43,6 +45,8 @@ namespace PayDay.ViewModels
         /// Instance of the statisticsView view.
         /// </summary>
         private StatisticsView statisticsView;
+
+        private WindowsMediaPlayer mediaPlayer;
         #endregion
 
         #region ------------------------- Constructors, Destructors, Dispose, Clone ---------------------------------------
@@ -53,6 +57,7 @@ namespace PayDay.ViewModels
         /// <param name="username"></param>
         public MainMenuModel(IEventAggregator eventAggregator, string username, string userId) : base(eventAggregator)
         {
+            mediaPlayer = new WindowsMediaPlayer();
             this.Game = new Game(1000, username, 0, 1, 1,userId);
             this.EventAggregator.GetEvent<GameDataChangeEvent>().Publish(this.Game);
             this.ExitCommand = new ActionCommand(this.ExitCommandExecute, this.ExitCommandCanExecute);
@@ -61,6 +66,7 @@ namespace PayDay.ViewModels
             this.TopPlayerCommand = new ActionCommand(this.TOPCommandExecute, this.RullesCommandCanExecute);
             this.LogOutCommand = new ActionCommand(this.LogOutCommandExecute, this.PlayCommandCanExecute);
             this.StatisticsCommand = new ActionCommand(this.StatisticsCommandExecute, this.RullesCommandCanExecute);
+            this.SettingsCommand = new ActionCommand(this.SettingsCommandExecute, this.SettingsCommandCanExecute);
 
             rulesView = new RulesView();
             RulesViewModel rulesViewModel = new RulesViewModel(this.EventAggregator);
@@ -72,6 +78,9 @@ namespace PayDay.ViewModels
             statisticsView = new StatisticsView();
             StatisticViewModel statisticViewModel = new StatisticViewModel(this.EventAggregator, this.Game);
             this.statisticsView.DataContext = statisticViewModel;
+            mediaPlayer.URL = @"\Music\StartBildschirm.mp3";
+            mediaPlayer.settings.setMode("loop",true);
+            mediaPlayer.controls.play();
         }
 
         #endregion
@@ -106,6 +115,12 @@ namespace PayDay.ViewModels
         /// Gets the statistics command.
         /// </summary>
         public ICommand StatisticsCommand { get; private set; }
+
+        /// <summary>
+        /// Gets the Settings command.
+        /// </summary>
+        public ICommand SettingsCommand { get; private set; }
+
         /// <summary>
         /// Gets and sets the view that is currently bound to the <see cref="ContentControl"/> left.
         /// </summary>
@@ -198,6 +213,24 @@ namespace PayDay.ViewModels
         private void RullesCommandExecute(object parameter)
         {
             this.ViewLeft = this.rulesView;
+        }
+
+        /// <summary>
+        /// Determines whether the command can be executed.
+        /// </summary>
+        /// <param name="parameter">Data used by the command.</param>
+        /// <returns><c>true</c> if teh command can be executed otherwise <c>false</c></returns>
+        private bool SettingsCommandCanExecute(object parameter)
+        {
+            return true;
+        }
+
+        private void SettingsCommandExecute(object parameter)
+        {
+            SettingsView settingsView = new SettingsView();
+            SettingsViewModel settingsViewModel = new SettingsViewModel(this.EventAggregator);
+            settingsView.DataContext = settingsViewModel;
+            this.EventAggregator.GetEvent<SettingsViewDataChangeEvent>().Publish(settingsView);
         }
 
         /// <summary>

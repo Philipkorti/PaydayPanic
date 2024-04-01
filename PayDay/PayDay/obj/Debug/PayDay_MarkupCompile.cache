@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 F:\Entwicklung\PaydayPanic\PayDay\PayDay\App.xaml
-251888505869
-
-581091000291
-25769770927
-Components\BindablePasswordBox.xaml;MainWindow.xaml;ResourceDictionarys\BorderResourceDictionary.xaml;ResourceDictionarys\ButtonResourceDictionary.xaml;ResourceDictionarys\DataGrid.xaml;ResourceDictionarys\PolygonResourceDictionary.xaml;ResourceDictionarys\TabControlResourceDictionary.xaml;ResourceDictionarys\TextBlockResourceDictionary.xaml;ResourceDictionarys\TextBoxResourceDictionary.xaml;Views\CasinoView.xaml;Views\GameBordView.xaml;Views\GameEndView.xaml;Views\GameView.xaml;Views\HighscoreVew.xaml;Views\LogInView.xaml;Views\MainMenu.xaml;Views\RankedMultiplayerWaitingView.xaml;Views\ReadyPlayerRankView.xaml;Views\RulesView.xaml;Views\SelectGameView.xaml;Views\ShopView.xaml;Views\SignInView.xaml;Views\StatisticsView.xaml;Views\TextChatView.xaml;Views\WaitingEndSecondPlayerView.xaml;
+26-2110241143
+3-1308031129
+61183410746
+27-1269948666
+Components\BindablePasswordBox.xaml;MainWindow.xaml;ResourceDictionarys\BorderResourceDictionary.xaml;ResourceDictionarys\ButtonResourceDictionary.xaml;ResourceDictionarys\DataGrid.xaml;ResourceDictionarys\PolygonResourceDictionary.xaml;ResourceDictionarys\TabControlResourceDictionary.xaml;ResourceDictionarys\TextBlockResourceDictionary.xaml;ResourceDictionarys\TextBoxResourceDictionary.xaml;Views\CasinoView.xaml;Views\GameBordView.xaml;Views\GameEndView.xaml;Views\GameView.xaml;Views\HighscoreVew.xaml;Views\LogInView.xaml;Views\MainMenu.xaml;Views\RankedMultiplayerWaitingView.xaml;Views\ReadyPlayerRankView.xaml;Views\RulesView.xaml;Views\SelectGameView.xaml;Views\SettingsView.xaml;Views\ShopView.xaml;Views\SignInView.xaml;Views\StatisticsView.xaml;Views\TextChatView.xaml;Views\WaitingEndSecondPlayerView.xaml;
 
 False
 

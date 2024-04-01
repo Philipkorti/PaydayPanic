@@ -8,6 +8,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("pictures/vs.png")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("music/ingame.mp3")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("music/lastminute.mp3")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("music/startbildschirm.mp3")]
 
 

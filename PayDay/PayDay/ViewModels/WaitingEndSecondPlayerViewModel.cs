@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.ComponentModel;
+using PayDay.Views;
 
 namespace PayDay.ViewModels
 {
@@ -175,6 +176,10 @@ namespace PayDay.ViewModels
         private void NextCommandExecute(object sender)
         {
             DataBaseRankeGame.DeletRankGame(this.game.GameId);
+            GameEndView gameEndView  = new GameEndView();
+            GameEndViewModel gameEndViewModel = new GameEndViewModel(this.EventAggregator, this.game);
+            gameEndView.DataContext= gameEndViewModel;
+            this.EventAggregator.GetEvent<GameEndViewDataChangeEvent>().Publish(gameEndView);
         }
         #endregion
     }

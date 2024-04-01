@@ -45,7 +45,8 @@ namespace PayDay.ViewModels
         public GameEndViewModel(IEventAggregator eventAggregator, Game game) : base(eventAggregator)
         {
             this.ButtonNext = new ActionCommand(this.NextCommandExecuted, this.NextCommandCanExecute);
-            newelo = GameEndServices.CountElo(game,out elo);
+            this.newelo = GameEndServices.CountElo(game,out elo);
+           
             username = game.Username;
             this.game = game;
             stage = "elo";

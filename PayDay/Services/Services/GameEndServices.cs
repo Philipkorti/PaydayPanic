@@ -45,6 +45,14 @@ namespace Services.Services
             moneylose = (game.MoneyLose - averageMonyLose);
             money = ((moneywin - moneylose) / 10);
             newelo = elo + Convert.ToInt32(Math.Round(money, 0));
+            if (game.Win)
+            {
+                newelo += 100;
+            }
+            else
+            {
+                newelo -= 100;
+            }
             newelo = newelo < 0 ? 0 : newelo;
             return newelo;
         }

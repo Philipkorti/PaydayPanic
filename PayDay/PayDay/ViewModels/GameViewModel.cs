@@ -14,6 +14,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Threading;
+using WMPLib;
 
 namespace PayDay.ViewModels
 {
@@ -59,7 +60,7 @@ namespace PayDay.ViewModels
         /// Whether the home button can be active.
         /// </summary>
         private bool backButton;
-
+        private WindowsMediaPlayer mediaPlayer;
         #endregion
 
         #region ------------------------- Constructors, Destructors, Dispose, Clone ---------------------------------------
@@ -69,6 +70,7 @@ namespace PayDay.ViewModels
         /// <param name="game">Instance of the game class.</param>
         public GameViewModel(IEventAggregator eventAggregator, Game game) : base(eventAggregator) 
         {
+            mediaPlayer= new WindowsMediaPlayer();
             this.Game = game;
             TimerText = "10:00";
             this.backButton= true;
@@ -87,6 +89,8 @@ namespace PayDay.ViewModels
             this.EventAggregator.GetEvent<GameDataChangeEvent>().Subscribe(this.OnGameDataChanged, ThreadOption.UIThread);
             this.EventAggregator.GetEvent<ShopViewDataChangeEvent>().Subscribe(this.OnShopViewChanged, ThreadOption.UIThread);
             this.EventAggregator.GetEvent<BackButtonCanExecuteDataChangeEvent>().Subscribe(this.OnbackCommandChange, ThreadOption.UIThread);
+            this.mediaPlayer.URL = "F:\\Entwicklung\\PaydayPanic\\PayDay\\PayDay\\Music\\Ingame.mp3";
+            this.mediaPlayer.settings.setMode("loop",true);
         }
         #endregion
 
@@ -150,9 +154,15 @@ namespace PayDay.ViewModels
             TimeSpan timeSpan = datetime - dateTime;
             dateTime = dateTime.AddSeconds(1);
             this.TimerText = timeSpan.ToString(@"mm\:ss");
-
+            if (this.TimerText == "01:00")
+            {
+                this.mediaPlayer.controls.stop();
+                this.mediaPlayer.URL = "F:\\Entwicklung\\PaydayPanic\\PayDay\\PayDay\\Music\\lastminute.mp3";
+                this.mediaPlayer.controls.play();
+            }
             if(this.TimerText == "00:00")
             {
+                this.mediaPlayer.controls.stop();
                 time.Stop();
                 if (this.Game.GameId !=null)
                 {
